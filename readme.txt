@@ -1,5 +1,4 @@
-=== Responsive Visibility ===
-Plugin Name: Responsive Visibility
+=== Responsive Visibility for Gutenberg Blocks ( Hide / Show any Blocks ) ===
 Version: 1.0.0
 Author: bdkoder
 Author URI: https://github.com/bdkoder/
