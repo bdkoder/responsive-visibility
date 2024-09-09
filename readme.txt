@@ -1,4 +1,4 @@
-=== Responsive Visibility for Gutenberg Blocks (Hide/Show Blocks on Mobile, Tablet, and Desktop) ===
+=== Responsive Visibility for Gutenberg Blocks (Hide/Show Blocks for Devices) ===
 Version: 1.0.0
 Author: bdkoder
 Author URI: https://github.com/bdkoder/
