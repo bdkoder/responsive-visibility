@@ -1,13 +1,18 @@
 === Responsive Visibility ===
-Contributors:      bdkoder
-Tags:              blocks, responsive visibility, addons
-Tested up to:      6.6.1
+Plugin Name: Responsive Visibility
+Version: 1.0.0
+Author: bdkoder
+Author URI: https://github.com/bdkoder/
+Contributors: bdkoder, hashibali
+Tags: blocks, responsive visibility, addons
 Requires at least: 6.0.0
-Stable tag:        1.0.0
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Tested up to: 6.6.1
+Stable tag: 1.0.0
+Requires PHP: 7.4
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Example block scaffolded with Create Block tool.
+Global responsive visibility Blocks tool.
 
 == Description ==
 
