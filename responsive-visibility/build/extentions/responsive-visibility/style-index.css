@@ -1,0 +1,1 @@
+@media(min-width:768px)and (max-width:1024px){body .tablet-hidden{display:none}}@media(min-width:1025px)and (max-width:3200px){body .desktop-hidden{display:none}}@media(max-width:767px){body .mobile-hidden{display:none}}
