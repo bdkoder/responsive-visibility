@@ -4,7 +4,7 @@
  * Description:       The responsive visibility bundle will give you the ability to control a page's content based on the device your visitors are using to view the page.
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            bdkoder
  * Author URI:        https://github.com/bdkoder
  * License:           GPL-2.0+
