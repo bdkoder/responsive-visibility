@@ -1,46 +1,69 @@
-=== Responsive Visibility for Gutenberg Blocks (Hide/Show Blocks for Devices) ===
-Version: 1.0.2
+=== Responsive Visibility for Blocks Editor (Hide/Show Blocks for Devices) ===
+Version: 1.0.3
 Author: bdkoder
 Author URI: https://github.com/bdkoder/
 Contributors: bdkoder, hashibali
-Tags: blocks, responsive visibility, addons
+Tags: responsive visibility, hide/show blocks, Gutenberg addons, device-based content, block visibility
 Requires at least: 6.0.0
-Tested up to: 6.6.1
-Stable tag: 1.0.2
+Tested up to: 6.7.2
+Stable tag: 1.0.3
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Global responsive visibility Blocks tool.
+🌟 **Enhance Your WordPress Site with Responsive Visibility for Gutenberg Blocks**
 
 == Description ==
 
-The responsive visibility bundle will give you the ability to control a page's content based on the device your visitors are using to view the page.
+**Responsive Visibility for Gutenberg Blocks** is a powerful tool designed to enhance your WordPress site’s flexibility by allowing you to control the visibility of Gutenberg blocks based on the device your visitors are using. With this plugin, you can **hide or show blocks** on **mobile, tablet, and desktop**, ensuring your content is perfectly optimized for each device type.
+
+This **responsive visibility plugin** gives you complete control over how your content appears across different devices, ensuring a seamless and tailored user experience.
+
+For a detailed walkthrough, watch this tutorial:
 
 https://youtu.be/g7My09gTghI
 
-When placing blocks on a page, the best region to place them in for desktop displays and mobile displays is not always the same. For instance, having a lead generation form at the top of the sidebar is great for a desktop display, but ends up at the bottom of the page on a mobile display.
+== Description ==
+
+In today’s mobile-first world, ensuring your website’s content is optimized for **desktop**, **tablet**, and **mobile** devices is essential. With **Responsive Visibility for Gutenberg Blocks**, you can easily decide which blocks appear or disappear based on the device screen size. For example, you may want to showcase a **lead generation form** at the top of the sidebar for **desktop users**, but place it further down the page on **mobile devices**.
+
+With this plugin, you can fine-tune your **Gutenberg blocks visibility** to ensure your site looks amazing and functions flawlessly across **all devices**. Improve user engagement and experience by showing only the relevant content for each device type, making your site more intuitive and mobile-friendly.
+
+### Key Features:
+- **Control block visibility** for different devices (Desktop, Tablet, Mobile)
+- Enhance **responsive design** by selectively hiding or showing blocks
+- **Mobile visibility** customization for Gutenberg blocks
+- Improve page load time by hiding unnecessary elements on mobile or tablet
+- Seamless integration with **Gutenberg editor** and native WordPress blocks
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+Getting started with **Responsive Visibility for Gutenberg Blocks** is easy! Follow these steps to activate the plugin and start controlling your blocks' visibility based on devices:
 
-e.g.
-
-1. Upload the plugin files to the `/wp-content/plugins/responsive-visibility` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
+1. Upload the plugin files to the `/wp-content/plugins/responsive-visibility` directory, or install it directly from the WordPress Plugin screen.
+2. Activate the plugin through the 'Plugins' screen in your WordPress admin panel.
+3. Once activated, simply edit any Gutenberg block and use the visibility controls to customize which blocks show on **desktop**, **tablet**, or **mobile**.
 
 == Frequently Asked Questions ==
 
-= Is it support all blocks? =
+= Does this plugin support all Gutenberg blocks? =
 
-Yes, it's support without any issue.
+Yes! **Responsive Visibility for Gutenberg Blocks** works seamlessly with all standard Gutenberg blocks and any additional blocks you add via other plugins or custom development. There are no compatibility issues.
 
+= Can I control visibility for specific devices? =
+
+Absolutely! You can use this plugin to selectively **hide/show blocks** on mobile, tablet, or desktop devices, giving you full control over your site's responsive design.
 
 == Screenshots ==
 
+1. **Visibility Settings**: Screenshot showing visibility controls for blocks.
+2. **Mobile & Desktop Visibility**: Example of a block appearing on desktop but hidden on mobile.
+3. **Gutenberg Editor**: Plugin settings integrated directly into the Gutenberg block editor.
+
 == Changelog ==
+
+= 1.0.3 [9th March 2025] =
+* System improved
 
 = 1.0.2 [11th Sep 2024] =
 * System improved

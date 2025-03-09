@@ -51,3 +51,4 @@ wp-config.php
 /node_modules
 .DS_Store
 *.zip
+package-lock.json
