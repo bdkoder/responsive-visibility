@@ -23,7 +23,6 @@ For a detailed walkthrough, watch this tutorial:
 
 https://youtu.be/g7My09gTghI
 
-== Description ==
 
 In today’s mobile-first world, ensuring your website’s content is optimized for **desktop**, **tablet**, and **mobile** devices is essential. With **Responsive Visibility for Gutenberg Blocks**, you can easily decide which blocks appear or disappear based on the device screen size. For example, you may want to showcase a **lead generation form** at the top of the sidebar for **desktop users**, but place it further down the page on **mobile devices**.
 
