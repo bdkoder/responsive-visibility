@@ -1,8 +1,8 @@
 === Responsive Visibility for Blocks Editor (Hide/Show Blocks for Devices) ===
 Version: 1.0.6
-Author: wowdevs, bdkoder
+Author: wowdevs
 Author URI: https://github.com/bdkoder/
-Contributors: bdkoder, hashibali
+Contributors: wowdevs, bdkoder, hashibali
 Tags: responsive visibility, hide/show blocks, Gutenberg addons, device-based content, block visibility
 Requires at least: 6.0.0
 Tested up to: 6.9
