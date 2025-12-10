@@ -1,12 +1,12 @@
 === Responsive Visibility for Blocks Editor (Hide/Show Blocks for Devices) ===
-Version: 1.0.5
-Author: bdkoder
+Version: 1.0.6
+Author: wowdevs, bdkoder
 Author URI: https://github.com/bdkoder/
 Contributors: bdkoder, hashibali
 Tags: responsive visibility, hide/show blocks, Gutenberg addons, device-based content, block visibility
 Requires at least: 6.0.0
-Tested up to: 6.8
-Stable tag: 1.0.5
+Tested up to: 6.9
+Stable tag: 1.0.6
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -53,6 +53,10 @@ Yes! **Responsive Visibility for Gutenberg Blocks** works seamlessly with all st
 
 Absolutely! You can use this plugin to selectively **hide/show blocks** on mobile, tablet, or desktop devices, giving you full control over your site's responsive design.
 
+= How can I become a Contributor? =
+
+If you want to contribute, go to our [Responsive Visibility GitHub Repository](https://github.com/bdkoder/responsive-visibility/) and see where you can help.
+
 == Screenshots ==
 
 1. **Visibility Settings**: Screenshot showing visibility controls for blocks.
@@ -60,6 +64,9 @@ Absolutely! You can use this plugin to selectively **hide/show blocks** on mobil
 3. **Gutenberg Editor**: Plugin settings integrated directly into the Gutenberg block editor.
 
 == Changelog ==
+
+= 1.0.6 [10th December 2025] =
+* System improved
 
 = 1.0.5 [26th July 2025] =
 * System improved
