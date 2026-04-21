@@ -4,6 +4,7 @@
 .claude
 .DS_Store
 .distignore
+.buildignore
 .editorconfig
 .gitignore
 .gitattributes
