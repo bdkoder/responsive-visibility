@@ -16,75 +16,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/admin-settings.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-breakpoints.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-render.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-admin-settings.php';
 
-/**
- * Returns the default breakpoints matching the plugin's original hardcoded values.
- */
-function rv_default_breakpoints() {
-	return array(
-		array( 'slug' => 'mobile',  'label' => 'Mobile',  'max_width' => 767  ),
-		array( 'slug' => 'tablet',  'label' => 'Tablet',  'max_width' => 1024 ),
-		array( 'slug' => 'desktop', 'label' => 'Desktop', 'max_width' => null ),
-	);
-}
+use WowDevs\Responsive_Visibility\Breakpoints;
+use WowDevs\Responsive_Visibility\Render;
+use WowDevs\Responsive_Visibility\Admin_Settings;
 
-/**
- * Maps a breakpoint slug to its CSS class name.
- * The default three slugs keep their legacy class names for backward compatibility.
- */
-function rv_class_for_slug( $slug ) {
-	$legacy = array(
-		'mobile'  => 'mobile-hidden',
-		'tablet'  => 'tablet-hidden',
-		'desktop' => 'desktop-hidden',
-	);
-	return isset( $legacy[ $slug ] ) ? $legacy[ $slug ] : 'rv-hidden--' . $slug;
-}
-
-/**
- * Outputs dynamic CSS media queries based on saved breakpoint settings.
- * Runs on wp_head at priority 99 to override the compiled default stylesheet.
- */
-function responsive_visibility_dynamic_css() {
-	$breakpoints = get_option( 'responsive_visibility_breakpoints', rv_default_breakpoints() );
-
-	if ( empty( $breakpoints ) || ! is_array( $breakpoints ) ) {
-		return;
-	}
-
-	// Sort: nulls (no upper limit) last; others ascending.
-	usort( $breakpoints, function ( $a, $b ) {
-		if ( null === $a['max_width'] && null === $b['max_width'] ) return 0;
-		if ( null === $a['max_width'] ) return 1;
-		if ( null === $b['max_width'] ) return -1;
-		return $a['max_width'] - $b['max_width'];
-	} );
-
-	$css      = '';
-	$prev_min = 0;
-	$count    = count( $breakpoints );
-
-	foreach ( $breakpoints as $i => $bp ) {
-		$slug      = sanitize_key( $bp['slug'] );
-		$class     = rv_class_for_slug( $slug );
-		$is_last   = ( $i === $count - 1 );
-		$max_width = isset( $bp['max_width'] ) ? absint( $bp['max_width'] ) : null;
-
-		if ( $is_last ) {
-			$css .= "@media (min-width:{$prev_min}px){body .{$class}{display:none!important}}";
-		} elseif ( 0 === $prev_min ) {
-			$css .= "@media (max-width:{$max_width}px){body .{$class}{display:none!important}}";
-			$prev_min = $max_width + 1;
-		} else {
-			$css .= "@media (min-width:{$prev_min}px) and (max-width:{$max_width}px){body .{$class}{display:none!important}}";
-			$prev_min = $max_width + 1;
-		}
-	}
-
-	echo '<style id="rv-dynamic-breakpoints">' . $css . '</style>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-}
-add_action( 'wp_head', 'responsive_visibility_dynamic_css', 99 );
+Breakpoints::register();
+Render::register();
+Admin_Settings::register();
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
@@ -127,7 +69,7 @@ function responsive_visibility_init() {
 					"{$extention}-editor-script",
 					'rvBreakpoints',
 					array(
-						'breakpoints' => get_option( 'responsive_visibility_breakpoints', rv_default_breakpoints() ),
+						'breakpoints' => get_option( 'responsive_visibility_breakpoints', Breakpoints::get_defaults() ),
 						'settingsUrl' => admin_url( 'options-general.php?page=responsive-visibility' ),
 					)
 				);
@@ -148,38 +90,6 @@ function responsive_visibility_init() {
 	}
 }
 add_action( 'init', 'responsive_visibility_init' );
-function responsive_visibility_render_block( $block_content, $block, $content ) {
-	if ( empty( $block['attrs'] ) ) {
-		return $block_content;
-	}
-
-	$tags = new WP_HTML_Tag_Processor( $block_content );
-	if ( ! $tags->next_tag() ) {
-		return $block_content;
-	}
-
-	// New system: hiddenBreakpoints array (e.g. ["mobile","widescreen"]).
-	if ( ! empty( $block['attrs']['hiddenBreakpoints'] ) && is_array( $block['attrs']['hiddenBreakpoints'] ) ) {
-		foreach ( $block['attrs']['hiddenBreakpoints'] as $slug ) {
-			$tags->add_class( rv_class_for_slug( sanitize_key( (string) $slug ) ) );
-		}
-	}
-
-	// Legacy: original boolean attributes — kept for backward compatibility.
-	if ( ! empty( $block['attrs']['hideOnDesktop'] ) ) {
-		$tags->add_class( 'desktop-hidden' );
-	}
-	if ( ! empty( $block['attrs']['hideOnTablet'] ) ) {
-		$tags->add_class( 'tablet-hidden' );
-	}
-	if ( ! empty( $block['attrs']['hideOnMobile'] ) ) {
-		$tags->add_class( 'mobile-hidden' );
-	}
-
-	return $tags->get_updated_html();
-}
-
-add_filter( 'render_block', 'responsive_visibility_render_block', 10, 3 );
 
 
 /**

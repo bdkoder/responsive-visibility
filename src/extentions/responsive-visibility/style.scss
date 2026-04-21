@@ -1,19 +1,5 @@
-body{
-    @media (min-width: 768px) and (max-width: 1024px) {
-        .tablet-hidden {
-            display: none;
-        }
-    }
-
-    @media (min-width: 1025px) and (max-width: 3200px) {
-        .desktop-hidden {
-            display: none;
-        }
-    }
-
-    @media (max-width: 767px) {
-        .mobile-hidden {
-            display: none;
-        }
-    }
-}
+/*
+ * Frontend breakpoint styles are generated dynamically by PHP via wp_head.
+ * See responsive_visibility_dynamic_css() in responsive-visibility.php.
+ * This file is intentionally left without media queries.
+ */
