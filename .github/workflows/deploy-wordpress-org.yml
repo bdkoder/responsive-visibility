@@ -50,3 +50,31 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: responsive-visibility
+
+  github-release:
+    name: Create GitHub Release
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract changelog entry
+        id: changelog
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          NOTES=$(awk "/^= $TAG /,/^= [0-9]/" readme.txt | sed '$d' | tail -n +2)
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Responsive Visibility ${{ env.VERSION }}
+          body: ${{ steps.changelog.outputs.notes }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ github.ref_name }}
