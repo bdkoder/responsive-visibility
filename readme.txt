@@ -1,13 +1,13 @@
 === Responsive Visibility for Blocks Editor (Hide/Show Blocks for Devices) ===
-Version: 1.0.6
+Version: 1.1.0
 Author: wowdevs
 Author URI: https://github.com/bdkoder/
 Contributors: wowdevs, bdkoder, hashibali
 Tags: responsive visibility, hide/show blocks, Gutenberg addons, device-based content, block visibility
-Requires at least: 6.0.0
+Requires at least: 6.2
 Tested up to: 6.9
-Stable tag: 1.0.6
-Requires PHP: 7.4
+Stable tag: 1.1.0
+Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,6 +57,25 @@ Absolutely! You can use this plugin to selectively **hide/show blocks** on mobil
 
 If you want to contribute, go to our [Responsive Visibility GitHub Repository](https://github.com/bdkoder/responsive-visibility/) and see where you can help.
 
+
+== External Services ==
+
+This plugin connects to one external services under the conditions described below. No data is ever sent without a clear user action or explicit opt-in.
+
+= 1. Usage Analytics / Data Insights (dashboard.wowdevs.com) =
+
+**What it does:** Sends non-sensitive plugin usage data to help improve the plugin. This is part of the optional Data Insights program powered by the DCI SDK.
+
+**When it connects:** **Only if you explicitly opt in** when prompted. No data is ever sent without your consent. You can opt out at any time from the Sky Addons dashboard.
+
+**Data sent:** Plugin version, WordPress version, active theme, site language, and similar non-personal environment data. No passwords, user content, or personally identifiable information is transmitted.
+
+**Service:** wowDevs Data Insights, operated by wowDevs.
+Service URL: https://dashboard.wowdevs.com/
+Privacy Policy: https://wowdevs.com/privacy-policy/
+Terms of Service: https://wowdevs.com/terms-and-conditions/
+
+
 == Screenshots ==
 
 1. **Visibility Settings**: Screenshot showing visibility controls for blocks.
@@ -64,6 +83,13 @@ If you want to contribute, go to our [Responsive Visibility GitHub Repository](h
 3. **Gutenberg Editor**: Plugin settings integrated directly into the Gutenberg block editor.
 
 == Changelog ==
+
+= 1.1.0 [21st April 2026] =
+* Added: Custom breakpoints — configure any number of device breakpoints (mobile, tablet, desktop, widescreen, etc.) from Settings → Responsive Visibility (Thanks to prionkor)
+* Added: Dynamic CSS generation from saved breakpoints — no more hardcoded pixel values
+* Added: "Customize breakpoints" link inside the block Inspector panel
+* Improved: Fully backward compatible — existing blocks with legacy hide attributes continue to work unchanged
+* Requires: WordPress 6.2+ (uses WP_HTML_Tag_Processor)
 
 = 1.0.6 [10th December 2025] =
 * System improved

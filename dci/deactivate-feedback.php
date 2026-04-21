@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! function_exists( 'dci_deactivate_feedback' ) ) {
 	function dci_deactivate_feedback( $data ) {
 		$api_endpoint = isset( $data['api_endpoint'] ) ? $data['api_endpoint'] : false;
-		$public_key = isset( $data['public_key'] ) ? $data['public_key'] : false;
-		$product_id = isset( $data['product_id'] ) ? $data['product_id'] : false;
-		$dci_name = isset( $data['name'] ) ? $data['name'] : '';
-		$nonce = isset( $data['nonce'] ) ? $data['nonce'] : '';
-		$slug = isset( $data['slug'] ) ? $data['slug'] : '';
+		$public_key   = isset( $data['public_key'] ) ? $data['public_key'] : false;
+		$product_id   = isset( $data['product_id'] ) ? $data['product_id'] : false;
+		$dci_name     = isset( $data['name'] ) ? $data['name'] : '';
+		$nonce        = isset( $data['nonce'] ) ? $data['nonce'] : '';
+		$slug         = isset( $data['slug'] ) ? $data['slug'] : '';
 
 		/**
 		 * If Core file name not match with Slug

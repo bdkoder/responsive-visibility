@@ -1,6 +1,6 @@
 {
 	"name": "responsive-visibility",
-	"version": "1.0.6",
+	"version": "1.1.0",
 	"description": "Example block scaffolded with Create Block tool.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
@@ -11,7 +11,10 @@
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
+		"plugin-zip": "npm run zip",
+		"release": "bash scripts/release.sh",
+		"release:check": "npm run build && php -l responsive-visibility.php && find includes -name '*.php' -print0 | xargs -0 -n1 php -l && npm run zip",
+		"zip": "npm run build && rm -rf responsive-visibility responsive-visibility.zip responsive-visibility-v.$npm_package_version.zip && rsync -a --exclude-from=.buildignore . responsive-visibility && zip -qr responsive-visibility-v.$npm_package_version.zip responsive-visibility && rm -rf responsive-visibility",
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {

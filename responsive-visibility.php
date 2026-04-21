@@ -2,9 +2,9 @@
 /**
  * Plugin Name:       Responsive Visibility for Blocks Editor
  * Description:       The responsive visibility bundle will give you the ability to control a page's content based on the device your visitors are using to view the page.
- * Requires at least: 6.1
- * Requires PHP:      7.0
- * Version:           1.0.6
+ * Requires at least: 6.2
+ * Requires PHP:      7.2
+ * Version:           1.1.0
  * Author:            bdkoder
  * Author URI:        https://github.com/bdkoder
  * License:           GPL-2.0+
@@ -15,6 +15,18 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-breakpoints.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-render.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-admin-settings.php';
+
+use WowDevs\Responsive_Visibility\Breakpoints;
+use WowDevs\Responsive_Visibility\Render;
+use WowDevs\Responsive_Visibility\Admin_Settings;
+
+Breakpoints::register();
+Render::register();
+Admin_Settings::register();
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
@@ -52,6 +64,15 @@ function responsive_visibility_init() {
 
 				wp_enqueue_script( "{$extention}-editor-script" );
 				wp_enqueue_style( "{$extention}-editor-style" );
+
+				wp_localize_script(
+					"{$extention}-editor-script",
+					'rvBreakpoints',
+					array(
+						'breakpoints' => get_option( 'responsive_visibility_breakpoints', Breakpoints::get_defaults() ),
+						'settingsUrl' => admin_url( 'options-general.php?page=responsive-visibility' ),
+					)
+				);
 			}
 
 			if ( ! empty( $ext_assets ) && ! is_admin() ) {
@@ -69,28 +90,6 @@ function responsive_visibility_init() {
 	}
 }
 add_action( 'init', 'responsive_visibility_init' );
-function responsive_visibility_render_block( $block_content, $block, $content ) {
-	if ( ! empty( $block['attrs'] ) ) {
-		$tags = new WP_HTML_Tag_Processor( $block_content );
-		$tags->next_tag();
-		if ( ! empty( $block['attrs']['hideOnDesktop'] ) ) {
-			$tags->add_class( 'desktop-hidden' );
-		}
-
-		if ( ! empty( $block['attrs']['hideOnTablet'] ) ) {
-			$tags->add_class( 'tablet-hidden' );
-		}
-
-		if ( ! empty( $block['attrs']['hideOnMobile'] ) ) {
-			$tags->add_class( 'mobile-hidden' );
-		}
-
-		$block_content = $tags->get_updated_html();
-	}
-	return $block_content;
-}
-
-add_filter( 'render_block', 'responsive_visibility_render_block', 10, 3 );
 
 
 /**
@@ -102,11 +101,8 @@ if ( ! function_exists( 'responsive_visibility_dci_plugin' ) ) {
 
 		// Include DCI SDK.
 		require_once dirname( __FILE__ ) . '/dci/start.php';
-		wp_register_style( 'dci-sdk-responsive-visibility', plugins_url( 'dci/assets/css/dci.css', __FILE__ ), array(), '1.2.1', 'all' );
-		wp_enqueue_style( 'dci-sdk-responsive-visibility' );
 
 		dci_dynamic_init( array(
-			'sdk_version'          => '1.2.1',
 			'product_id'           => 4,
 			'plugin_name'          => 'Responsive Visibility for Blocks Editor', // make simple, must not empty
 			'plugin_title'         => 'Love using Responsive Visibility? Congrats 🎉  ( Never miss an Important Update )', // You can describe your plugin title here
@@ -133,4 +129,31 @@ if ( ! function_exists( 'responsive_visibility_dci_plugin' ) ) {
 		) );
 	}
 	add_action( 'admin_init', 'responsive_visibility_dci_plugin' );
+}
+
+
+/**
+ * Review Automation Integration
+ */
+
+if ( ! function_exists( 'responsive_visibility_rc_plugin' ) ) {
+	function responsive_visibility_rc_plugin() {
+
+		require_once dirname( __FILE__ ) . '/includes/feedbacks/start.php';
+
+		rc_dynamic_init(
+			[
+				'plugin_name'  => 'Responsive Visibility for Blocks Editor',
+				'plugin_icon'  => plugins_url( 'assets/imgs/icon-256x256.png', __FILE__ ),
+				'slug'         => 'no-need',
+				'menu'         => [
+					'slug' => 'responsive-visibility',
+				],
+				'review_url'   => 'https://wordpress.org/support/plugin/responsive-visibility/reviews/#new-post',
+				'plugin_title' => 'Yay! Great that you\'re using Responsive Visibility',
+				'plugin_msg'   => '<p>Loved using Responsive Visibility on your website? Share your experience in a review and help us spread the love to everyone right now. Good words will help the community.</p>',
+			]
+		);
+	}
+	add_action( 'admin_init', 'responsive_visibility_rc_plugin' );
 }

@@ -15,6 +15,13 @@ const resposiveVisibilityBlockAttributes = (settings, name) => {
 				type: "boolean",
 				default: false,
 			},
+			hiddenBreakpoints: {
+				type: "array",
+				default: [],
+				items: {
+					type: "string",
+				},
+			},
 		},
 	};
 };

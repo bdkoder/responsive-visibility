@@ -33,20 +33,20 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * @return void
 		 */
 		public function __construct( $params ) {
-			$this->params = $params;
+			$this->params      = $params;
 			$this->text_domain = isset( $params['text_domain'] ) ? $params['text_domain'] : 'dci';
-			$this->version = isset( $params['sdk_version'] ) ? $params['sdk_version'] : '1.0.0';
+			$this->version     = isset( $params['sdk_version'] ) ? $params['sdk_version'] : '1.0.0';
 
-			add_action( 'wp_ajax_dci_sdk_insights', array( $this, 'dci_sdk_insights' ) );
-			add_action( 'wp_ajax_dci_sdk_dismiss_notice', array( $this, 'dci_sdk_dismiss_notice' ) );
-			add_action( 'wp_ajax_dci_sdk_insights_deactivate_feedback', array( $this, 'insights_deactivate_feedback' ) );
+			add_action( 'wp_ajax_dci_sdk_insights', [ $this, 'dci_sdk_insights' ] );
+			add_action( 'wp_ajax_dci_sdk_dismiss_notice', [ $this, 'dci_sdk_dismiss_notice' ] );
+			add_action( 'wp_ajax_dci_sdk_insights_deactivate_feedback', [ $this, 'insights_deactivate_feedback' ] );
 
-			$security_key = md5( $params['plugin_name'] );
-			$this->dci_name = 'dci_' . str_replace( '-', '_', sanitize_title( $params['plugin_name'] ) . '_' . $security_key );
-			$this->dci_allow_name = 'dci_allow_status_' . $this->dci_name;
+			$security_key                 = md5( $params['plugin_name'] );
+			$this->dci_name               = 'dci_' . str_replace( '-', '_', sanitize_title( $params['plugin_name'] ) . '_' . $security_key );
+			$this->dci_allow_name         = 'dci_allow_status_' . $this->dci_name;
 			$this->dci_insights_date_name = 'dci_status_date_' . $this->dci_name;
-			$dci_insights_count_name = 'dci_attempt_count_' . $this->dci_name;
-			$dci_status_db = get_option( $this->dci_allow_name, false );
+			$dci_insights_count_name      = 'dci_attempt_count_' . $this->dci_name;
+			$dci_status_db                = get_option( $this->dci_allow_name, false );
 
 			$this->nonce = wp_create_nonce( $this->dci_allow_name );
 
@@ -73,7 +73,7 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 			/**
 			 * If Disallow
 			 */
-			if ( 'disallow' == $dci_status_db ) {
+			if ( 'disallow' === $dci_status_db ) {
 				return;
 			}
 
@@ -81,7 +81,7 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 			 * Skip & Date Not Expired
 			 * Show Notice Modal
 			 */
-			if ( 'skip' == $dci_status_db && true == $this->check_date() ) {
+			if ( 'skip' === $dci_status_db && true === $this->check_date() ) {
 				$this->notice_modal( $params );
 				return;
 			}
@@ -147,45 +147,45 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 */
 		public function insights_deactivate_feedback() {
 			$api_endpoint = isset( $_POST['api_endpoint'] ) ? sanitize_text_field( wp_unslash( $_POST['api_endpoint'] ) ) : '';
-			$public_key = isset( $_POST['public_key'] ) ? sanitize_text_field( wp_unslash( $_POST['public_key'] ) ) : '';
-			$product_id = isset( $_POST['product_id'] ) ? sanitize_text_field( wp_unslash( $_POST['product_id'] ) ) : '';
-			$feedback = isset( $_POST['feedback'] ) ? sanitize_text_field( wp_unslash( $_POST['feedback'] ) ) : '';
-			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			$public_key   = isset( $_POST['public_key'] ) ? sanitize_text_field( wp_unslash( $_POST['public_key'] ) ) : '';
+			$product_id   = isset( $_POST['product_id'] ) ? sanitize_text_field( wp_unslash( $_POST['product_id'] ) ) : '';
+			$feedback     = isset( $_POST['feedback'] ) ? sanitize_text_field( wp_unslash( $_POST['feedback'] ) ) : '';
+			$nonce        = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'dci_sdk' ) ) {
-				wp_send_json( array(
+				wp_send_json( [
 					'status'  => 'error',
 					'title'   => 'Error',
 					'message' => 'Nonce verification failed',
-				) );
+				] );
 				wp_die();
 			}
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json( array(
+				wp_send_json( [
 					'status'  => 'error',
 					'title'   => 'Error',
 					'message' => 'Denied, you don\'t have right permission',
-				) );
+				] );
 				wp_die();
 			}
 
 			$feedback = json_decode( stripslashes( $feedback ), true );
 
-			$data = array(
+			$data = [
 				'api_endpoint' => $api_endpoint,
 				'public_key'   => $public_key,
 				'product_id'   => $product_id,
 				'feedback'     => $feedback,
-			);
+			];
 
 			$this->data_prepare( $data );
 
-			wp_send_json( array(
+			wp_send_json( [
 				'status'  => 'success',
 				'title'   => 'Success',
 				'message' => 'Success.',
-			) );
+			] );
 			wp_die();
 		}
 
@@ -196,39 +196,54 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 */
 		public function notice_modal( $params ) {
 
-			$dci_data = array();
-			$dci_data['name'] = $this->dci_name;
-			$dci_data['date_name'] = $this->dci_insights_date_name;
-			$dci_data['allow_name'] = $this->dci_allow_name;
-			$dci_data['nonce'] = wp_create_nonce( 'dci_sdk' );
-			$dci_data['slug'] = $params['slug'];
+			/**
+			 * One notice per page load across ALL plugins using this SDK.
+			 * IMPORTANT: Only set the flag when a notice is ACTUALLY queued.
+			 * If this plugin's notice is dismissed/hidden, don't block others.
+			 */
+			static $dci_notice_shown_this_request = false;
+			if ( $dci_notice_shown_this_request ) {
+				return;
+			}
+
+			$dci_data                = [];
+			$dci_data['name']        = $this->dci_name;
+			$dci_data['date_name']   = $this->dci_insights_date_name;
+			$dci_data['allow_name']  = $this->dci_allow_name;
+			$dci_data['nonce']       = wp_create_nonce( 'dci_sdk' );
+			$dci_data['slug']        = $params['slug'];
 			$dci_data['text_domain'] = $this->text_domain;
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'dci_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', [ $this, 'dci_enqueue_scripts' ] );
 
 			/**
-			 * If not current page
-			 * Show Notice Modal & Return
+			 * If not current page: show global banner notice (unless dismissed).
+			 * Only claim the slot if we actually queue the notice.
 			 */
 			if ( $params['current_page'] !== $params['menu_slug'] ) {
 				if ( ! get_transient( 'dismissed_notice_' . $this->dci_name ) ) {
-					add_action( 'admin_notices', array( $this, 'display_global_notice' ) );
+					$dci_notice_shown_this_request = true; // claim the slot
+					add_action( 'admin_notices', [ $this, 'display_global_notice' ] );
 				}
+				// dismissed = don't claim slot; next plugin can show its own notice
 				return;
 			}
 
 			/**
-			 * If Dismissed but always show welcome is true then show notice on welcome page
+			 * On plugin's own page: if dismissed and no always_show_welcome, skip.
+			 * Don't claim the slot — let another plugin show if needed.
 			 */
 			if ( ! isset( $params['always_show_welcome'] ) && get_transient( 'dismissed_notice_' . $this->dci_name ) ) {
 				return;
 			}
 
-			add_action( 'admin_notices', array( $this, 'display_global_notice' ) );
+			// Actually showing — claim the slot.
+			$dci_notice_shown_this_request = true;
+			add_action( 'admin_notices', [ $this, 'display_global_notice' ] );
 
 			if ( isset( $params['popup_notice'] ) && true === $params['popup_notice'] ) {
 
-				include_once dirname( __FILE__ ) . '/notice.php';
+				include_once __DIR__ . '/notice.php';
 
 				add_action(
 					'in_admin_header',
@@ -248,21 +263,21 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * @return void
 		 */
 		public function deactivation_feedback( $params ) {
-			$dci_data = array();
-			$dci_data['nonce'] = wp_create_nonce( 'dci_sdk' );
-			$dci_data['slug'] = $params['slug'];
-			$dci_data['text_domain'] = $this->text_domain;
-			$dci_data['api_endpoint'] = $params['api_endpoint'];
-			$dci_data['public_key'] = $params['public_key'];
-			$dci_data['product_id'] = $params['product_id'];
-			$dci_data['core_file'] = isset( $params['core_file'] ) ? $params['core_file'] : false;
+			$dci_data                         = [];
+			$dci_data['nonce']                = wp_create_nonce( 'dci_sdk' );
+			$dci_data['slug']                 = $params['slug'];
+			$dci_data['text_domain']          = $this->text_domain;
+			$dci_data['api_endpoint']         = $params['api_endpoint'];
+			$dci_data['public_key']           = $params['public_key'];
+			$dci_data['product_id']           = $params['product_id'];
+			$dci_data['core_file']            = isset( $params['core_file'] ) ? $params['core_file'] : false;
 			$dci_data['plugin_deactivate_id'] = isset( $params['plugin_deactivate_id'] ) ? $params['plugin_deactivate_id'] : false;
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'dci_enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', [ $this, 'dci_enqueue_scripts' ] );
 
 			if ( isset( $params['deactivate_feedback'] ) && true === $params['deactivate_feedback'] ) {
 
-				include_once dirname( __FILE__ ) . '/deactivate-feedback.php';
+				include_once __DIR__ . '/deactivate-feedback.php';
 
 				$current_screen = get_admin_page_parent();
 
@@ -286,7 +301,7 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * @return boolean
 		 */
 		public function check_date() {
-			$current_date = strtotime( gmdate( 'Y-m-d' ) );
+			$current_date    = strtotime( gmdate( 'Y-m-d' ) );
 			$dci_status_date = strtotime( get_option( $this->dci_insights_date_name, false ) );
 
 			if ( ! $dci_status_date ) {
@@ -315,14 +330,14 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 
 			$sanitized_status = isset( $_GET['dci_allow_status'] ) ? sanitize_text_field( wp_unslash( $_GET['dci_allow_status'] ) ) : '';
 
-			if ( $sanitized_status == 'skip' ) {
+			if ( $sanitized_status === 'skip' ) {
 				update_option( $this->dci_allow_name, 'skip' );
 				/**
 				 * Next schedule date for attempt
 				 */
 				update_option( $this->dci_insights_date_name, gmdate( 'Y-m-d', strtotime( '+1 month' ) ) );
 				return false;
-			} elseif ( $sanitized_status == 'yes' ) {
+			} elseif ( $sanitized_status === 'yes' ) {
 				update_option( $this->dci_allow_name, 'yes' );
 				return true;
 			}
@@ -347,10 +362,10 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * @return void
 		 */
 		public function data_prepare( $params ) {
-			$server_url = isset( $params['api_endpoint'] ) ? $params['api_endpoint'] : false;
-			$public_key = isset( $params['public_key'] ) ? $params['public_key'] : false;
+			$server_url  = isset( $params['api_endpoint'] ) ? $params['api_endpoint'] : false;
+			$public_key  = isset( $params['public_key'] ) ? $params['public_key'] : false;
 			$custom_data = isset( $params['custom_data'] ) ? $params['custom_data'] : false;
-			$product_id = isset( $params['product_id'] ) ? $params['product_id'] : false;
+			$product_id  = isset( $params['product_id'] ) ? $params['product_id'] : false;
 
 			if ( ! $server_url || ! $public_key ) {
 				return;
@@ -378,9 +393,9 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 			 * ==================================
 			 */
 
-			$data = array();
-			$data['public_key'] = $public_key;
-			$data['product_id'] = $product_id;
+			$data                = [];
+			$data['public_key']  = $public_key;
+			$data['product_id']  = $product_id;
 			$data['custom_data'] = $custom_data;
 
 			if ( isset( $params['feedback'] ) && ! empty( $params['feedback'] ) ) {
@@ -388,7 +403,7 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 			}
 
 			$non_sensitive_data = $this->dci_non_sensitve_data();
-			$data = array_merge( $data, $non_sensitive_data );
+			$data               = array_merge( $data, $non_sensitive_data );
 
 			$this->dci_send_data_to_server( $server_url, $data );
 		}
@@ -404,13 +419,13 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 				include ABSPATH . '/wp-admin/includes/plugin.php';
 			}
 
-			$plugins = get_plugins();
+			$plugins             = get_plugins();
 			$active_plugins_keys = get_option( 'active_plugins', [] );
-			$active_plugins = [];
+			$active_plugins      = [];
 
 			foreach ( $plugins as $k => $v ) {
 				// Take care of formatting the data how we want it.
-				$formatted = [];
+				$formatted         = [];
 				$formatted['name'] = wp_strip_all_tags( $v['Name'] );
 
 				if ( isset( $v['Version'] ) ) {
@@ -466,7 +481,7 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 */
 		public function dci_non_sensitve_data() {
 			$current_user = wp_get_current_user();
-			$all_plugins = $this->get_all_plugins();
+			$all_plugins  = $this->get_all_plugins();
 
 			$users = get_users(
 				[
@@ -480,27 +495,27 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 
 			$admin_user = ( is_array( $users ) && ! empty( $users ) ) ? $users[0] : false;
 			$first_name = $current_user->first_name;
-			$last_name = $current_user->last_name;
+			$last_name  = $current_user->last_name;
 
 			if ( empty( $first_name ) && empty( $last_name ) ) {
 				$first_name = $current_user->display_name;
-				$last_name = null;
+				$last_name  = null;
 			}
 
 			if ( $admin_user ) {
 				$first_name = $admin_user->first_name ? $admin_user->first_name : $admin_user->display_name;
-				$last_name = $admin_user->last_name;
+				$last_name  = $admin_user->last_name;
 			}
 
 			$theme = wp_get_theme( get_stylesheet() );
 
-			$data = array(
+			$data = [
 				'first_name'   => $first_name,
 				'last_name'    => $last_name,
 				'email'        => get_option( 'admin_email' ),
 				'user_role'    => $current_user->roles[0],
 				'website_url'  => site_url(),
-				'website_data' => array(
+				'website_data' => [
 					'sdk_version'            => $this->version,
 					'website_name'           => get_bloginfo( 'name' ),
 					'wp_version'             => get_bloginfo( 'version' ),
@@ -519,8 +534,8 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 					'theme_version'          => $theme->get( 'Version' ),
 					'theme_uri'              => $theme->get( 'ThemeURI' ),
 					'theme_author'           => $theme->get( 'Author' ),
-				),
-			);
+				],
+			];
 
 			return $data;
 		}
@@ -529,36 +544,25 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * Send data to server
 		 *
 		 * @param [string] $server_url
-		 * @param [array] $data
+		 * @param [array]  $data
 		 * @return void
 		 */
 		public function dci_send_data_to_server( $server_url, $data = null ) {
 
-			$args = array(
-				'method'  => 'POST',
-				'timeout' => 60,
-				'headers' => array(
+			$args = [
+				'method'   => 'POST',
+				'timeout'  => 8,
+				'blocking' => false, // Fire-and-forget: never blocks admin page load
+				'headers'  => [
 					'Content-Type' => 'application/json',
 					'X-API-KEY'    => $data['public_key'],
-				),
-				'body'    => wp_json_encode( $data ),
-			);
+				],
+				'body'     => wp_json_encode( $data ),
+			];
 
-			// error_log( print_r( $args, true ) );
-
-			$response = wp_remote_request( $server_url, $args );
-
-			if ( is_wp_error( $response ) ) {
-				// echo 'Error: ' . $response->get_error_message();
-				$this->reset_settings();
-			} else {
-				$response_data = wp_remote_retrieve_body( $response );
-				$response_data = json_decode( $response_data, true );
-				// print_r( $response_data );
-				if ( isset( $response_data['data']['status'] ) && 401 == $response_data['data']['status'] ) {
-					update_option( $this->dci_insights_date_name, gmdate( 'Y-m-d', strtotime( '+3 days' ) ) );
-				}
-			}
+			wp_remote_post( $server_url, $args );
+			// Non-blocking: no response to check. On failure the date already
+			// advanced to +1 month, so it will retry then.
 		}
 
 		/**
@@ -566,47 +570,47 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 */
 		public function dci_sdk_insights() {
 			$sanitized_status = isset( $_POST['button_val'] ) ? sanitize_text_field( wp_unslash( $_POST['button_val'] ) ) : '';
-			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-			$allow_name = isset( $_POST['allow_name'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_name'] ) ) : '';
-			$date_name = isset( $_POST['date_name'] ) ? sanitize_text_field( wp_unslash( $_POST['date_name'] ) ) : '';
+			$nonce            = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			$allow_name       = isset( $_POST['allow_name'] ) ? sanitize_text_field( wp_unslash( $_POST['allow_name'] ) ) : '';
+			$date_name        = isset( $_POST['date_name'] ) ? sanitize_text_field( wp_unslash( $_POST['date_name'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'dci_sdk' ) ) {
-				wp_send_json( array(
+				wp_send_json( [
 					'status'  => 'error',
 					'title'   => 'Error',
 					'message' => 'Nonce verification failed',
-				) );
+				] );
 				wp_die();
 			}
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json( array(
+				wp_send_json( [
 					'status'  => 'error',
 					'title'   => 'Error',
 					'message' => 'Denied, you don\'t have right permission',
-				) );
+				] );
 				wp_die();
 			}
 
-			if ( 'disallow' == $sanitized_status ) {
+			if ( 'disallow' === $sanitized_status ) {
 				update_option( $allow_name, 'disallow' );
 			}
 
-			if ( $sanitized_status == 'skip' ) {
+			if ( $sanitized_status === 'skip' ) {
 				update_option( $allow_name, 'skip' );
 				/**
 				 * Next schedule date for attempt
 				 */
 				update_option( $date_name, gmdate( 'Y-m-d', strtotime( '+1 month' ) ) );
-			} elseif ( $sanitized_status == 'yes' ) {
+			} elseif ( $sanitized_status === 'yes' ) {
 				update_option( $allow_name, 'yes' );
 			}
 
-			wp_send_json( array(
+			wp_send_json( [
 				'status'  => 'success',
 				'title'   => 'Success',
 				'message' => 'Success.',
-			) );
+			] );
 			wp_die();
 		}
 
@@ -616,8 +620,8 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * @since 1.0.0
 		 */
 		public function dci_enqueue_scripts() {
-			wp_enqueue_style( 'dci-sdk', plugins_url( 'assets/css/dci.css', __FILE__ ), array(), $this->version, 'all' );
-			wp_enqueue_script( 'dci-sdk', plugins_url( 'assets/js/dci.js', __FILE__ ), array( 'jquery' ), $this->version, true );
+			wp_enqueue_style( 'dci-sdk-wowdevs', plugins_url( 'assets/css/dci.css', __FILE__ ), [], $this->version, 'all' );
+			wp_enqueue_script( 'dci-sdk-wowdevs', plugins_url( 'assets/js/dci.js', __FILE__ ), [ 'jquery' ], $this->version, true );
 		}
 
 		/**
@@ -628,13 +632,13 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		public function display_global_notice() {
 			$menu_slug = isset( $this->params['menu_slug'] ) ? $this->params['menu_slug'] : 'javascript:void(0);';
 
-			$admin_url = add_query_arg( array(
+			$admin_url = add_query_arg( [
 				'page' => $menu_slug,
-			), admin_url( 'admin.php' ) );
+			], admin_url( 'admin.php' ) );
 
 			$plugin_title = isset( $this->params['plugin_title'] ) ? $this->params['plugin_title'] : '';
-			$plugin_msg = isset( $this->params['plugin_msg'] ) ? $this->params['plugin_msg'] : '';
-			$plugin_icon = isset( $this->params['plugin_icon'] ) ? $this->params['plugin_icon'] : '';
+			$plugin_msg   = isset( $this->params['plugin_msg'] ) ? $this->params['plugin_msg'] : '';
+			$plugin_icon  = isset( $this->params['plugin_icon'] ) ? $this->params['plugin_icon'] : '';
 
 			?>
 			<div
@@ -680,13 +684,13 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		public function __display_global_notice() {
 			$menu_slug = isset( $this->params['menu_slug'] ) ? $this->params['menu_slug'] : 'javascript:void(0);';
 
-			$admin_url = add_query_arg( array(
+			$admin_url = add_query_arg( [
 				'page' => $menu_slug,
-			), admin_url( 'admin.php' ) );
+			], admin_url( 'admin.php' ) );
 
 			$plugin_title = isset( $this->params['plugin_title'] ) ? $this->params['plugin_title'] : '';
-			$plugin_msg = isset( $this->params['plugin_msg'] ) ? $this->params['plugin_msg'] : '';
-			$plugin_icon = isset( $this->params['plugin_icon'] ) ? $this->params['plugin_icon'] : '';
+			$plugin_msg   = isset( $this->params['plugin_msg'] ) ? $this->params['plugin_msg'] : '';
+			$plugin_icon  = isset( $this->params['plugin_icon'] ) ? $this->params['plugin_icon'] : '';
 
 			?>
 			<div class="dci-global-notice dci-notice-data notice notice-success is-dismissible">
@@ -730,34 +734,34 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 		 * @return void
 		 */
 		public function dci_sdk_dismiss_notice() {
-			$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			$nonce    = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 			$dci_name = isset( $_POST['dci_name'] ) ? sanitize_text_field( wp_unslash( $_POST['dci_name'] ) ) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'dci_sdk' ) ) {
-				wp_send_json( array(
+				wp_send_json( [
 					'status'  => 'error',
 					'title'   => 'Error',
 					'message' => 'Nonce verification failed',
-				) );
+				] );
 				wp_die();
 			}
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_send_json( array(
+				wp_send_json( [
 					'status'  => 'error',
 					'title'   => 'Error',
 					'message' => 'Denied, you don\'t have right permission',
-				) );
+				] );
 				wp_die();
 			}
 
 			set_transient( 'dismissed_notice_' . $dci_name, true, 7 * DAY_IN_SECONDS );
 
-			wp_send_json( array(
+			wp_send_json( [
 				'status'  => 'success',
 				'title'   => 'Success',
 				'message' => 'Success.',
-			) );
+			] );
 			wp_die();
 		}
 	}
