@@ -55,9 +55,9 @@ This script checks all version strings, `Requires PHP`, `Requires at least`, cha
 ```bash
 git add .
 git commit -m "v1.1.0"
-git tag 1.1.0
+git tag v1.1.0
 git push origin main
-git push origin 1.1.0
+git push origin v1.1.0
 ```
 
 The pushed tag triggers the WordPress.org deployment via GitHub Actions.
@@ -65,7 +65,7 @@ The pushed tag triggers the WordPress.org deployment via GitHub Actions.
 ### Step 4 — (Optional) GitHub Release
 
 ```bash
-gh release create 1.1.0 responsive-visibility-v1.1.0.zip \
+gh release create v1.1.0 responsive-visibility-v1.1.0.zip \
   --title "Responsive Visibility 1.1.0" \
   --notes "See readme.txt for full changelog."
 ```
