@@ -62,6 +62,32 @@ git push origin v1.1.0
 
 The pushed tag triggers the WordPress.org deployment via GitHub Actions.
 
+## Updating WordPress.org Assets (banner, icon, screenshots)
+
+Assets live in `.wordpress-org/`. Add or update files there — no version bump needed.
+
+```
+.wordpress-org/
+  icon-128x128.png
+  icon-256x256.png
+  banner-772x250.png
+  banner-1544x500.png    ← retina, optional
+  screenshot-1.png       ← matches == Screenshots == in readme.txt
+  screenshot-2.png
+```
+
+Then just commit and push to `main`:
+
+```bash
+git add .wordpress-org/
+git commit -m "Update WordPress.org assets"
+git push origin main
+```
+
+GitHub Actions detects the `.wordpress-org/` change and deploys **only the assets** to SVN `assets/` automatically. No tag needed, no plugin release triggered.
+
+---
+
 ### Step 4 — (Optional) GitHub Release
 
 ```bash
