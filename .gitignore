@@ -51,4 +51,5 @@ wp-config.php
 /node_modules
 .DS_Store
 *.zip
+/responsive-visibility/
 package-lock.json

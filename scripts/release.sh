@@ -98,8 +98,8 @@ ZIP_FILE="responsive-visibility-v${NEW_VERSION}.zip"
 rm -rf responsive-visibility "$ZIP_FILE"
 rsync -a --exclude-from=.buildignore . responsive-visibility
 zip -qr "$ZIP_FILE" responsive-visibility
-rm -rf responsive-visibility
 green "  ✓ Created: $ZIP_FILE ($(du -sh "$ZIP_FILE" | cut -f1))"
+green "  ✓ Folder kept: responsive-visibility/ (inspect before shipping)"
 
 # ── 8. Verify zip contents (spot-check) ──────────────────────────────────────
 yellow "--> Verifying zip contents..."
@@ -136,8 +136,7 @@ green "  Release $NEW_VERSION is ready!"
 green "  Zip: $ZIP_FILE"
 green "============================================"
 echo ""
-yellow "Next steps:"
-echo "  1. git add -A && git commit -m \"v$NEW_VERSION\""
-echo "  2. git tag v$NEW_VERSION"
-echo "  3. git push origin main && git push origin v$NEW_VERSION"
-echo "     (GitHub Actions will auto-deploy to WordPress.org)"
+yellow "Next step:"
+echo "  Inspect the responsive-visibility/ folder, then run:"
+echo ""
+echo "  npm run ship"
