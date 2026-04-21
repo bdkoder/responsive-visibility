@@ -1,13 +1,13 @@
 === Responsive Visibility for Blocks Editor (Hide/Show Blocks for Devices) ===
-Version: 1.0.6
+Version: 1.1.0
 Author: wowdevs
 Author URI: https://github.com/bdkoder/
 Contributors: wowdevs, bdkoder, hashibali
 Tags: responsive visibility, hide/show blocks, Gutenberg addons, device-based content, block visibility
-Requires at least: 6.0.0
+Requires at least: 6.2
 Tested up to: 6.9
-Stable tag: 1.0.6
-Requires PHP: 7.4
+Stable tag: 1.1.0
+Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -64,6 +64,13 @@ If you want to contribute, go to our [Responsive Visibility GitHub Repository](h
 3. **Gutenberg Editor**: Plugin settings integrated directly into the Gutenberg block editor.
 
 == Changelog ==
+
+= 1.1.0 [21st April 2026] =
+* Added: Custom breakpoints — configure any number of device breakpoints (mobile, tablet, desktop, widescreen, etc.) from Settings → Responsive Visibility
+* Added: Dynamic CSS generation from saved breakpoints — no more hardcoded pixel values
+* Added: "Customize breakpoints" link inside the block Inspector panel
+* Improved: Fully backward compatible — existing blocks with legacy hide attributes continue to work unchanged
+* Requires: WordPress 6.2+ (uses WP_HTML_Tag_Processor)
 
 = 1.0.6 [10th December 2025] =
 * System improved

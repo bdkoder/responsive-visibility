@@ -17,4 +17,5 @@ package-lock.json
 phpcs.xml
 CLAUDE.md
 src
+scripts
 /responsive-visibility/
