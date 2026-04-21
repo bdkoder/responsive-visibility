@@ -78,7 +78,9 @@ class Admin_Settings {
 			return __( 'You must have at least one breakpoint.', 'responsive-visibility' );
 		}
 
-		$null_count = count( array_filter( $breakpoints, fn( $bp ) => null === $bp['max_width'] ) );
+		$null_count = count( array_filter( $breakpoints, function( $bp ) {
+			return null === $bp['max_width'];
+		} ) );
 		if ( $null_count > 1 ) {
 			return __( 'Only one breakpoint can have no max-width (the largest device). Please set a max-width value for the others.', 'responsive-visibility' );
 		}
