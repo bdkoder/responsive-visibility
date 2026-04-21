@@ -7,13 +7,13 @@ On a successful deploy, the WordPress.org SVN repository receives the same produ
 - `trunk/`
 - `tags/{version}/`
 
-Example: pushing Git tag `1.0.7` deploys production files to SVN `trunk/` and `tags/1.0.7/`.
+Example: pushing Git tag `1.1.0` deploys production files to SVN `trunk/` and `tags/1.1.0/`.
 
 ## Safety Rule
 
 WordPress.org deploy is the final workflow step. If version validation, dependency install, build, PHP syntax checks, or zip generation fails, the workflow stops and nothing is released to WordPress.org.
 
-The deploy workflow uses `10up/action-wordpress-plugin-deploy`, which commits the tag contents to both SVN `trunk` and the matching SVN version tag.
+The deploy workflow uses `10up/action-wordpress-plugin-deploy`, which commits the tag contents (after `.distignore` exclusions) to both SVN `trunk` and the matching SVN version tag.
 
 ## Required Secrets
 
@@ -22,70 +22,70 @@ Add these in GitHub repository settings under Actions secrets:
 - `SVN_USERNAME`
 - `SVN_PASSWORD`
 
-Use a WordPress.org SVN password, not your normal account password.
+Use a WordPress.org SVN password (application password), not your normal account password.
 
 ## Release Checklist
 
-1. Update the version in `responsive-visibility.php`.
-2. Update `Stable tag` and changelog in `readme.txt`.
-3. Update `version` in `package.json`.
-4. Run checks locally:
+### Step 1 — Update version strings (all 4 locations must match)
 
-```bash
-npm run release:check
+| File | Field |
+|------|-------|
+| `package.json` | `"version"` |
+| `responsive-visibility.php` | `* Version:` |
+| `readme.txt` | `Version:` |
+| `readme.txt` | `Stable tag:` |
+
+Also update `readme.txt` changelog:
+```
+= X.Y.Z [Day Month Year] =
+* Added: ...
+* Fixed: ...
 ```
 
-5. Commit the release changes:
+### Step 2 — Local pre-flight (run this before any git commands)
+
+```bash
+npm run release
+```
+
+This script checks all version strings, `Requires PHP`, `Requires at least`, changelog entry, PHP syntax, builds assets, creates zip, and verifies zip contents. It will fail loudly if anything is wrong.
+
+### Step 3 — Commit, tag, push
 
 ```bash
 git add .
-git commit -m "Release 1.0.7"
-```
-
-6. Create and push the tag:
-
-```bash
-git tag 1.0.7
+git commit -m "v1.1.0"
+git tag 1.1.0
 git push origin main
-git push origin 1.0.7
+git push origin 1.1.0
 ```
 
-The pushed tag triggers the WordPress.org deployment.
+The pushed tag triggers the WordPress.org deployment via GitHub Actions.
 
-When deployment succeeds, WordPress.org SVN will contain the release in both:
-
-```text
-trunk/
-tags/1.0.7/
-```
-
-Both locations are populated from the same production build after `.distignore` exclusions.
-
-## GitHub Release From CLI
-
-You do not need to open GitHub in the browser. Use GitHub CLI:
+### Step 4 — (Optional) GitHub Release
 
 ```bash
-gh release create 1.0.7 responsive-visibility-v.1.0.7.zip \
-  --title "Responsive Visibility 1.0.7" \
-  --notes "Release notes here."
+gh release create 1.1.0 responsive-visibility-v1.1.0.zip \
+  --title "Responsive Visibility 1.1.0" \
+  --notes "See readme.txt for full changelog."
 ```
 
-For longer notes, create a local notes file and pass it:
+## Version Guard (in GitHub Actions)
 
-```bash
-gh release create 1.0.7 responsive-visibility-v.1.0.7.zip \
-  --title "Responsive Visibility 1.0.7" \
-  --notes-file release-notes.md
-```
-
-GitHub release title and notes are separate from WordPress.org. WordPress.org uses `readme.txt` changelog and `Stable tag`.
-
-## Version Guard
-
-The workflow requires the Git tag to match both:
+The workflow rejects a deploy unless the Git tag matches both:
 
 - `Version:` in `responsive-visibility.php`
 - `Stable tag:` in `readme.txt`
 
-Example: tag `1.0.7` only deploys when both files also say `1.0.7`.
+## Version bump rules
+
+| Change type | Example | When to use |
+|-------------|---------|-------------|
+| Patch | 1.1.0 → 1.1.1 | Bug fixes only |
+| Minor | 1.1.0 → 1.2.0 | New features, backward compatible |
+| Major | 1.x.x → 2.0.0 | Breaking changes |
+
+## Files shipped to WordPress.org
+
+Controlled by `.distignore`. These files/dirs are **excluded**:
+`.git`, `.github`, `.ai`, `.claude`, `.distignore`, `.editorconfig`, `.gitignore`, `.gitattributes`, `.DS_Store`, `node_modules`, `package.json`, `package-lock.json`, `phpcs.xml`, `CLAUDE.md`, `RELEASE.md`, `scripts/`, `src/`, `*.zip`

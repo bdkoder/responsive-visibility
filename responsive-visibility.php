@@ -101,11 +101,8 @@ if ( ! function_exists( 'responsive_visibility_dci_plugin' ) ) {
 
 		// Include DCI SDK.
 		require_once dirname( __FILE__ ) . '/dci/start.php';
-		wp_register_style( 'dci-sdk-responsive-visibility', plugins_url( 'dci/assets/css/dci.css', __FILE__ ), array(), '1.2.1', 'all' );
-		wp_enqueue_style( 'dci-sdk-responsive-visibility' );
 
 		dci_dynamic_init( array(
-			'sdk_version'          => '1.2.1',
 			'product_id'           => 4,
 			'plugin_name'          => 'Responsive Visibility for Blocks Editor', // make simple, must not empty
 			'plugin_title'         => 'Love using Responsive Visibility? Congrats 🎉  ( Never miss an Important Update )', // You can describe your plugin title here
@@ -132,4 +129,31 @@ if ( ! function_exists( 'responsive_visibility_dci_plugin' ) ) {
 		) );
 	}
 	add_action( 'admin_init', 'responsive_visibility_dci_plugin' );
+}
+
+
+/**
+ * Review Automation Integration
+ */
+
+if ( ! function_exists( 'responsive_visibility_rc_plugin' ) ) {
+	function responsive_visibility_rc_plugin() {
+
+		require_once dirname( __FILE__ ) . '/includes/feedbacks/start.php';
+
+		rc_dynamic_init(
+			[
+				'plugin_name'  => 'Responsive Visibility for Blocks Editor',
+				'plugin_icon'  => plugins_url( 'assets/imgs/icon-256x256.png', __FILE__ ),
+				'slug'         => 'no-need',
+				'menu'         => [
+					'slug' => 'responsive-visibility',
+				],
+				'review_url'   => 'https://wordpress.org/support/plugin/responsive-visibility/reviews/#new-post',
+				'plugin_title' => 'Yay! Great that you\'re using Responsive Visibility',
+				'plugin_msg'   => '<p>Loved using Responsive Visibility on your website? Share your experience in a review and help us spread the love to everyone right now. Good words will help the community.</p>',
+			]
+		);
+	}
+	add_action( 'admin_init', 'responsive_visibility_rc_plugin' );
 }

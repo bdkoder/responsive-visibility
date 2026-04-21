@@ -26,10 +26,10 @@ if ( ! function_exists( 'dci_insights_popup_notice' ) ) {
 				</div>
 				<div class="dci-actions">
 					<?php
-					$dci_name = isset( $data['name'] ) ? wp_unslash( $data['name'] ) : '';
+					$dci_name               = isset( $data['name'] ) ? wp_unslash( $data['name'] ) : '';
 					$dci_insights_date_name = isset( $data['date_name'] ) ? wp_unslash( $data['date_name'] ) : '';
-					$dci_allow_name = isset( $data['allow_name'] ) ? wp_unslash( $data['allow_name'] ) : '';
-					$nonce = isset( $data['nonce'] ) ? wp_unslash( $data['nonce'] ) : '';
+					$dci_allow_name         = isset( $data['allow_name'] ) ? wp_unslash( $data['allow_name'] ) : '';
+					$nonce                  = isset( $data['nonce'] ) ? wp_unslash( $data['nonce'] ) : '';
 					?>
 					<form method="get" class="dci-notice-data">
 						<input type="hidden" name="dci_name" value="<?php echo esc_html( $dci_name ); ?>">

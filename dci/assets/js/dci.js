@@ -138,20 +138,7 @@
     });
 
     /**
-     * Button Color
+     * SDK Initialization Complete
      */
-    window.CSS.registerProperty({
-      name: "--primaryColor",
-      syntax: "<color>",
-      inherits: false,
-      initialValue: "#AA00FF",
-    });
-
-    window.CSS.registerProperty({
-      name: "--secondaryColor",
-      syntax: "<color>",
-      inherits: false,
-      initialValue: "#FF2661",
-    });
   });
 })(jQuery);

@@ -57,6 +57,25 @@ Absolutely! You can use this plugin to selectively **hide/show blocks** on mobil
 
 If you want to contribute, go to our [Responsive Visibility GitHub Repository](https://github.com/bdkoder/responsive-visibility/) and see where you can help.
 
+
+== External Services ==
+
+This plugin connects to one external services under the conditions described below. No data is ever sent without a clear user action or explicit opt-in.
+
+= 1. Usage Analytics / Data Insights (dashboard.wowdevs.com) =
+
+**What it does:** Sends non-sensitive plugin usage data to help improve the plugin. This is part of the optional Data Insights program powered by the DCI SDK.
+
+**When it connects:** **Only if you explicitly opt in** when prompted. No data is ever sent without your consent. You can opt out at any time from the Sky Addons dashboard.
+
+**Data sent:** Plugin version, WordPress version, active theme, site language, and similar non-personal environment data. No passwords, user content, or personally identifiable information is transmitted.
+
+**Service:** wowDevs Data Insights, operated by wowDevs.
+Service URL: https://dashboard.wowdevs.com/
+Privacy Policy: https://wowdevs.com/privacy-policy/
+Terms of Service: https://wowdevs.com/terms-and-conditions/
+
+
 == Screenshots ==
 
 1. **Visibility Settings**: Screenshot showing visibility controls for blocks.
@@ -66,7 +85,7 @@ If you want to contribute, go to our [Responsive Visibility GitHub Repository](h
 == Changelog ==
 
 = 1.1.0 [21st April 2026] =
-* Added: Custom breakpoints — configure any number of device breakpoints (mobile, tablet, desktop, widescreen, etc.) from Settings → Responsive Visibility
+* Added: Custom breakpoints — configure any number of device breakpoints (mobile, tablet, desktop, widescreen, etc.) from Settings → Responsive Visibility (Thanks to prionkor)
 * Added: Dynamic CSS generation from saved breakpoints — no more hardcoded pixel values
 * Added: "Customize breakpoints" link inside the block Inspector panel
 * Improved: Fully backward compatible — existing blocks with legacy hide attributes continue to work unchanged
