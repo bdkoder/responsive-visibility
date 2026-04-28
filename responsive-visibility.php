@@ -108,7 +108,7 @@ if ( ! function_exists( 'responsive_visibility_dci_plugin' ) ) {
 			'plugin_title'         => 'Love using Responsive Visibility? Congrats 🎉  ( Never miss an Important Update )', // You can describe your plugin title here
 			'plugin_icon'          => plugins_url( 'assets/imgs/icon-256x256.png', __FILE__ ), // delete the line if you don't need
 			'api_endpoint'         => 'https://dashboard.wowdevs.com/wp-json/dci/v1/data-insights',
-			'slug'                 => 'no-need', // folder-name or write 'no-need' if you don't want to use
+			'slug'                 => 'responsive-visibility', // folder-name
 			'core_file'            => false,
 			'plugin_deactivate_id' => false,
 			'menu'                 => array(
