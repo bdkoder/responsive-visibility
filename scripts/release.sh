@@ -96,7 +96,7 @@ green "  ✓ Build complete"
 yellow "--> Creating release zip..."
 ZIP_FILE="responsive-visibility-v${NEW_VERSION}.zip"
 rm -rf responsive-visibility "$ZIP_FILE"
-rsync -a --exclude-from=.buildignore . responsive-visibility
+rsync -a --exclude-from=.buildignore --exclude='scripts' . responsive-visibility
 zip -qr "$ZIP_FILE" responsive-visibility
 green "  ✓ Created: $ZIP_FILE ($(du -sh "$ZIP_FILE" | cut -f1))"
 green "  ✓ Folder kept: responsive-visibility/ (inspect before shipping)"

@@ -18,5 +18,5 @@ phpcs.xml
 CLAUDE.md
 RELEASE.md
 src
-scripts
+scripts/
 /responsive-visibility/
