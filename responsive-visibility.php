@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name:       Responsive Visibility for Blocks Editor
- * Description:       The responsive visibility bundle will give you the ability to control a page's content based on the device your visitors are using to view the page.
+ * Plugin Name:       Responsive Visibility — Show or Hide Blocks by Device, Custom Breakpoints & Conditions
+ * Description:       Show or hide any block by device with unlimited custom breakpoints — no custom CSS, no theme lock-in. Cache-friendly and fully responsive.
  * Requires at least: 6.2
  * Requires PHP:      7.2
  * Version:           1.1.0
- * Author:            bdkoder
- * Author URI:        https://github.com/bdkoder
+ * Author:            wowdevs
+ * Author URI:        https://wowdevs.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       responsive-visibility

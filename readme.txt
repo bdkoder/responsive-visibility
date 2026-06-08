@@ -1,62 +1,117 @@
-=== Responsive Visibility for Blocks Editor (Hide/Show Blocks for Devices) ===
+=== Responsive Visibility — Show or Hide Blocks by Device, Custom Breakpoints & Conditions ===
 Version: 1.1.0
 Author: wowdevs
-Author URI: https://github.com/bdkoder/
+Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, hashibali
-Tags: responsive visibility, hide/show blocks, Gutenberg addons, device-based content, block visibility
+Tags: block visibility, conditional blocks, visibility, responsive, gutenberg
 Requires at least: 6.2
-Tested up to: 6.9
+Tested up to: 7.0
 Stable tag: 1.1.0
 Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-🌟 **Enhance Your WordPress Site with Responsive Visibility for Gutenberg Blocks**
+Hide or show any Gutenberg block by device — unlimited custom breakpoints, no CSS, no theme lock-in. Mobile, tablet, desktop and beyond.
 
 == Description ==
 
-**Responsive Visibility for Gutenberg Blocks** is a powerful tool designed to enhance your WordPress site’s flexibility by allowing you to control the visibility of Gutenberg blocks based on the device your visitors are using. With this plugin, you can **hide or show blocks** on **mobile, tablet, and desktop**, ensuring your content is perfectly optimized for each device type.
+**Responsive Visibility** is a lightweight **block visibility** plugin that lets you **hide or show any Gutenberg block by device** — straight from the editor, with no custom CSS and no theme dependency. Whether you want to **hide blocks on mobile**, show content only on desktop, or fine-tune everything in between, it takes a single toggle in the Inspector sidebar — the block disappears on exactly the screens you choose.
 
-This **responsive visibility plugin** gives you complete control over how your content appears across different devices, ensuring a seamless and tailored user experience.
+Unlike other block visibility plugins that lock you into three fixed device sizes, Responsive Visibility gives you **unlimited custom breakpoints** so you can build truly **responsive blocks** for any screen. Add, rename, and resize as many breakpoints as your design needs — widescreen, 4K, small phone, anything — Elementor-style, all managed from a clean settings page.
+
+In a mobile-first world, controlling **responsive visibility** for every block is essential. Show a lead-generation form in the desktop sidebar but hide it on phones. Hide a heavy hero image on mobile to speed up load time. Reveal an extra call-to-action only on ultrawide screens. Responsive Visibility makes **conditional blocks** effortless — no shortcodes, no code, no theme edits.
 
 For a detailed walkthrough, watch this tutorial:
 
 https://youtu.be/g7My09gTghI
 
+= How It Works (3 Steps) =
 
-In today’s mobile-first world, ensuring your website’s content is optimized for **desktop**, **tablet**, and **mobile** devices is essential. With **Responsive Visibility for Gutenberg Blocks**, you can easily decide which blocks appear or disappear based on the device screen size. For example, you may want to showcase a **lead generation form** at the top of the sidebar for **desktop users**, but place it further down the page on **mobile devices**.
+1. **Edit any block** in the Gutenberg editor and open the Responsive Visibility panel in the sidebar.
+2. **Pick the devices** to hide it on — mobile, tablet, desktop, or any custom breakpoint you defined.
+3. **Save.** The block is hidden on exactly those screens — no custom CSS, no theme edits, no shortcodes.
 
-With this plugin, you can fine-tune your **Gutenberg blocks visibility** to ensure your site looks amazing and functions flawlessly across **all devices**. Improve user engagement and experience by showing only the relevant content for each device type, making your site more intuitive and mobile-friendly.
+= Why Responsive Visibility? =
 
-### Key Features:
-- **Control block visibility** for different devices (Desktop, Tablet, Mobile)
-- Enhance **responsive design** by selectively hiding or showing blocks
-- **Mobile visibility** customization for Gutenberg blocks
-- Improve page load time by hiding unnecessary elements on mobile or tablet
-- Seamless integration with **Gutenberg editor** and native WordPress blocks
+* **Unlimited custom breakpoints** — not just mobile/tablet/desktop. Define any number of named device ranges and the plugin generates the matching CSS media queries automatically.
+* **100% cache-friendly** — visibility is handled with CSS classes and media queries, so every visitor gets the same HTML. Works perfectly with any caching plugin, and updates live as the screen resizes.
+* **No theme lock-in** — integrates with any block theme or classic theme. No template edits, no dependencies.
+* **Backward compatible, always** — blocks hidden with earlier versions keep working after every update. Your existing settings are never lost.
+* **Built for Gutenberg** — controls live in the native block Inspector, right where you already edit.
+
+= Key Features =
+
+* **Hide or show blocks by device** (desktop, tablet, mobile, and any custom breakpoint)
+* **Unlimited custom breakpoints** — add, rename, reorder, and set pixel widths from Settings → Responsive Visibility
+* **Dynamic CSS generation** — pixel values come from your saved breakpoints, never hardcoded
+* **Cache-safe responsive design** — CSS-based hiding that survives full-page caching
+* **Per-block control** — settings are applied per block, not per page
+* **Seamless Gutenberg integration** with native WordPress blocks and most third-party blocks
+* **Improve page experience** by hiding unnecessary or heavy elements on smaller screens
+
+= Ideal For =
+
+* **Content creators** who want to hide large or secondary blocks on phones and tablets.
+* **Designers** building responsive Gutenberg layouts without writing one-off CSS.
+* **Site owners** tailoring what each device sees to boost engagement and speed.
+* **Agencies and developers** who need simple, reliable block visibility on client sites.
+
+= More Plugins by WowDevs =
+
+* **[Sky Elementor Addons](https://wordpress.org/plugins/sky-elementor-addons/)** — A powerful toolkit of Elementor widgets, extensions, and ready-made templates to build stunning pages faster.
+* **[Ultimate Spin Wheel](https://wordpress.org/plugins/ultimate-spin-wheel/)** — Gamified spin-to-win wheel that turns visitors into subscribers and sales with fun, interactive discounts.
+* **[Blockish](https://wordpress.org/plugins/blockish/)** — A collection of beautiful, lightweight Gutenberg blocks to design rich layouts without the bloat.
 
 == Installation ==
 
-Getting started with **Responsive Visibility for Gutenberg Blocks** is easy! Follow these steps to activate the plugin and start controlling your blocks' visibility based on devices:
+Getting started with **Responsive Visibility** is easy! Follow these steps to start controlling your blocks' visibility based on devices:
 
-1. Upload the plugin files to the `/wp-content/plugins/responsive-visibility` directory, or install it directly from the WordPress Plugin screen.
+1. Upload the plugin files to the `/wp-content/plugins/responsive-visibility` directory, or install it directly from the WordPress Plugins screen.
 2. Activate the plugin through the 'Plugins' screen in your WordPress admin panel.
-3. Once activated, simply edit any Gutenberg block and use the visibility controls to customize which blocks show on **desktop**, **tablet**, or **mobile**.
+3. Edit any Gutenberg block and use the visibility controls in the Inspector sidebar to choose which devices it shows on.
+4. (Optional) Go to **Settings → Responsive Visibility** to add, rename, or resize your own custom breakpoints.
 
 == Frequently Asked Questions ==
 
-= Does this plugin support all Gutenberg blocks? =
+= Does this plugin work with all Gutenberg blocks? =
 
-Yes! **Responsive Visibility for Gutenberg Blocks** works seamlessly with all standard Gutenberg blocks and any additional blocks you add via other plugins or custom development. There are no compatibility issues.
+Yes. Responsive Visibility adds its controls to every standard Gutenberg block and works with most third-party and dynamic blocks too. It's a block extension, so the visibility options appear automatically wherever you edit.
 
-= Can I control visibility for specific devices? =
+= How do I add a custom breakpoint? =
 
-Absolutely! You can use this plugin to selectively **hide/show blocks** on mobile, tablet, or desktop devices, giving you full control over your site's responsive design.
+Go to **Settings → Responsive Visibility**. Add a new breakpoint, give it a name (for example "Widescreen"), and set its max-width in pixels. The plugin generates the matching CSS media query automatically, and the new breakpoint appears in every block's visibility controls. You can add as many as you like.
+
+= Does it remove the block or hide it with CSS? =
+
+It hides blocks with CSS classes and media queries — the block stays in the page HTML but is set to `display:none` on the device sizes you selected. This keeps the same markup for every visitor.
+
+= Will it work with caching plugins? =
+
+Yes. Because visibility is CSS-based, every visitor receives identical HTML, so it is fully compatible with full-page caching and CDNs. Visibility also updates live as the browser is resized.
+
+= Will it slow down my site? =
+
+No. The plugin outputs a single small inline `<style>` block in the page head and adds no extra HTTP requests or JavaScript on the front end. It stays lightweight by design.
+
+= Does it work with block themes and the Site Editor (FSE)? =
+
+Yes. Responsive Visibility works with block themes, classic themes, and Full Site Editing contexts.
+
+= Will my existing hidden blocks keep working after I update? =
+
+Yes. Backward compatibility is a core promise. Blocks hidden with older versions continue to work unchanged — legacy device settings are always honored, and your saved breakpoints are never regenerated or lost.
+
+= Does it work with Elementor or other page builders? =
+
+No. Responsive Visibility is built specifically for the WordPress block editor (Gutenberg) and does not control content rendered by Elementor or other page builders.
+
+= Can I use it on a multisite network? =
+
+Yes, the plugin works on standard WordPress multisite installations.
 
 = How can I become a Contributor? =
 
 If you want to contribute, go to our [Responsive Visibility GitHub Repository](https://github.com/bdkoder/responsive-visibility/) and see where you can help.
-
 
 == External Services ==
 
@@ -75,12 +130,12 @@ Service URL: https://dashboard.wowdevs.com/
 Privacy Policy: https://wowdevs.com/privacy-policy/
 Terms of Service: https://wowdevs.com/terms-and-conditions/
 
-
 == Screenshots ==
 
-1. **Visibility Settings**: Screenshot showing visibility controls for blocks.
-2. **Mobile & Desktop Visibility**: Example of a block appearing on desktop but hidden on mobile.
-3. **Gutenberg Editor**: Plugin settings integrated directly into the Gutenberg block editor.
+1. **Visibility Settings**: Per-block visibility controls in the Gutenberg Inspector sidebar.
+2. **Mobile & Desktop Visibility**: A block shown on desktop but hidden on mobile.
+3. **Custom Breakpoints**: The Settings → Responsive Visibility page for adding and editing unlimited breakpoints.
+4. **Gutenberg Editor**: Plugin controls integrated directly into the block editor.
 
 == Changelog ==
 
@@ -111,3 +166,8 @@ Terms of Service: https://wowdevs.com/terms-and-conditions/
 
 = 1.0.0 =
 * Initial Release
+
+== Upgrade Notice ==
+
+= 1.1.0 =
+Adds unlimited custom breakpoints and dynamic CSS generation. Fully backward compatible — existing hidden blocks keep working. Safe to update.
