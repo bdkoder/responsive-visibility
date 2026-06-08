@@ -1,0 +1,134 @@
+/**
+ * Responsive Visibility — React admin (Breakpoints settings page).
+ * Built by wp-scripts -> build/admin/style-index.css.
+ */
+
+.rv-admin {
+	max-width: 940px;
+
+	&__intro {
+		max-width: 900px;
+		color: #50575e;
+	}
+
+	&__card {
+		margin: 16px 0;
+		max-width: 900px;
+	}
+
+	&__table {
+		width: 100%;
+		border-collapse: collapse;
+		table-layout: fixed;
+
+		th {
+			text-align: left;
+			padding: 8px 10px;
+			font-size: 12px;
+			font-weight: 600;
+			color: #50575e;
+			border-bottom: 1px solid #e0e0e0;
+		}
+
+		td {
+			padding: 12px 10px;
+			vertical-align: middle;
+		}
+
+		.rv-col-label { width: 26%; }
+		.rv-col-max { width: 18%; }
+		.rv-col-range { width: 34%; }
+		.rv-col-actions { width: 22%; }
+	}
+
+	// Hairline separator between each breakpoint row (none after the last).
+	&__row td {
+		border-bottom: 1px solid #f0f0f1;
+	}
+
+	&__row:last-child td {
+		border-bottom: none;
+	}
+
+	&__range {
+		vertical-align: middle;
+		font-size: 12px;
+	}
+
+	&__actions-cell {
+		vertical-align: middle;
+	}
+
+	&__add {
+		margin-top: 12px;
+	}
+
+	&__footer {
+		max-width: 900px;
+		margin-top: 18px;
+		display: flex;
+		gap: 12px;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__boundary {
+		max-width: 900px;
+		margin: 16px 0;
+		padding: 12px;
+	}
+}
+
+.rv-bp-bar {
+	display: flex;
+	max-width: 900px;
+	margin: 14px 0 18px;
+	height: 46px;
+	border-radius: 6px;
+	overflow: hidden;
+	border: 1px solid #dcdcde;
+
+	&__seg {
+		color: #fff;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 3px 6px;
+		text-align: center;
+		overflow: hidden;
+		min-width: 54px;
+
+		strong {
+			font-size: 11px;
+			max-width: 100%;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		span {
+			opacity: 0.85;
+			font-size: 10px;
+		}
+	}
+}
+
+.rv-range-text {
+	white-space: nowrap;
+	color: #50575e;
+
+	&.is-invalid {
+		color: #b32d2e;
+	}
+}
+
+.rv-largest-badge {
+	display: inline-block;
+	color: #fff;
+	border-radius: 3px;
+	padding: 1px 6px;
+	font-size: 10px;
+	white-space: nowrap;
+	margin-left: 4px;
+}

@@ -39,12 +39,25 @@ hiddenBreakpoints : string[]  (default [])   e.g. ["mobile","widescreen"]
 
 ## Architecture (OOP — namespace `WowDevs\Responsive_Visibility`)
 
-Entry `responsive-visibility.php` requires three classes and calls `::register()`:
+Entry `responsive-visibility.php` requires four classes and calls `::register()`
+(`Rest_Breakpoints` unconditionally — REST requests aren't `is_admin()`; `Admin_Settings`
+only under `is_admin()`):
 
 - `Breakpoints` (`includes/class-breakpoints.php`) — defaults, slug→class map, sort,
   dynamic CSS on `wp_head` 99
 - `Render` (`includes/class-render.php`) — `render_block` filter, adds CSS classes
-- `Admin_Settings` (`includes/class-admin-settings.php`) — Settings page + form save
+- `Rest_Breakpoints` (`includes/class-rest-breakpoints.php`) — REST GET/POST/DELETE
+  `responsive-visibility/v1/breakpoints`; the ONLY option writer; owns the slug-lock sanitizer
+- `Admin_Settings` (`includes/class-admin-settings.php`) — Settings page: mounts the React
+  app (`build/admin`) + `window.rvAdmin` bootstrap
+
+### Admin settings page = React
+
+The Settings → Responsive Visibility page is a small React app (`src/admin`, built by
+wp-scripts → `build/admin`) using `@wordpress/components`, talking to the REST endpoint.
+No router, no Redux — `useState` + `@wordpress/api-fetch`. Saving/reset/validation all go
+through `Rest_Breakpoints` (slug-lock lives there now, not a PHP form). Block editor JS
+(`src/extentions`) is unchanged. See `.ai/admin-react/SKILL.md`.
 
 ### How a block gets hidden
 
@@ -115,7 +128,8 @@ guarded so it doesn't hide on every screen.
 | `responsive-visibility.php` | Entry: requires classes, `::register()`, asset enqueue + `wp_localize_script`, DCI SDK + review-prompt init |
 | `includes/class-breakpoints.php` | `get_defaults`, `class_for_slug`, `sort`, `dynamic_css` |
 | `includes/class-render.php` | `render_block` filter — adds classes (new array + legacy) |
-| `includes/class-admin-settings.php` | Settings page UI + `process_save` + inline add/remove JS |
+| `includes/class-admin-settings.php` | Options page; mounts React (`build/admin`) + `window.rvAdmin` bootstrap |
+| `includes/class-rest-breakpoints.php` | REST GET/POST/DELETE; slug-lock sanitizer (single writer of the option) |
 | `includes/feedbacks/` | Review-request prompt (rc) SDK. Do not modify. |
 | `dci/` | WowDevs analytics SDK. Do not modify. |
 | `src/.../index.js` | Registers the 3 `addFilter` hooks |
@@ -124,15 +138,15 @@ guarded so it doesn't hide on every screen.
 | `src/.../components/block-wrapper.js` | Editor preview; slug→class; device-type check |
 | `src/.../style.scss` | Fallback frontend CSS (hardcoded 767/1024/1025) |
 | `src/.../editor.scss` | Diagonal stripe on hidden blocks |
-| `src/admin/{js,css}/settings.*` | Admin settings-page source (vanilla JS + CSS). Built by esbuild. |
-| `scripts/build-admin.mjs` | esbuild builder → `assets/{js,css}/settings(.min).*` |
-| `build/`, `assets/js`, `assets/css` | Compiled output. **Never edit.** Git-ignored, shipped in zip. |
+| `src/admin/**` | React admin source (`index.js`, `components/*`, `lib/ranges.js`, `style.scss`). Built by wp-scripts. |
+| `webpack.config.js` | Adds the `admin/index` entry to the wp-scripts default config. |
+| `build/` | Compiled output (blocks + `admin`). **Never edit.** Git-ignored, shipped in zip. |
 | `assets/imgs/` | Source plugin icons (committed). |
 | `.ai/*/SKILL.md` | Per-feature deep docs — read the relevant one before editing that area. Asset pipeline: `.ai/assets/SKILL.md`. |
 
 ## NEVER
 
-1. Edit `build/`, `assets/js`, or `assets/css` — compiled, overwritten on next build (edit `src/`)
+1. Edit `build/` — compiled output, overwritten on next build (edit `src/`)
 2. Remove `hideOnDesktop/Tablet/Mobile` attrs — old sites depend on them
 3. Change legacy class names `mobile-hidden/tablet-hidden/desktop-hidden`
 4. Add a top-level admin menu (`add_menu_page`) — Settings submenu only

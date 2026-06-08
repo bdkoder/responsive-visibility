@@ -1,5 +1,12 @@
 # Skill: Settings Page UX (Range Hints · Visual Bar · Reset · Blank Guard)
 
+> ⚠️ **SUPERSEDED (implementation).** The settings page is now a **React** app — see
+> [`../admin-react/SKILL.md`](../admin-react/SKILL.md). The UX *concepts* below (range
+> hint, spectrum bar, reset, blank guard, the `dynamic_css` range mirror, 900px table)
+> still describe what the page does and remain the spec. But the vanilla-JS/PHP-form
+> *implementation* details here are historical — the live code is `src/admin/**` (React)
+> + `Rest_Breakpoints`. Read this for the behaviour, the React skill for the code.
+
 > Read before touching `includes/class-admin-settings.php`. This skill upgrades the
 > Breakpoints settings page (`wp-admin/options-general.php?page=responsive-visibility`)
 > from a plain form into an Elementor-grade breakpoint editor. **Zero changes to

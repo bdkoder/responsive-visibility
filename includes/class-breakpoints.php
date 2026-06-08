@@ -57,13 +57,15 @@ class Breakpoints {
 	}
 
 	public static function dynamic_css() {
-		$breakpoints = self::sort(
-			get_option( 'responsive_visibility_breakpoints', self::get_defaults() )
-		);
+		// Guard BEFORE sort() — sort() is array-typed; a corrupted non-array option
+		// (manual DB edit, bad migration) would TypeError-fatal inside wp_head.
+		$breakpoints = get_option( 'responsive_visibility_breakpoints', self::get_defaults() );
 
 		if ( empty( $breakpoints ) || ! is_array( $breakpoints ) ) {
 			return;
 		}
+
+		$breakpoints = self::sort( $breakpoints );
 
 		$css      = '';
 		$prev_min = 0;

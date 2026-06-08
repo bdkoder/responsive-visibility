@@ -48,9 +48,6 @@ wp-config.php
 #/wp-content/themes
 
 /build
-# Generated admin assets (built from src/admin by esbuild). Shipped in the zip, not committed.
-/assets/css
-/assets/js
 /node_modules
 .DS_Store
 *.zip

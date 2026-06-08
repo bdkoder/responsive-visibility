@@ -20,14 +20,16 @@ Users can define their own breakpoint pixel values (instead of the hardcoded def
 ## Full Data Flow — Start to Finish
 
 ### 1. User saves breakpoints on the settings page
-**File:** `includes/class-admin-settings.php` → `Admin_Settings::settings_page()`
+**File:** `includes/class-rest-breakpoints.php` → `Rest_Breakpoints::save_breakpoints()`
 
-User fills in the table rows (Label + Max Width px) and clicks Save. PHP:
-- Reads `$_POST['rv_label'][]` and `$_POST['rv_max_width'][]` arrays
-- Sanitizes: `sanitize_text_field()` for label, `absint()` for max_width, empty string → `null`
-- Auto-generates slug from label using `sanitize_title()` (e.g. "Widescreen" → "widescreen")
-- Ensures unique slugs (appends `-2`, `-3` if duplicate)
-- Sorts ascending by `max_width`, `null` values go last
+The settings page is a React app (`src/admin`, see `.ai/admin-react/SKILL.md`). Saving
+POSTs the rows to REST `responsive-visibility/v1/breakpoints`. The controller:
+- Sanitizes each row: `sanitize_text_field( wp_unslash( label ) )`, `absint`/`null` max_width
+- **Slug-lock (two-pass):** reuses each row's existing `slug` verbatim; mints
+  `sanitize_title( label )` (with `-2`,`-3` collision bump) ONLY for new rows — so renaming
+  a label never changes a slug. See `.ai/settings-hardening/SKILL.md`.
+- Validates (≥1 breakpoint, only one `null` max_width) → `WP_Error` 400 on failure
+- Sorts ascending by `max_width`, `null` last
 - Saves to `wp_options` key: `responsive_visibility_breakpoints`
 
 **Stored schema:**

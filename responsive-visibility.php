@@ -21,13 +21,17 @@ define( 'RV_VERSION', '1.1.0' );
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-breakpoints.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-render.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-rest-breakpoints.php';
 
 use WowDevs\Responsive_Visibility\Breakpoints;
 use WowDevs\Responsive_Visibility\Render;
+use WowDevs\Responsive_Visibility\Rest_Breakpoints;
 use WowDevs\Responsive_Visibility\Admin_Settings;
 
 Breakpoints::register();
 Render::register();
+// REST must register unconditionally — /wp-json requests are not is_admin().
+Rest_Breakpoints::register();
 
 if ( is_admin() ) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-admin-settings.php';

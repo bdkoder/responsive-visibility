@@ -1,5 +1,12 @@
 # Skill: Asset Pipeline (src → assets / build, enqueue, packaging)
 
+> ⚠️ **PARTLY SUPERSEDED.** The **esbuild admin pipeline** (`src/admin/{js,css}` →
+> `assets/`) described here was **removed**. The admin settings page now builds with
+> wp-scripts to `build/admin` (React) — see [`../admin-react/SKILL.md`](../admin-react/SKILL.md).
+> The **blocks pipeline** (`src/extentions` → `build/`), the git-vs-zip rules, and the
+> general "never edit generated output / page-scoped enqueue" principles below still
+> apply. Ignore the esbuild-specific and `assets/js`,`assets/css` parts.
+
 > Read before adding or editing any JS/CSS, changing build scripts, or touching how
 > assets are enqueued. This plugin has **two independent asset pipelines** — do not
 > mix them up. Getting this wrong ships broken or missing files to wordpress.org.
