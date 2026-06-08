@@ -1,5 +1,5 @@
 === Responsive Visibility — Show or Hide Blocks by Device, Custom Breakpoints & Conditions ===
-Version: 1.1.0
+Version: 1.2.0
 Author: wowdevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, hashibali
@@ -7,7 +7,7 @@ Donate link: https://buy.stripe.com/8x214f0XKf0cfop6a14wM02
 Tags: block visibility, conditional blocks, visibility, responsive, gutenberg
 Requires at least: 6.2
 Tested up to: 7.0
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -43,6 +43,7 @@ https://youtu.be/g7My09gTghI
 = Key Features =
 
 * **Hide or show blocks by device** (desktop, tablet, mobile, and any custom breakpoint)
+* **Login-status visibility** — show a block to everyone, logged-in users only, or logged-out visitors only
 * **Unlimited custom breakpoints** — add, rename, reorder, and set pixel widths from Settings → Responsive Visibility
 * **Dynamic CSS generation** — pixel values come from your saved breakpoints, never hardcoded
 * **Cache-safe responsive design** — CSS-based hiding that survives full-page caching
@@ -110,6 +111,14 @@ No. Responsive Visibility is built specifically for the WordPress block editor (
 
 Yes, the plugin works on standard WordPress multisite installations.
 
+= Can I show a block only to logged-in or logged-out users? =
+
+Yes. In the block's "Visibility Conditions" panel, choose who should see it — Everyone, Logged-in users only, or Logged-out visitors only. Unlike device hiding (which uses CSS), login-status blocks are removed on the server, so member-only content is never placed in the page source for guests.
+
+= Does login-status visibility work with caching plugins? =
+
+Yes, with one note: because login rules are evaluated on the server, your full-page cache must serve a different (or no) cache to logged-in users. Every major caching plugin does this by default. Device and breakpoint rules remain CSS-based and are unaffected by caching.
+
 = How can I become a Contributor? =
 
 If you want to contribute, go to our [Responsive Visibility GitHub Repository](https://github.com/bdkoder/responsive-visibility/) and see where you can help.
@@ -140,6 +149,11 @@ Terms of Service: https://wowdevs.com/terms-and-conditions/
 
 == Changelog ==
 
+= 1.2.0 =
+* Added: Login-status visibility — show any block to everyone, logged-in users only, or logged-out visitors only, from the new "Visibility Conditions" panel
+* Added: Login rules are evaluated server-side, so member-only content is never exposed in the page source for guests
+* Improved: Fully backward compatible — the new condition defaults to "Everyone", so existing blocks are unchanged
+
 = 1.1.0 [21st April 2026] =
 * Added: Custom breakpoints — configure any number of device breakpoints (mobile, tablet, desktop, widescreen, etc.) from Settings → Responsive Visibility (Thanks to prionkor)
 * Added: Dynamic CSS generation from saved breakpoints — no more hardcoded pixel values
@@ -169,6 +183,9 @@ Terms of Service: https://wowdevs.com/terms-and-conditions/
 * Initial Release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+Adds login-status visibility (show blocks to logged-in or logged-out users). Fully backward compatible — existing blocks are unchanged. Safe to update.
 
 = 1.1.0 =
 Adds unlimited custom breakpoints and dynamic CSS generation. Fully backward compatible — existing hidden blocks keep working. Safe to update.

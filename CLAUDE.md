@@ -35,7 +35,14 @@ hideOnDesktop / hideOnTablet / hideOnMobile : boolean (default false)
 
 // Current:
 hiddenBreakpoints : string[]  (default [])   e.g. ["mobile","widescreen"]
+
+// Conditions (v1.2.0):
+loginVisibility : string  (default "")   "" | "logged-in" | "logged-out"
 ```
+
+`loginVisibility` is a server-side **condition** (not CSS): `Render::render_block()` returns
+`''` to remove the block when the viewer's auth state mismatches. `''` = everyone (back-compat).
+See `.ai/login-status/SKILL.md`.
 
 ## Architecture (OOP — namespace `WowDevs\Responsive_Visibility`)
 

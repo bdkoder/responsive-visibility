@@ -4,7 +4,7 @@
  * Description:       Show or hide any block by device with unlimited custom breakpoints — no custom CSS, no theme lock-in. Cache-friendly and fully responsive.
  * Requires at least: 6.2
  * Requires PHP:      7.2
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            wowdevs
  * Author URI:        https://wowdevs.com/
  * License:           GPL-2.0+
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'RV_PLUGIN_FILE', __FILE__ );
-define( 'RV_VERSION', '1.1.0' );
+define( 'RV_VERSION', '1.2.0' );
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-breakpoints.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-render.php';
@@ -47,7 +47,8 @@ if ( is_admin() ) {
  */
 function responsive_visibility_init() {
 	$extentions = [
-		'responsive-visibility',
+		'responsive-visibility', // Device / breakpoint visibility.
+		'visibility-conditions', // Conditions (login-status, …) — editor-only.
 	];
 
 	foreach ( $extentions as $extention ) {
@@ -64,37 +65,46 @@ function responsive_visibility_init() {
 					$ext_assets['version'],
 					true
 				);
-
-				wp_register_style(
-					"{$extention}-editor-style",
-					plugin_dir_url( __FILE__ ) . 'build/extentions/' . $extention . '/index.css',
-					[],
-					$ext_assets['version']
-				);
-
 				wp_enqueue_script( "{$extention}-editor-script" );
-				wp_enqueue_style( "{$extention}-editor-style" );
 
-				wp_localize_script(
-					"{$extention}-editor-script",
-					'rvBreakpoints',
-					array(
-						'breakpoints' => get_option( 'responsive_visibility_breakpoints', Breakpoints::get_defaults() ),
-						'settingsUrl' => admin_url( 'options-general.php?page=responsive-visibility' ),
-					)
-				);
+				// Editor styles are optional — only some extensions ship a stylesheet.
+				$editor_css = plugin_dir_path( __FILE__ ) . 'build/extentions/' . $extention . '/index.css';
+				if ( file_exists( $editor_css ) ) {
+					wp_register_style(
+						"{$extention}-editor-style",
+						plugin_dir_url( __FILE__ ) . 'build/extentions/' . $extention . '/index.css',
+						[],
+						$ext_assets['version']
+					);
+					wp_enqueue_style( "{$extention}-editor-style" );
+				}
+
+				// Breakpoint data is only needed by the device-visibility extension.
+				if ( 'responsive-visibility' === $extention ) {
+					wp_localize_script(
+						"{$extention}-editor-script",
+						'rvBreakpoints',
+						array(
+							'breakpoints' => get_option( 'responsive_visibility_breakpoints', Breakpoints::get_defaults() ),
+							'settingsUrl' => admin_url( 'options-general.php?page=responsive-visibility' ),
+						)
+					);
+				}
 			}
 
 			if ( ! empty( $ext_assets ) && ! is_admin() ) {
-				wp_register_style(
-					"{$extention}-style",
-					plugin_dir_url( __FILE__ ) . 'build/extentions/' . $extention . '/style-index.css',
-					[],
-					$ext_assets['version'],
-					'all'
-				);
-
-				wp_enqueue_style( "{$extention}-style" );
+				// Frontend styles are optional — condition extensions hide server-side.
+				$frontend_css = plugin_dir_path( __FILE__ ) . 'build/extentions/' . $extention . '/style-index.css';
+				if ( file_exists( $frontend_css ) ) {
+					wp_register_style(
+						"{$extention}-style",
+						plugin_dir_url( __FILE__ ) . 'build/extentions/' . $extention . '/style-index.css',
+						[],
+						$ext_assets['version'],
+						'all'
+					);
+					wp_enqueue_style( "{$extention}-style" );
+				}
 			}
 		}
 	}
