@@ -1,4 +1,5 @@
 import { addFilter } from '@wordpress/hooks';
+import './editor.scss';
 import addVisibilityConditionAttributes from './components/attributes';
 import withVisibilityConditionsControls from './components/settings';
 

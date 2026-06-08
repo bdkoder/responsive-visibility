@@ -1,0 +1,16 @@
+// One condition rule, boxed and stacked. The Inspector is narrow, so controls stack
+// vertically rather than fighting for horizontal space.
+.rv-condition-row {
+	padding: 12px;
+	margin-bottom: 8px;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+
+	> * + * {
+		margin-top: 8px;
+	}
+
+	&__remove {
+		text-align: right;
+	}
+}

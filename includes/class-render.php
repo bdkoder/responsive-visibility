@@ -18,20 +18,11 @@ class Render {
 
 		$a = $block['attrs'];
 
-		// Login-status condition — server-side removal (NOT CSS: auth can't be tested in
-		// CSS, and member-only content must never sit in guest HTML). Runs before the
-		// device logic; '' (default) means everyone, so existing blocks are untouched.
-		if ( ! empty( $a['loginVisibility'] ) ) {
-			$login_visibility = $a['loginVisibility'];
-			if ( in_array( $login_visibility, array( 'logged-in', 'logged-out' ), true ) ) {
-				$logged_in = is_user_logged_in();
-				if ( 'logged-in' === $login_visibility && ! $logged_in ) {
-					return ''; // Logged-in-only block, viewer is a guest.
-				}
-				if ( 'logged-out' === $login_visibility && $logged_in ) {
-					return ''; // Logged-out-only block, viewer is a member.
-				}
-			}
+		// Visibility Conditions (login status, role, post type, …) — server-side removal.
+		// Conditions can't be done in CSS, and gated markup must never reach the browser.
+		// Runs before the device logic; no/disabled conditions leave the block untouched.
+		if ( Conditions::should_hide( $a ) ) {
+			return '';
 		}
 
 		$has_attr = ( ! empty( $a['hiddenBreakpoints'] ) && is_array( $a['hiddenBreakpoints'] ) )

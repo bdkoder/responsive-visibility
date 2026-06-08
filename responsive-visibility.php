@@ -20,10 +20,12 @@ define( 'RV_PLUGIN_FILE', __FILE__ );
 define( 'RV_VERSION', '1.2.0' );
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-breakpoints.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-conditions.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-render.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-rest-breakpoints.php';
 
 use WowDevs\Responsive_Visibility\Breakpoints;
+use WowDevs\Responsive_Visibility\Conditions;
 use WowDevs\Responsive_Visibility\Render;
 use WowDevs\Responsive_Visibility\Rest_Breakpoints;
 use WowDevs\Responsive_Visibility\Admin_Settings;
@@ -88,6 +90,15 @@ function responsive_visibility_init() {
 							'breakpoints' => get_option( 'responsive_visibility_breakpoints', Breakpoints::get_defaults() ),
 							'settingsUrl' => admin_url( 'options-general.php?page=responsive-visibility' ),
 						)
+					);
+				}
+
+				// Condition schema (types + value-control fields) for the conditions editor.
+				if ( 'visibility-conditions' === $extention ) {
+					wp_localize_script(
+						"{$extention}-editor-script",
+						'rvConditions',
+						Conditions::js_registry()
 					);
 				}
 			}

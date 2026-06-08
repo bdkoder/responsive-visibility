@@ -43,7 +43,7 @@ https://youtu.be/g7My09gTghI
 = Key Features =
 
 * **Hide or show blocks by device** (desktop, tablet, mobile, and any custom breakpoint)
-* **Login-status visibility** — show a block to everyone, logged-in users only, or logged-out visitors only
+* **Visibility Conditions** — show or hide blocks by login status, user role, specific user or post, post type, page type, or shortcode, with All/Any logic
 * **Unlimited custom breakpoints** — add, rename, reorder, and set pixel widths from Settings → Responsive Visibility
 * **Dynamic CSS generation** — pixel values come from your saved breakpoints, never hardcoded
 * **Cache-safe responsive design** — CSS-based hiding that survives full-page caching
@@ -111,13 +111,13 @@ No. Responsive Visibility is built specifically for the WordPress block editor (
 
 Yes, the plugin works on standard WordPress multisite installations.
 
-= Can I show a block only to logged-in or logged-out users? =
+= What are Visibility Conditions? =
 
-Yes. In the block's "Visibility Conditions" panel, choose who should see it — Everyone, Logged-in users only, or Logged-out visitors only. Unlike device hiding (which uses CSS), login-status blocks are removed on the server, so member-only content is never placed in the page source for guests.
+Conditions let you show or hide a block based on the visitor or the page: Login Status, User Role, Specific User, Specific Post/Page, Post Type, Page Type, or Shortcode. Enable conditions in the block's "Visibility Conditions" panel, choose Show or Hide, add one or more conditions, and pick whether All or Any of them must match. Unlike device hiding (which uses CSS), conditions are evaluated on the server, so gated content is never placed in the page source.
 
-= Does login-status visibility work with caching plugins? =
+= Do Visibility Conditions work with caching plugins? =
 
-Yes, with one note: because login rules are evaluated on the server, your full-page cache must serve a different (or no) cache to logged-in users. Every major caching plugin does this by default. Device and breakpoint rules remain CSS-based and are unaffected by caching.
+Conditions based on the logged-in user (Login Status, User Role, Specific User) work as long as your full-page cache serves a different (or no) cache to logged-in users — every major caching plugin does this by default. Device and breakpoint rules remain CSS-based and are unaffected by caching.
 
 = How can I become a Contributor? =
 
@@ -150,9 +150,10 @@ Terms of Service: https://wowdevs.com/terms-and-conditions/
 == Changelog ==
 
 = 1.2.0 =
-* Added: Login-status visibility — show any block to everyone, logged-in users only, or logged-out visitors only, from the new "Visibility Conditions" panel
-* Added: Login rules are evaluated server-side, so member-only content is never exposed in the page source for guests
-* Improved: Fully backward compatible — the new condition defaults to "Everyone", so existing blocks are unchanged
+* Added: Visibility Conditions engine — show or hide any block based on conditions, from the new "Visibility Conditions" panel
+* Added: Conditions — Login Status, User Role, Specific User, Specific Post/Page, Post Type, Page Type, and Shortcode, combined with All/Any logic and is/is-not operators
+* Added: Conditions are evaluated server-side, so gated content is never exposed in the page source
+* Improved: Fully backward compatible — conditions are disabled by default, so existing blocks are unchanged
 
 = 1.1.0 [21st April 2026] =
 * Added: Custom breakpoints — configure any number of device breakpoints (mobile, tablet, desktop, widescreen, etc.) from Settings → Responsive Visibility (Thanks to prionkor)
@@ -185,7 +186,7 @@ Terms of Service: https://wowdevs.com/terms-and-conditions/
 == Upgrade Notice ==
 
 = 1.2.0 =
-Adds login-status visibility (show blocks to logged-in or logged-out users). Fully backward compatible — existing blocks are unchanged. Safe to update.
+Adds the Visibility Conditions engine (login status, user role, post type, page type, and more). Fully backward compatible — conditions are off by default, so existing blocks are unchanged. Safe to update.
 
 = 1.1.0 =
 Adds unlimited custom breakpoints and dynamic CSS generation. Fully backward compatible — existing hidden blocks keep working. Safe to update.

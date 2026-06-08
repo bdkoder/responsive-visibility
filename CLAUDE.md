@@ -36,13 +36,20 @@ hideOnDesktop / hideOnTablet / hideOnMobile : boolean (default false)
 // Current:
 hiddenBreakpoints : string[]  (default [])   e.g. ["mobile","widescreen"]
 
-// Conditions (v1.2.0):
-loginVisibility : string  (default "")   "" | "logged-in" | "logged-out"
+// Conditions engine (v1.2.0):
+rvConditions : object  (default { enable:false, action:'show', relation:'all', rules:[] })
+  rules[]: { id, type, operator:'is'|'is_not', value }
 ```
 
-`loginVisibility` is a server-side **condition** (not CSS): `Render::render_block()` returns
-`''` to remove the block when the viewer's auth state mismatches. `''` = everyone (back-compat).
-See `.ai/login-status/SKILL.md`.
+`rvConditions` is the server-side **Visibility Conditions** engine (NOT CSS): inside
+`Render::render_block()`, `Conditions::should_hide($attrs)` returns `''` to remove the block
+when its rules say so. Each condition is one class in `includes/conditions/` extending
+`Condition` (`matches($value)`); `Conditions` (`includes/class-conditions.php`) is the
+registry + evaluator + JS schema (`js_registry()` → `window.rvConditions`). Tier-1 conditions:
+authentication (login status), role, user, post, post_type, static_page, shortcode. Disabled by
+default → existing blocks untouched. Editor UI is schema-driven (a new condition = 1 PHP class,
+no JS change). Lives in its own extension `src/extentions/visibility-conditions/`.
+See `.ai/conditions-engine/SKILL.md` and `.ai/conditions-rnd/SKILL.md`.
 
 ## Architecture (OOP — namespace `WowDevs\Responsive_Visibility`)
 
@@ -134,17 +141,16 @@ guarded so it doesn't hide on every screen.
 |------|---------|
 | `responsive-visibility.php` | Entry: requires classes, `::register()`, asset enqueue + `wp_localize_script`, DCI SDK + review-prompt init |
 | `includes/class-breakpoints.php` | `get_defaults`, `class_for_slug`, `sort`, `dynamic_css` |
-| `includes/class-render.php` | `render_block` filter — adds classes (new array + legacy) |
+| `includes/class-render.php` | `render_block` filter — conditions gate (`Conditions::should_hide` → `''`) then adds device classes (new array + legacy) |
+| `includes/class-conditions.php` | Conditions engine: registry, evaluator (`should_hide`), JS schema (`js_registry`) |
+| `includes/conditions/abstract-condition.php` | `Condition` base — `get_type/label/group/value_field`, `matches($value)` |
+| `includes/conditions/class-*.php` | One condition each: authentication, role, user, post, post_type, static_page, shortcode |
 | `includes/class-admin-settings.php` | Options page; mounts React (`build/admin`) + `window.rvAdmin` bootstrap |
 | `includes/class-rest-breakpoints.php` | REST GET/POST/DELETE; slug-lock sanitizer (single writer of the option) |
 | `includes/feedbacks/` | Review-request prompt (rc) SDK. Do not modify. |
 | `dci/` | WowDevs analytics SDK. Do not modify. |
-| `src/.../index.js` | Registers the 3 `addFilter` hooks |
-| `src/.../components/attributes.js` | Adds block attributes (legacy booleans + array) |
-| `src/.../components/settings.js` | Inspector toggles; reads `window.rvBreakpoints`; auto-migrates |
-| `src/.../components/block-wrapper.js` | Editor preview; slug→class; device-type check |
-| `src/.../style.scss` | Fallback frontend CSS (hardcoded 767/1024/1025) |
-| `src/.../editor.scss` | Diagonal stripe on hidden blocks |
+| `src/extentions/responsive-visibility/**` | Device extension: `index.js` (3 `addFilter`), `components/{attributes,settings,block-wrapper}.js`, `style.scss` (fallback 767/1024/1025), `editor.scss` (diagonal stripe). Reads `window.rvBreakpoints`; auto-migrates |
+| `src/extentions/visibility-conditions/**` | Conditions extension (editor-only): `index.js`, `lib/conditions.js` (reads `window.rvConditions`), `components/{ConditionsPanel,ConditionRow,ConditionValue,settings,attributes}.js`, `editor.scss`. Stable WP components only |
 | `src/admin/**` | React admin source (`index.js`, `components/*`, `lib/ranges.js`, `style.scss`). Built by wp-scripts. |
 | `webpack.config.js` | Adds the `admin/index` entry to the wp-scripts default config. |
 | `build/` | Compiled output (blocks + `admin`). **Never edit.** Git-ignored, shipped in zip. |

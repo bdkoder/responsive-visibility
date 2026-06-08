@@ -1,9 +1,11 @@
 # Feature Skill — Login-Status Visibility
 
 > Read before coding this feature. WHAT it does, WHY each decision, and the
-> backward-compat / cache rules that must hold. Status: **BUILT — shipped in v1.2.0.**
-> UI: a dedicated "Visibility Conditions" PanelBody (separate from the device panel) so future
-> conditions (role, schedule, date) slot in beside it.
+> backward-compat / cache rules that must hold. Status: **SUPERSEDED — folded into the
+> conditions engine as the `authentication` condition (v1.2.0).** The standalone
+> `loginVisibility` attribute described below was replaced by `rvConditions` before release;
+> the server-removal + cache reasoning here still holds and underpins the whole engine.
+> Build details now live in `.ai/conditions-engine/SKILL.md`. Keep this for the rationale.
 
 ## What
 
