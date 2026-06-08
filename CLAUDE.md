@@ -124,12 +124,15 @@ guarded so it doesn't hide on every screen.
 | `src/.../components/block-wrapper.js` | Editor preview; slug→class; device-type check |
 | `src/.../style.scss` | Fallback frontend CSS (hardcoded 767/1024/1025) |
 | `src/.../editor.scss` | Diagonal stripe on hidden blocks |
-| `build/` | Compiled output. **Never edit.** Run `npm run build`. |
-| `.ai/*/SKILL.md` | Per-feature deep docs — read the relevant one before editing that area |
+| `src/admin/{js,css}/settings.*` | Admin settings-page source (vanilla JS + CSS). Built by esbuild. |
+| `scripts/build-admin.mjs` | esbuild builder → `assets/{js,css}/settings(.min).*` |
+| `build/`, `assets/js`, `assets/css` | Compiled output. **Never edit.** Git-ignored, shipped in zip. |
+| `assets/imgs/` | Source plugin icons (committed). |
+| `.ai/*/SKILL.md` | Per-feature deep docs — read the relevant one before editing that area. Asset pipeline: `.ai/assets/SKILL.md`. |
 
 ## NEVER
 
-1. Edit `build/` — compiled, overwritten on next build
+1. Edit `build/`, `assets/js`, or `assets/css` — compiled, overwritten on next build (edit `src/`)
 2. Remove `hideOnDesktop/Tablet/Mobile` attrs — old sites depend on them
 3. Change legacy class names `mobile-hidden/tablet-hidden/desktop-hidden`
 4. Add a top-level admin menu (`add_menu_page`) — Settings submenu only

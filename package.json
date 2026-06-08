@@ -6,7 +6,9 @@
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
-		"build": "wp-scripts build",
+		"build": "wp-scripts build && npm run build:admin",
+		"build:admin": "node scripts/build-admin.mjs",
+		"watch:admin": "node scripts/build-admin.mjs --watch",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
@@ -16,10 +18,12 @@
 		"release": "bash scripts/release.sh",
 		"release:check": "npm run build && php -l responsive-visibility.php && find includes -name '*.php' -print0 | xargs -0 -n1 php -l && npm run zip",
 		"zip": "npm run build && rm -rf responsive-visibility responsive-visibility.zip responsive-visibility-v.$npm_package_version.zip && rsync -a --exclude-from=.buildignore . responsive-visibility && zip -qr responsive-visibility-v.$npm_package_version.zip responsive-visibility",
-		"start": "wp-scripts start"
+		"start": "wp-scripts start",
+		"start:hot": "node scripts/build-admin.mjs --watch & wp-scripts start"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^27.9.0"
+		"@wordpress/scripts": "^27.9.0",
+		"esbuild": "^0.23.1"
 	},
 	"dependencies": {
 		"classnames": "^2.5.1"

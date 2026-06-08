@@ -16,9 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+define( 'RV_PLUGIN_FILE', __FILE__ );
+define( 'RV_VERSION', '1.1.0' );
+
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-breakpoints.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-render.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-admin-settings.php';
 
 use WowDevs\Responsive_Visibility\Breakpoints;
 use WowDevs\Responsive_Visibility\Render;
@@ -26,7 +28,11 @@ use WowDevs\Responsive_Visibility\Admin_Settings;
 
 Breakpoints::register();
 Render::register();
-Admin_Settings::register();
+
+if ( is_admin() ) {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-admin-settings.php';
+	Admin_Settings::register();
+}
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.

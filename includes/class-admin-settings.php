@@ -7,12 +7,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Admin_Settings {
 
+	private static $hook = '';
+
 	public static function register() {
 		add_action( 'admin_menu', array( __CLASS__, 'settings_menu' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
 	}
 
 	public static function settings_menu() {
-		add_options_page(
+		self::$hook = add_options_page(
 			__( 'Responsive Visibility', 'responsive-visibility' ),
 			__( 'Responsive Visibility', 'responsive-visibility' ),
 			'manage_options',
@@ -21,15 +24,62 @@ class Admin_Settings {
 		);
 	}
 
+	public static function enqueue_assets( $hook ) {
+		if ( $hook !== self::$hook ) {
+			return;
+		}
+
+		$min = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		$dir = plugin_dir_path( RV_PLUGIN_FILE );
+
+		$css_rel = "assets/css/settings{$min}.css";
+		$js_rel  = "assets/js/settings{$min}.js";
+
+		$css_path = $dir . $css_rel;
+		$js_path  = $dir . $js_rel;
+
+		wp_register_style(
+			'rv-settings',
+			plugins_url( $css_rel, RV_PLUGIN_FILE ),
+			array(),
+			file_exists( $css_path ) ? filemtime( $css_path ) : RV_VERSION
+		);
+
+		wp_register_script(
+			'rv-settings',
+			plugins_url( $js_rel, RV_PLUGIN_FILE ),
+			array(),
+			file_exists( $js_path ) ? filemtime( $js_path ) : RV_VERSION,
+			true
+		);
+
+		wp_localize_script( 'rv-settings', 'rvSettings', array(
+			'labelPH'      => __( 'e.g. Widescreen', 'responsive-visibility' ),
+			'removeTxt'    => __( '✕ Remove', 'responsive-visibility' ),
+			'needMax'      => __( 'set a max-width', 'responsive-visibility' ),
+			'largest'      => __( '∞ Largest device', 'responsive-visibility' ),
+			'untitled'     => __( 'Untitled', 'responsive-visibility' ),
+			'multiBlank'   => __( 'Only the largest device can have a blank max-width. Set a value here.', 'responsive-visibility' ),
+			'resetConfirm' => __( 'Reset all breakpoints to the defaults (Mobile 767, Tablet 1024, Desktop)? This cannot be undone.', 'responsive-visibility' ),
+		) );
+
+		wp_enqueue_style( 'rv-settings' );
+		wp_enqueue_script( 'rv-settings' );
+	}
+
 	public static function settings_page() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
 		$saved = false;
+		$reset = false;
 		$error = '';
 
-		if ( isset( $_POST['rv_save_breakpoints'] ) && check_admin_referer( 'rv_save_breakpoints_nonce' ) ) {
+		if ( isset( $_POST['rv_reset_breakpoints'] ) && check_admin_referer( 'rv_save_breakpoints_nonce' ) ) {
+			delete_option( 'responsive_visibility_breakpoints' );
+			$reset = true;
+		} elseif ( isset( $_POST['rv_save_breakpoints'] ) && check_admin_referer( 'rv_save_breakpoints_nonce' ) ) {
 			$result = self::process_save();
 			if ( true === $result ) {
 				$saved = true;
@@ -39,7 +89,7 @@ class Admin_Settings {
 		}
 
 		$breakpoints = get_option( 'responsive_visibility_breakpoints', Breakpoints::get_defaults() );
-		self::render_page( $breakpoints, $saved, $error );
+		self::render_page( $breakpoints, $saved, $error, $reset );
 	}
 
 	private static function process_save() {
@@ -107,13 +157,15 @@ class Admin_Settings {
 		return true;
 	}
 
-	private static function render_page( array $breakpoints, $saved, $error ) {
+	private static function render_page( array $breakpoints, $saved, $error, $reset = false ) {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Responsive Visibility: Breakpoints', 'responsive-visibility' ); ?></h1>
 			<p><?php esc_html_e( 'Define breakpoints to control block visibility on different screen sizes. These values apply site-wide to all blocks using Responsive Visibility.', 'responsive-visibility' ); ?></p>
 
-			<?php if ( $saved ) : ?>
+			<?php if ( $reset ) : ?>
+				<div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Breakpoints reset to defaults.', 'responsive-visibility' ); ?></p></div>
+			<?php elseif ( $saved ) : ?>
 				<div class="notice notice-success is-dismissible"><p><?php esc_html_e( 'Breakpoints saved successfully.', 'responsive-visibility' ); ?></p></div>
 			<?php endif; ?>
 			<?php if ( $error ) : ?>
@@ -123,15 +175,18 @@ class Admin_Settings {
 			<form method="post" id="rv-settings-form">
 				<?php wp_nonce_field( 'rv_save_breakpoints_nonce' ); ?>
 
-				<table class="wp-list-table widefat fixed striped" style="max-width:680px;">
+				<div id="rv-range-bar" class="rv-bp-bar"></div>
+
+				<table class="wp-list-table widefat fixed striped rv-bp-table">
 					<thead>
 						<tr>
-							<th style="width:38%;"><?php esc_html_e( 'Label', 'responsive-visibility' ); ?></th>
-							<th style="width:32%;">
+							<th class="rv-col-label"><?php esc_html_e( 'Label', 'responsive-visibility' ); ?></th>
+							<th class="rv-col-max">
 								<?php esc_html_e( 'Max Width (px)', 'responsive-visibility' ); ?>
-								<span class="dashicons dashicons-editor-help" title="<?php esc_attr_e( 'Leave blank for the largest breakpoint (no upper limit). Example: Desktop has no max-width.', 'responsive-visibility' ); ?>" style="cursor:help;font-size:16px;vertical-align:middle;color:#72777c;"></span>
+								<span class="dashicons dashicons-editor-help rv-help-icon" title="<?php esc_attr_e( 'Leave blank for the largest breakpoint (no upper limit). Example: Desktop has no max-width.', 'responsive-visibility' ); ?>"></span>
 							</th>
-							<th></th>
+							<th class="rv-col-range"><?php esc_html_e( 'Hidden when', 'responsive-visibility' ); ?></th>
+							<th class="rv-col-actions"></th>
 						</tr>
 					</thead>
 					<tbody id="rv-breakpoints-body">
@@ -142,9 +197,10 @@ class Admin_Settings {
 								<input type="text" name="rv_label[]" value="<?php echo esc_attr( $bp['label'] ); ?>" class="regular-text" required placeholder="<?php esc_attr_e( 'e.g. Mobile', 'responsive-visibility' ); ?>" />
 							</td>
 							<td>
-								<input type="number" name="rv_max_width[]" value="<?php echo null !== $bp['max_width'] ? esc_attr( $bp['max_width'] ) : ''; ?>" min="1" max="99999" class="small-text" placeholder="∞" />
-								<span style="color:#888;">px</span>
+								<input type="number" name="rv_max_width[]" value="<?php echo null !== $bp['max_width'] ? esc_attr( $bp['max_width'] ) : ''; ?>" min="1" max="99999" class="small-text rv-max-width" placeholder="∞" />
+								<span class="rv-unit">px</span>
 							</td>
+							<td class="rv-range-cell"></td>
 							<td>
 								<button type="button" class="button rv-remove-row"><?php esc_html_e( '✕ Remove', 'responsive-visibility' ); ?></button>
 							</td>
@@ -157,62 +213,18 @@ class Admin_Settings {
 					<button type="button" class="button" id="rv-add-breakpoint"><?php esc_html_e( '+ Add Breakpoint', 'responsive-visibility' ); ?></button>
 				</p>
 
-				<p class="description" style="max-width:680px;">
+				<p class="description rv-settings-desc">
 					<?php esc_html_e( "Breakpoints are sorted automatically by max-width. The breakpoint with no max-width becomes the largest device (e.g., Desktop). Tip: match your theme's breakpoints for seamless integration.", 'responsive-visibility' ); ?>
 				</p>
 
-				<?php submit_button( __( 'Save Breakpoints', 'responsive-visibility' ), 'primary', 'rv_save_breakpoints' ); ?>
+				<p>
+					<?php submit_button( __( 'Save Breakpoints', 'responsive-visibility' ), 'primary', 'rv_save_breakpoints', false ); ?>
+					<button type="submit" name="rv_reset_breakpoints" class="button button-link-delete rv-reset-btn" formnovalidate>
+						<?php esc_html_e( 'Reset to defaults', 'responsive-visibility' ); ?>
+					</button>
+				</p>
 			</form>
 		</div>
-
-		<script>
-		(function () {
-			var body      = document.getElementById('rv-breakpoints-body');
-			var addBtn    = document.getElementById('rv-add-breakpoint');
-			var labelPH   = <?php echo wp_json_encode( __( 'e.g. Widescreen', 'responsive-visibility' ) ); ?>;
-			var removeTxt = <?php echo wp_json_encode( __( '✕ Remove', 'responsive-visibility' ) ); ?>;
-
-			function updateRemoveButtons() {
-				var rows = body.querySelectorAll('.rv-breakpoint-row');
-				body.querySelectorAll('.rv-remove-row').forEach(function (btn) {
-					btn.disabled = rows.length <= 1;
-				});
-			}
-
-			addBtn.addEventListener('click', function () {
-				var tr = document.createElement('tr');
-				tr.className = 'rv-breakpoint-row';
-				tr.innerHTML =
-					'<td><input type="hidden" name="rv_slug[]" value="" /><input type="text" name="rv_label[]" class="regular-text" required placeholder="' + labelPH + '" /></td>' +
-					'<td><input type="number" name="rv_max_width[]" min="1" max="99999" class="small-text" placeholder="∞" value="1400" /> <span style="color:#888;">px</span></td>' +
-					'<td><button type="button" class="button rv-remove-row">' + removeTxt + '</button></td>';
-				body.appendChild(tr);
-				updateRemoveButtons();
-				tr.querySelector('input[type="text"]').focus();
-			});
-
-			body.addEventListener('click', function (e) {
-				if (e.target && e.target.classList.contains('rv-remove-row')) {
-					if (body.querySelectorAll('.rv-breakpoint-row').length > 1) {
-						e.target.closest('tr').remove();
-						updateRemoveButtons();
-					}
-				}
-			});
-
-			document.getElementById('rv-settings-form').addEventListener('submit', function (e) {
-				var blanks = Array.from(body.querySelectorAll('input[type="number"][name="rv_max_width[]"]'))
-					.filter(function (el) { return el.value.trim() === ''; });
-				if (blanks.length > 1) {
-					e.preventDefault();
-					alert(<?php echo wp_json_encode( __( 'Only one breakpoint can have a blank max-width (the largest device). Please fill in max-width values for the others.', 'responsive-visibility' ) ); ?>);
-					blanks[0].focus();
-				}
-			});
-
-			updateRemoveButtons();
-		})();
-		</script>
 		<?php
 	}
 }
