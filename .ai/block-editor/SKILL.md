@@ -2,6 +2,13 @@
 
 > Everything about how this plugin integrates with the WordPress Gutenberg block editor. Read this before touching any JavaScript file in `src/extentions/responsive-visibility/`.
 
+> **Two editor extensions now (v1.2.0).** This file covers the **device** extension
+> (`src/extentions/responsive-visibility/` — breakpoint toggles). The **conditions** extension
+> (`src/extentions/visibility-conditions/` — login/role/post-type… via a schema-driven repeater)
+> is a separate, editor-only extension; see `.ai/conditions-engine/SKILL.md`. The
+> block-extension pattern below (addFilter on attributes + BlockEdit) is identical for both;
+> each feature lives in its own folder so they never entangle.
+
 ---
 
 ## Core Concept — This Is a Block Extension, Not a Block

@@ -116,9 +116,38 @@ This is the "simple plugin → conditions engine" expansion. Strong **Free vs Pr
 Free = device + breakpoints + login (Tier-1); **Pro = advanced conditions (Tier-2/3)**.
 See `.ai/competitors/` (VCEB's split is the template).
 
+## Extensibility / Pro contract (do NOT break — add-ons depend on it)
+
+Built so a Pro/3rd-party add-on adds conditions WITHOUT editing core:
+- **Register conditions:** `add_filter( 'responsive_visibility_condition_classes', … )` — append
+  FQ Condition subclass names. Add-on loads its own class files first. (Lazy `all()` runs after
+  plugins_loaded, so the filter is in place.)
+- **Register groups:** `add_filter( 'responsive_visibility_condition_groups', … )` — e.g. add
+  WooCommerce/ACF groups.
+- **`Condition` base contract is STABLE.** Abstract methods today: `get_type`, `get_label`,
+  `get_group`, `matches`. **NEVER add a new abstract method** (it fatals every existing
+  subclass incl. Pro) — add new behavior as a CONCRETE method with a safe default
+  (like `get_value_field()` → null).
+- **Unknown value-control types degrade safely:** `ConditionValue` renders any unrecognized
+  `control` as a text field, so a Pro condition shipping a new control type never white-screens
+  the free editor (Pro ships its own JS to render it richly).
+- **Storage is forward-compatible:** `rvConditions` is a single object; `ConditionsPanel`
+  spreads over `DEFAULT_CONFIG` and `should_hide` reads keys defensively, so adding fields
+  later won't break old saved blocks.
+
+Behavior note: conditions also apply during REST/server-render (a dynamic block's gated
+content never leaks via `wp-json`). The editor *canvas* is client-side, so blocks are never
+hidden while editing.
+
+## Audit status (v1.2.0)
+Reviewed: strict bool folding + null-guards correct; default-off back-compat holds; security
+(sanitize_key/absint per condition, allowlisted operator); namespace/class collision verified;
+Pro filters added. **Open for multiselect (Tier-1.5):** when a value can be an array, update
+`evaluate_rule`'s empty-value guard (`'' === $value`) to also treat `array()` as incomplete.
+
 ## NEVER / ALWAYS
 - NEVER hide via CSS for server conditions (leak); return `''` not `null`; never trust stored
-  `value`/`key` without allowlist/sanitize.
+  `value`/`key` without allowlist/sanitize; never add an abstract method to `Condition`.
 - ALWAYS default new attrs off/empty (back-compat); strict `in_array(…, true)` + null-guard;
   PHP is the source of truth for condition metadata (localize to JS); document cache caveat
   per condition; `npm run build` + `php -l` after changes.

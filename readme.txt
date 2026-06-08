@@ -12,17 +12,17 @@ Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Hide or show any Gutenberg block by device — unlimited custom breakpoints, no CSS, no theme lock-in. Mobile, tablet, desktop and beyond.
+Show or hide any Gutenberg block by device, custom breakpoint, or condition — login, user role, post type & more. No CSS, no code.
 
 == Description ==
 
-**Responsive Visibility** is a lightweight **block visibility** plugin that lets you **hide or show any Gutenberg block by device** — straight from the editor, with no custom CSS and no theme dependency. Whether you want to **hide blocks on mobile**, show content only on desktop, or fine-tune everything in between, it takes a single toggle in the Inspector sidebar — the block disappears on exactly the screens you choose.
+**Responsive Visibility** adds **block visibility** controls to every Gutenberg block. You choose which screen sizes a block shows on, and the plugin hides it on the rest with CSS media queries. There is no custom CSS to write and nothing to configure in your theme. To **hide a block on mobile** but keep it on desktop, open the block settings in the editor sidebar and switch the device off.
 
-Unlike other block visibility plugins that lock you into three fixed device sizes, Responsive Visibility gives you **unlimited custom breakpoints** so you can build truly **responsive blocks** for any screen. Add, rename, and resize as many breakpoints as your design needs — widescreen, 4K, small phone, anything — Elementor-style, all managed from a clean settings page.
+Most visibility plugins give you three fixed sizes. Responsive Visibility lets you define your own **custom breakpoints** instead, so you can add a widescreen rule for large monitors, a small-phone rule, or whatever your layout needs, and name each one. You manage them on a single settings page, the way Elementor handles breakpoints.
 
-In a mobile-first world, controlling **responsive visibility** for every block is essential. Show a lead-generation form in the desktop sidebar but hide it on phones. Hide a heavy hero image on mobile to speed up load time. Reveal an extra call-to-action only on ultrawide screens. Responsive Visibility makes **conditional blocks** effortless — no shortcodes, no code, no theme edits.
+A few things people use it for: hiding a large hero image on phones to cut load time, showing a different call to action on desktop, or keeping a sidebar widget off small screens. Any block becomes a **conditional block** without a shortcode or a line of code.
 
-For a detailed walkthrough, watch this tutorial:
+For a walkthrough, watch this tutorial:
 
 https://youtu.be/g7My09gTghI
 
@@ -35,9 +35,9 @@ https://youtu.be/g7My09gTghI
 = Why Responsive Visibility? =
 
 * **Unlimited custom breakpoints** — not just mobile/tablet/desktop. Define any number of named device ranges and the plugin generates the matching CSS media queries automatically.
-* **100% cache-friendly** — visibility is handled with CSS classes and media queries, so every visitor gets the same HTML. Works perfectly with any caching plugin, and updates live as the screen resizes.
-* **No theme lock-in** — integrates with any block theme or classic theme. No template edits, no dependencies.
-* **Backward compatible, always** — blocks hidden with earlier versions keep working after every update. Your existing settings are never lost.
+* **Cache-friendly** — visibility uses CSS classes and media queries, so every visitor gets the same HTML. It works with any caching plugin and updates live as the screen resizes.
+* **Works with any theme** — block themes or classic themes, with no template edits and no dependencies.
+* **Backward compatible** — blocks hidden with earlier versions keep working after an update, and your saved breakpoints are not lost.
 * **Built for Gutenberg** — controls live in the native block Inspector, right where you already edit.
 
 = Key Features =
@@ -51,12 +51,27 @@ https://youtu.be/g7My09gTghI
 * **Seamless Gutenberg integration** with native WordPress blocks and most third-party blocks
 * **Improve page experience** by hiding unnecessary or heavy elements on smaller screens
 
+= Visibility Conditions — Show or Hide Blocks by More Than Device =
+
+Version 1.2.0 adds **visibility conditions**, so you can hide or show a block based on the visitor or the page, not only the screen size. Add one or more conditions to a block, decide whether all of them or any of them have to match, and set whether a match shows the block or hides it. Conditions run on the server, so a hidden block is left out of the page instead of being hidden with CSS. That keeps member-only **conditional content** out of the page source where it could otherwise be read.
+
+* **Login status** — show member-only blocks to **logged-in** users, or a sign-up call-to-action only to **logged-out** visitors.
+* **User role** — show or hide blocks by **user role**: administrator, editor, author, subscriber, customer, or any custom role.
+* **Specific user** — personalize a block for one exact user by ID.
+* **Specific post or page** — show a block only on a chosen post or page.
+* **Post type** — target posts, pages, WooCommerce products, or any **custom post type** (single view or archive).
+* **Page type** — show on the front page, blog, single posts, archives, search results, or the 404 page.
+* **Shortcode** — gate a block on any custom PHP logic using a shortcode — a flexible, developer-friendly escape hatch.
+
+You can use conditions and device rules together on the same block. Login and role conditions work with caching plugins as long as logged-in visitors get an uncached page, which is the default in most caching setups.
+
 = Ideal For =
 
 * **Content creators** who want to hide large or secondary blocks on phones and tablets.
 * **Designers** building responsive Gutenberg layouts without writing one-off CSS.
 * **Site owners** tailoring what each device sees to boost engagement and speed.
-* **Agencies and developers** who need simple, reliable block visibility on client sites.
+* **Membership & WooCommerce sites** showing content by login status and user role — members, customers, and subscribers see exactly what's meant for them.
+* **Agencies and developers** who need simple, reliable block visibility and conditional content on client sites.
 
 = More Plugins by WowDevs =
 
@@ -119,6 +134,10 @@ Conditions let you show or hide a block based on the visitor or the page: Login 
 
 Conditions based on the logged-in user (Login Status, User Role, Specific User) work as long as your full-page cache serves a different (or no) cache to logged-in users — every major caching plugin does this by default. Device and breakpoint rules remain CSS-based and are unaffected by caching.
 
+= Can I show content only to logged-in users or specific user roles? =
+
+Yes. Use the **Login Status** condition to show or hide a block for logged-in or logged-out visitors, and the **User Role** condition to target administrators, editors, subscribers, customers, or any role. It's an easy way to build membership content, personalized blocks, and role-based layouts without extra plugins.
+
 = How can I become a Contributor? =
 
 If you want to contribute, go to our [Responsive Visibility GitHub Repository](https://github.com/bdkoder/responsive-visibility/) and see where you can help.
@@ -149,11 +168,13 @@ Terms of Service: https://wowdevs.com/terms-and-conditions/
 
 == Changelog ==
 
-= 1.2.0 =
+= 1.2.0 [8th June 2026] =
 * Added: Visibility Conditions engine — show or hide any block based on conditions, from the new "Visibility Conditions" panel
 * Added: Conditions — Login Status, User Role, Specific User, Specific Post/Page, Post Type, Page Type, and Shortcode, combined with All/Any logic and is/is-not operators
 * Added: Conditions are evaluated server-side, so gated content is never exposed in the page source
 * Improved: Fully backward compatible — conditions are disabled by default, so existing blocks are unchanged
+* Improved: Dashboard UI/UX for managing conditions and breakpoints
+* Requires: WordPress 6.2+ (uses WP_HTML_Tag_Processor)
 
 = 1.1.0 [21st April 2026] =
 * Added: Custom breakpoints — configure any number of device breakpoints (mobile, tablet, desktop, widescreen, etc.) from Settings → Responsive Visibility (Thanks to prionkor)

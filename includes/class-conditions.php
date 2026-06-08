@@ -50,13 +50,17 @@ class Conditions {
 	private static $conditions = null;
 
 	/**
-	 * Condition classes in editor display order. Add a new condition here (one line) plus its
+	 * Condition classes in editor display order. Add a core condition here (one line) plus its
 	 * class file — nothing else changes; the editor UI is schema-driven.
+	 *
+	 * Extensible: an add-on (e.g. a Pro tier) registers its own Condition subclasses via the
+	 * `responsive_visibility_condition_classes` filter — no core edits needed. The add-on is
+	 * responsible for loading its class files before the filter runs.
 	 *
 	 * @return string[]
 	 */
 	private static function classes() {
-		return array(
+		$classes = array(
 			Conditions\Authentication::class,
 			Conditions\Role::class,
 			Conditions\User::class,
@@ -65,6 +69,13 @@ class Conditions {
 			Conditions\Static_Page::class,
 			Conditions\Shortcode::class,
 		);
+
+		/**
+		 * Filters the registered visibility-condition classes.
+		 *
+		 * @param string[] $classes Fully-qualified Condition subclass names.
+		 */
+		return apply_filters( 'responsive_visibility_condition_classes', $classes );
 	}
 
 	/**
@@ -100,11 +111,19 @@ class Conditions {
 	 * @return array slug => label
 	 */
 	public static function groups() {
-		return array(
+		$groups = array(
 			'user' => __( 'User', 'responsive-visibility' ),
 			'post' => __( 'Post', 'responsive-visibility' ),
 			'misc' => __( 'Misc', 'responsive-visibility' ),
 		);
+
+		/**
+		 * Filters the condition groups shown in the editor. Add-ons can add groups
+		 * (e.g. WooCommerce, ACF) for their own conditions.
+		 *
+		 * @param array $groups slug => label.
+		 */
+		return apply_filters( 'responsive_visibility_condition_groups', $groups );
 	}
 
 	/**
