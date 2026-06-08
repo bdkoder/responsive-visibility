@@ -75,9 +75,12 @@ class Breakpoints {
 			$is_last   = ( $i === $count - 1 );
 			$max_width = isset( $bp['max_width'] ) ? absint( $bp['max_width'] ) : null;
 
-			if ( $is_last ) {
+			if ( $is_last && $count > 1 ) {
 				$css .= "@media (min-width:{$prev_min}px){body .{$class}{display:none!important}}";
 			} elseif ( 0 === $prev_min ) {
+				if ( null === $max_width ) {
+					continue; // A lone, uncapped breakpoint defines no hide range.
+				}
 				$css .= "@media (max-width:{$max_width}px){body .{$class}{display:none!important}}";
 				$prev_min = $max_width + 1;
 			} else {

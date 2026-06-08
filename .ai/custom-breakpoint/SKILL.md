@@ -20,7 +20,7 @@ Users can define their own breakpoint pixel values (instead of the hardcoded def
 ## Full Data Flow — Start to Finish
 
 ### 1. User saves breakpoints on the settings page
-**File:** `includes/admin-settings.php` → `rv_settings_page()`
+**File:** `includes/class-admin-settings.php` → `Admin_Settings::settings_page()`
 
 User fills in the table rows (Label + Max Width px) and clicks Save. PHP:
 - Reads `$_POST['rv_label'][]` and `$_POST['rv_max_width'][]` arrays
@@ -51,7 +51,7 @@ wp_localize_script(
     'responsive-visibility-editor-script',
     'rvBreakpoints',
     [
-        'breakpoints' => get_option('responsive_visibility_breakpoints', rv_default_breakpoints()),
+        'breakpoints' => get_option('responsive_visibility_breakpoints', Breakpoints::get_defaults()),
         'settingsUrl' => admin_url('options-general.php?page=responsive-visibility'),
     ]
 );
@@ -137,12 +137,12 @@ The diagonal stripe comes from `editor.scss` — it makes any element with a `-h
 ---
 
 ### 6. Dynamic CSS is generated on every frontend page load
-**File:** `responsive-visibility.php` → `responsive_visibility_dynamic_css()`
+**File:** `includes/class-breakpoints.php` → `Breakpoints::dynamic_css()`
 **Hook:** `wp_head` priority 99 (runs AFTER all styles are enqueued)
 
 Reads the saved breakpoints, sorts them, and generates media query CSS:
 ```php
-$breakpoints = get_option('responsive_visibility_breakpoints', rv_default_breakpoints());
+$breakpoints = get_option('responsive_visibility_breakpoints', Breakpoints::get_defaults());
 
 // Sort: null max_width values go last
 usort($breakpoints, function($a, $b) {
@@ -154,7 +154,7 @@ usort($breakpoints, function($a, $b) {
 
 $prev_min = 0;
 foreach ($breakpoints as $i => $bp) {
-    $class   = rv_class_for_slug($bp['slug']);
+    $class   = Breakpoints::class_for_slug($bp['slug']);
     $is_last = ($i === count($breakpoints) - 1);
 
     if ($is_last) {
@@ -194,13 +194,13 @@ echo '<style id="rv-dynamic-breakpoints">' . $css . '</style>';
 ---
 
 ### 7. PHP adds CSS classes to block HTML on render
-**File:** `responsive-visibility.php` → `responsive_visibility_render_block()`
+**File:** `includes/class-render.php` → `Render::render_block()`
 **Hook:** `render_block` filter
 
 ```php
 // New system: hiddenBreakpoints array
 foreach ($block['attrs']['hiddenBreakpoints'] ?? [] as $slug) {
-    $tags->add_class(rv_class_for_slug(sanitize_key((string)$slug)));
+    $tags->add_class(Breakpoints::class_for_slug(sanitize_key((string)$slug)));
 }
 
 // Legacy: old boolean attributes (never remove these checks)
@@ -216,7 +216,7 @@ if (!empty($block['attrs']['hideOnMobile']))  $tags->add_class('mobile-hidden');
 This is critical — changing these breaks existing sites:
 
 ```php
-// In PHP: rv_class_for_slug($slug)
+// In PHP: Breakpoints::class_for_slug($slug)
 // In JS:  rvClassForSlug(slug)
 // Both must always return identical values:
 
@@ -230,13 +230,13 @@ anything else → "rv-hidden--{slug}" // custom breakpoints
 
 ## Helper Functions
 
-### PHP (in `responsive-visibility.php`)
+### PHP (in `includes/class-breakpoints.php`)
 ```php
-rv_default_breakpoints()
+Breakpoints::get_defaults()
 // Returns the default 3-breakpoint array (mobile/tablet/desktop)
 // Used as fallback in get_option() calls and wp_localize_script()
 
-rv_class_for_slug($slug)
+Breakpoints::class_for_slug($slug)
 // Maps a breakpoint slug to its CSS class name
 // Always sanitize_key() the slug before passing here
 ```
@@ -244,7 +244,7 @@ rv_class_for_slug($slug)
 ### JavaScript (in `block-wrapper.js`)
 ```js
 rvClassForSlug(slug)
-// Identical logic to PHP rv_class_for_slug()
+// Identical logic to PHP Breakpoints::class_for_slug()
 // Must stay in sync with PHP version at all times
 ```
 
@@ -253,7 +253,7 @@ rvClassForSlug(slug)
 ## Settings Page
 
 **URL:** `wp-admin/options-general.php?page=responsive-visibility`
-**File:** `includes/admin-settings.php`
+**File:** `includes/class-admin-settings.php`
 **Option key:** `responsive_visibility_breakpoints`
 
 The settings page renders a table of rows. Each row = one breakpoint.
@@ -285,7 +285,7 @@ add_filter('option_responsive_visibility_breakpoints', function($breakpoints) {
 
 | Mistake | Why it breaks | Correct approach |
 |---------|--------------|-----------------|
-| Removing old `hideOnMobile/Tablet/Desktop` checks from PHP render | Old blocks stop hiding on frontend silently | Always keep BOTH checks in `responsive_visibility_render_block()` |
+| Removing old `hideOnMobile/Tablet/Desktop` checks from PHP render | Old blocks stop hiding on frontend silently | Always keep BOTH checks in `Render::render_block()` |
 | Changing `"mobile"` slug → `"mobile-hidden"` mapping | Existing blocks with `hiddenBreakpoints: ["mobile"]` get wrong CSS class | The legacy map in `rvClassForSlug` is permanent |
 | Setting all breakpoints with a `max_width` value (no null) | Last breakpoint only covers up to its max_width — viewports above that are uncovered | The last sorted breakpoint always gets `min-width` only, regardless of its `max_width` value |
 | Generating CSS before sorting breakpoints | Media queries appear in wrong order, ranges overlap incorrectly | Always sort (nulls last) before the CSS generation loop |

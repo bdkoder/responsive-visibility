@@ -16,6 +16,16 @@ class Render {
 			return $block_content;
 		}
 
+		$a       = $block['attrs'];
+		$has_attr = ( ! empty( $a['hiddenBreakpoints'] ) && is_array( $a['hiddenBreakpoints'] ) )
+			|| ! empty( $a['hideOnDesktop'] )
+			|| ! empty( $a['hideOnTablet'] )
+			|| ! empty( $a['hideOnMobile'] );
+
+		if ( ! $has_attr ) {
+			return $block_content;
+		}
+
 		$tags = new \WP_HTML_Tag_Processor( $block_content );
 		if ( ! $tags->next_tag() ) {
 			return $block_content;

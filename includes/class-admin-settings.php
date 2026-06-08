@@ -43,29 +43,46 @@ class Admin_Settings {
 	}
 
 	private static function process_save() {
-		$labels     = isset( $_POST['rv_label'] ) ? (array) $_POST['rv_label'] : array();
-		$max_widths = isset( $_POST['rv_max_width'] ) ? (array) $_POST['rv_max_width'] : array();
+		$labels     = isset( $_POST['rv_label'] ) ? (array) wp_unslash( $_POST['rv_label'] ) : array();
+		$max_widths = isset( $_POST['rv_max_width'] ) ? (array) wp_unslash( $_POST['rv_max_width'] ) : array();
+		$slugs_in   = isset( $_POST['rv_slug'] ) ? (array) wp_unslash( $_POST['rv_slug'] ) : array();
 
+		// Pass 1: reserve every existing (locked) slug so a new row can never steal one.
+		$slugs_used = array();
+		foreach ( $labels as $i => $label ) {
+			if ( '' === sanitize_text_field( $label ) ) {
+				continue;
+			}
+			$existing = isset( $slugs_in[ $i ] ) ? sanitize_key( $slugs_in[ $i ] ) : '';
+			if ( '' !== $existing ) {
+				$slugs_used[] = $existing;
+			}
+		}
+
+		// Pass 2: build, reusing locked slugs verbatim, minting only for brand-new rows.
 		$breakpoints = array();
-		$slugs_used  = array();
-
 		foreach ( $labels as $i => $label ) {
 			$label = sanitize_text_field( $label );
 			if ( '' === $label ) {
 				continue;
 			}
 
-			$slug          = sanitize_title( $label );
+			$existing = isset( $slugs_in[ $i ] ) ? sanitize_key( $slugs_in[ $i ] ) : '';
+			if ( '' !== $existing ) {
+				$slug = $existing;
+			} else {
+				$slug          = sanitize_title( $label );
+				$original_slug = $slug;
+				$counter       = 2;
+				while ( in_array( $slug, $slugs_used, true ) ) {
+					$slug = $original_slug . '-' . $counter;
+					++$counter;
+				}
+				$slugs_used[] = $slug;
+			}
+
 			$max_width_raw = trim( isset( $max_widths[ $i ] ) ? $max_widths[ $i ] : '' );
 			$max_width     = ( '' === $max_width_raw ) ? null : absint( $max_width_raw );
-
-			$original_slug = $slug;
-			$counter       = 2;
-			while ( in_array( $slug, $slugs_used, true ) ) {
-				$slug = $original_slug . '-' . $counter;
-				++$counter;
-			}
-			$slugs_used[] = $slug;
 
 			$breakpoints[] = array(
 				'slug'      => $slug,
@@ -121,6 +138,7 @@ class Admin_Settings {
 						<?php foreach ( $breakpoints as $bp ) : ?>
 						<tr class="rv-breakpoint-row">
 							<td>
+								<input type="hidden" name="rv_slug[]" value="<?php echo esc_attr( $bp['slug'] ); ?>" />
 								<input type="text" name="rv_label[]" value="<?php echo esc_attr( $bp['label'] ); ?>" class="regular-text" required placeholder="<?php esc_attr_e( 'e.g. Mobile', 'responsive-visibility' ); ?>" />
 							</td>
 							<td>
@@ -165,7 +183,7 @@ class Admin_Settings {
 				var tr = document.createElement('tr');
 				tr.className = 'rv-breakpoint-row';
 				tr.innerHTML =
-					'<td><input type="text" name="rv_label[]" class="regular-text" required placeholder="' + labelPH + '" /></td>' +
+					'<td><input type="hidden" name="rv_slug[]" value="" /><input type="text" name="rv_label[]" class="regular-text" required placeholder="' + labelPH + '" /></td>' +
 					'<td><input type="number" name="rv_max_width[]" min="1" max="99999" class="small-text" placeholder="∞" value="1400" /> <span style="color:#888;">px</span></td>' +
 					'<td><button type="button" class="button rv-remove-row">' + removeTxt + '</button></td>';
 				body.appendChild(tr);

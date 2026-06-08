@@ -656,7 +656,7 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 						<?php echo wp_kses_post( $plugin_msg ); ?>
 						<p>
 							<a
-								href="<?php echo esc_url( $admin_url ); ?>"><?php esc_html_e( 'Learn More', 'data-collector-insights' ); ?></a>?
+								href="<?php echo esc_url( $admin_url ); ?>"><?php esc_html_e( 'Learn More', 'responsive-visibility' ); ?></a>?
 						</p>
 						<input type="hidden" name="dci_name" value="<?php echo esc_html( $this->dci_name ); ?>">
 						<input type="hidden" name="dci_date_name" value="<?php echo esc_html( $this->dci_insights_date_name ); ?>">
@@ -665,13 +665,13 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 
 						<div class="dci-notice-button-wrap">
 							<button name="dci_allow_status" value="yes" class="dci-button-allow">
-								<?php esc_html_e( 'Yes, I\'d Love To Contribute', 'data-collector-insights' ); ?>
+								<?php esc_html_e( 'Yes, I\'d Love To Contribute', 'responsive-visibility' ); ?>
 							</button>
 							<button name="dci_allow_status" value="skip" class="dci-button-skip">
-								<?php esc_html_e( 'Skip For Now', 'data-collector-insights' ); ?>
+								<?php esc_html_e( 'Skip For Now', 'responsive-visibility' ); ?>
 							</button>
 							<button name="dci_allow_status" value="disallow" class="dci-button-disallow dci-button-danger">
-								<?php esc_html_e( 'No Thanks', 'data-collector-insights' ); ?>
+								<?php esc_html_e( 'No Thanks', 'responsive-visibility' ); ?>
 							</button>
 						</div>
 					</div>
@@ -706,8 +706,8 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 				</div>
 				<?php echo wp_kses_post( $plugin_msg ); ?>
 				<p>
-					<?php esc_html_e( 'What we', 'data-collector-insights' ); ?> <a
-						href="<?php echo esc_url( $admin_url ); ?>"><?php esc_html_e( 'collect', 'data-collector-insights' ); ?></a>?
+					<?php esc_html_e( 'What we', 'responsive-visibility' ); ?> <a
+						href="<?php echo esc_url( $admin_url ); ?>"><?php esc_html_e( 'collect', 'responsive-visibility' ); ?></a>?
 				</p>
 				<input type="hidden" name="dci_name" value="<?php echo esc_html( $this->dci_name ); ?>">
 				<input type="hidden" name="dci_date_name" value="<?php echo esc_html( $this->dci_insights_date_name ); ?>">
@@ -715,13 +715,13 @@ if ( ! class_exists( 'Insights_SDK' ) ) {
 				<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce( 'dci_sdk' ) ); ?>">
 				<p>
 					<button name="dci_allow_status" value="yes" class="button button-primary dci-button-allow">
-						<?php esc_html_e( 'Allow', 'data-collector-insights' ); ?>
+						<?php esc_html_e( 'Allow', 'responsive-visibility' ); ?>
 					</button>
 					<button name="dci_allow_status" value="skip" class="button dci-button-skip button-secondary">
-						<?php esc_html_e( 'I\'ll Skip For Now', 'data-collector-insights' ); ?>
+						<?php esc_html_e( 'I\'ll Skip For Now', 'responsive-visibility' ); ?>
 					</button>
 					<button name="dci_allow_status" value="disallow" class="button dci-button-disallow dci-button-danger">
-						<?php esc_html_e( 'Don\'t Allow', 'data-collector-insights' ); ?>
+						<?php esc_html_e( 'Don\'t Allow', 'responsive-visibility' ); ?>
 					</button>
 				</p>
 			</div>
