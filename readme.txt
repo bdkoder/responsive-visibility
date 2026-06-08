@@ -3,6 +3,7 @@ Version: 1.1.0
 Author: wowdevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, hashibali
+Donate link: https://buy.stripe.com/8x214f0XKf0cfop6a14wM02
 Tags: block visibility, conditional blocks, visibility, responsive, gutenberg
 Requires at least: 6.2
 Tested up to: 7.0
