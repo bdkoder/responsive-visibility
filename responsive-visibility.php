@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Responsive Visibility — Show or Hide Blocks by Device, Custom Breakpoints & Conditions
+ * Plugin Name:       Responsive Visibility — Show or Hide Blocks by Device & Conditions
  * Description:       Show or hide any block by device with unlimited custom breakpoints — no custom CSS, no theme lock-in. Cache-friendly and fully responsive.
  * Requires at least: 6.2
  * Requires PHP:      7.2
