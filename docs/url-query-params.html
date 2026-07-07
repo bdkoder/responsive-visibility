@@ -1,0 +1,95 @@
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:heading {"level":1} -->
+	<h1 class="wp-block-heading">URL Query Param Visibility</h1>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>This guide explains the URL Query Param condition inside Visibility Conditions. Use it when a block should appear only if the current URL includes a specific query string value. It is a server-side rule, so the block is removed before the page is sent to the visitor.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>This feature is useful for campaign links, preview links, QA checks, and targeted landing pages. If you send people to a URL such as <code>?preview</code> or <code>?utm_source=google</code>, you can show or hide a block only for that request. That makes the content more controlled without needing custom code or extra plugins.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">When to use it</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Show a block only on a campaign landing page.</li>
+		<li>Show a block only when a preview or test link is used.</li>
+		<li>Show a block only for a specific traffic source such as Google or Yahoo.</li>
+		<li>Show a block only for one promotion code or offer URL.</li>
+		<li>Hide internal notes unless the URL contains a special param.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Supported syntax</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>The condition field accepts three common patterns. Use a plain key when you only want to check whether the parameter exists. Use <code>key=value</code> when you want an exact value. Use <code>key IN [a, b]</code> when you want multiple allowed values. The rule is still one condition, so the existing All / Any selector continues to handle how multiple rules are combined.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:list -->
+	<ul>
+		<li><code>preview</code> means the URL must contain <code>?preview</code>.</li>
+		<li><code>utm_source=google</code> means the value must be exactly <code>google</code>.</li>
+		<li><code>utm_source IN [google, yahoo]</code> means either source is allowed.</li>
+		<li><code>campaign IN [summer, fall]</code> means either campaign value is allowed.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Examples</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Show a block only when <code>?preview</code> is present.</li>
+		<li>Show a promo only for <code>?utm_source=google</code>.</li>
+		<li>Show a banner for <code>?utm_source IN [google, yahoo]</code>.</li>
+		<li>Show a seasonal section for <code>?campaign IN [summer, fall]</code>.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">How it behaves</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>The rule checks the current request on the server. If the query parameter is missing, the condition returns false. If the parameter is present but the value does not match, the condition also returns false. That means the block stays hidden until the exact rule is satisfied.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Because this is a Visibility Condition, it works together with the rest of the condition system. You can combine it with login status, user role, post type, page type, or a specific post/page. You can also choose whether all rules must match or any one rule is enough.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Best practices</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Use the shortest rule that solves the problem.</li>
+		<li>Prefer clear campaign names and readable values.</li>
+		<li>Test the final URL in a front-end browser, not only in the editor.</li>
+		<li>Use the rule for targeted visibility, not for hiding important content without reason.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Related guides</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li><a href="./visibility-conditions.html">Visibility Conditions guide</a></li>
+		<li><a href="./responsive-visibility.html">Responsive Visibility guide</a></li>
+	</ul>
+	<!-- /wp:list -->
+</main>
+<!-- /wp:group -->

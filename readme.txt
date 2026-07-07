@@ -45,7 +45,7 @@ https://youtu.be/g7My09gTghI
 = Key Features =
 
 * **Hide or show blocks by device** (desktop, tablet, mobile, and any custom breakpoint)
-* **Visibility Conditions** — show or hide blocks by login status, user role, specific user or post, post type, page type, or shortcode, with All/Any logic
+* **Visibility Conditions** — show or hide blocks by login status, user role, specific user or post, post type, page type, URL query param, or shortcode, with All/Any logic
 * **Unlimited custom breakpoints** — add, rename, reorder, and set pixel widths from Settings → Responsive Visibility
 * **Dynamic CSS generation** — pixel values come from your saved breakpoints, never hardcoded
 * **Cache-safe responsive design** — CSS-based hiding that survives full-page caching
@@ -55,7 +55,7 @@ https://youtu.be/g7My09gTghI
 
 = Visibility Conditions — Show or Hide Blocks by More Than Device =
 
-Version 1.2.0 adds **visibility conditions**, so you can hide or show a block based on the visitor or the page, not only the screen size. Add one or more conditions to a block, decide whether all of them or any of them have to match, and set whether a match shows the block or hides it. Conditions run on the server, so a hidden block is left out of the page instead of being hidden with CSS. That keeps member-only **conditional content** out of the page source where it could otherwise be read.
+**Visibility Conditions** let you hide or show a block based on the visitor, the page, or the current request URL. Add one or more conditions to a block, choose whether all of them or any of them must match, and decide whether a match shows the block or hides it. Conditions run on the server, so hidden content is removed before the page is sent.
 
 * **Login status** — show member-only blocks to **logged-in** users, or a sign-up call-to-action only to **logged-out** visitors.
 * **User role** — show or hide blocks by **user role**: administrator, editor, author, subscriber, customer, or any custom role.
@@ -63,6 +63,7 @@ Version 1.2.0 adds **visibility conditions**, so you can hide or show a block ba
 * **Specific post or page** — show a block only on a chosen post or page.
 * **Post type** — target posts, pages, WooCommerce products, or any **custom post type** (single view or archive).
 * **Page type** — show on the front page, blog, single posts, archives, search results, or the 404 page.
+* **URL Query Param** — show or hide blocks by request data like `preview`, `utm_source=google`, or `utm_source IN [google, yahoo]`.
 * **Shortcode** — gate a block on any custom PHP logic using a shortcode — a flexible, developer-friendly escape hatch.
 
 You can use conditions and device rules together on the same block. Login and role conditions work with caching plugins as long as logged-in visitors get an uncached page, which is the default in most caching setups.
@@ -130,7 +131,7 @@ Yes, the plugin works on standard WordPress multisite installations.
 
 = What are Visibility Conditions? =
 
-Conditions let you show or hide a block based on the visitor or the page: Login Status, User Role, Specific User, Specific Post/Page, Post Type, Page Type, or Shortcode. Enable conditions in the block's "Visibility Conditions" panel, choose Show or Hide, add one or more conditions, and pick whether All or Any of them must match. Unlike device hiding (which uses CSS), conditions are evaluated on the server, so gated content is never placed in the page source.
+Conditions let you show or hide a block based on the visitor, the page, or the current request URL: Login Status, User Role, Specific User, Specific Post/Page, Post Type, Page Type, URL Query Param, or Shortcode. Enable conditions in the block's "Visibility Conditions" panel, choose Show or Hide, add one or more conditions, and pick whether All or Any of them must match. Unlike device hiding (which uses CSS), conditions are evaluated on the server, so gated content is never placed in the page source.
 
 = Do Visibility Conditions work with caching plugins? =
 
@@ -139,6 +140,10 @@ Conditions based on the logged-in user (Login Status, User Role, Specific User) 
 = Can I show content only to logged-in users or specific user roles? =
 
 Yes. Use the **Login Status** condition to show or hide a block for logged-in or logged-out visitors, and the **User Role** condition to target administrators, editors, subscribers, customers, or any role. It's an easy way to build membership content, personalized blocks, and role-based layouts without extra plugins.
+
+= Can I target URL query parameters? =
+
+Yes. Use the **URL Query Param** condition to show or hide a block when the current URL includes a parameter such as `preview`, `utm_source=google`, or `utm_source IN [google, yahoo]`. It is useful for campaign links, preview links, QA checks, and request-specific landing pages.
 
 = How can I become a Contributor? =
 
@@ -170,8 +175,10 @@ Terms of Service: https://wowdevs.com/terms-and-conditions/
 
 == Changelog ==
 
-= 1.2.1 [7th July 2026] =
-* Fixed: Minor bug fixes and performance improvements
+= 1.2.1 [8th July 2026] =
+* Added: URL Query Param visibility condition for campaign links, preview links, and request-specific rules
+* Added: Allow-list syntax for query params like `utm_source=google` or `utm_source IN [google, yahoo]`
+* Added: Dedicated docs for URL Query Param usage and examples
 
 = 1.2.0 [8th June 2026] =
 * Added: Visibility Conditions engine — show or hide any block based on conditions, from the new "Visibility Conditions" panel

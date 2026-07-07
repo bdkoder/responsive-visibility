@@ -210,8 +210,8 @@ const withBlockWrapperClass = createHigherOrderComponent((BlockListBlock) => {
 
         // Legacy fallback
         if (attributes?.hideOnDesktop) classObj["desktop-hidden"] = classObj["desktop-hidden"] || deviceType === "Desktop";
-        if (attributes?.hideOnTablet")  classObj["tablet-hidden"]  = classObj["tablet-hidden"]  || deviceType === "Tablet";
-        if (attributes?.hideOnMobile")  classObj["mobile-hidden"]  = classObj["mobile-hidden"]  || deviceType === "Mobile";
+        if (attributes?.hideOnTablet)  classObj["tablet-hidden"]  = classObj["tablet-hidden"]  || deviceType === "Tablet";
+        if (attributes?.hideOnMobile)  classObj["mobile-hidden"]  = classObj["mobile-hidden"]  || deviceType === "Mobile";
 
         const wrapperProps = {
             ...props.wrapperProps,

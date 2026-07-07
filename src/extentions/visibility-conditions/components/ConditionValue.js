@@ -39,6 +39,7 @@ const ConditionValue = ( { field, value, onChange } ) => {
 				hideLabelFromVision
 				value={ value }
 				options={ options }
+				help={ field.help || '' }
 				onChange={ onChange }
 				__nextHasNoMarginBottom
 			/>
@@ -52,6 +53,7 @@ const ConditionValue = ( { field, value, onChange } ) => {
 			type={ 'number' === field.control ? 'number' : 'text' }
 			value={ value }
 			placeholder={ field.placeholder || '' }
+			help={ field.help || '' }
 			onChange={ onChange }
 			__nextHasNoMarginBottom
 		/>

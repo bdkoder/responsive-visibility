@@ -36,6 +36,7 @@ require_once __DIR__ . '/conditions/class-user.php';
 require_once __DIR__ . '/conditions/class-post.php';
 require_once __DIR__ . '/conditions/class-post-type.php';
 require_once __DIR__ . '/conditions/class-static-page.php';
+require_once __DIR__ . '/conditions/class-url-param.php';
 require_once __DIR__ . '/conditions/class-shortcode.php';
 
 class Conditions {
@@ -67,6 +68,7 @@ class Conditions {
 			Conditions\Post::class,
 			Conditions\Post_Type::class,
 			Conditions\Static_Page::class,
+			Conditions\Url_Param::class,
 			Conditions\Shortcode::class,
 		);
 

@@ -13,7 +13,8 @@
 > ConditionValue,settings,attributes}.js`, `editor.scss`). Storage attr `rvConditions`.
 > Stable @wordpress/components only (no experimental); `__nextHasNoMarginBottom` on controls;
 > `TextControl type=number` (not experimental NumberControl). Evaluator returns `''` in
-> `Render::render_block`. **Tier-2/3 (date/url/system/country) not built.**
+> `Render::render_block`. **Tier-2 partial:** `url_param` shipped (see plan:
+> `.ai/conditions-engine/url-query-params.md`). Date/time/system/country not built.
 
 ## Goal
 
@@ -108,8 +109,9 @@ Why medium: not the logic — the value-control UI variety + the cache caveat.
 ## Phased rollout (ship incrementally)
 1. ✅ DONE — `Condition` base + registry + evaluator; `authentication` folded in. (foundation)
 2. ✅ DONE — React repeater UI + Tier-1 (role, user, post, post_type, static_page, shortcode).
-3. ⬜ Tier-2 (date/time family, url family) + datetime controls + cache docs.
-4. ⬜ Tier-3 last, optional/Pro (country/GeoIP, os/browser/language, visit/session count).
+3. ✅ PARTIAL — `url_param` shipped (existence / exact / allow-list syntax). Plan: `url-query-params.md`.
+4. ⬜ Tier-2 remainder (date/time family, url_string, ex_url, search_engine_url) + datetime controls + cache docs.
+5. ⬜ Tier-3 last, optional/Pro (country/GeoIP, os/browser/language, visit/session count).
 
 ## Product note
 This is the "simple plugin → conditions engine" expansion. Strong **Free vs Pro** candidate:
