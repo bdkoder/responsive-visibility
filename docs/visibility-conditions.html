@@ -1,0 +1,226 @@
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:heading {"level":1} -->
+	<h1 class="wp-block-heading">Visibility Conditions</h1>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>This guide explains the server-side feature in Responsive Visibility. If you want a block to appear only for certain visitors, certain user roles, certain user IDs, or certain page types, this is the feature you use. The plugin does the checking for you and decides whether the block should be included in the final page.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>This is different from device visibility. Device rules care about screen size. Visibility Conditions care about who is viewing the page and what kind of page it is. That distinction is important. A block hidden by device rules is usually still in the HTML and simply hidden with CSS. A block hidden by conditions is removed before the page is sent to the visitor. That makes conditions ideal for content that should not be shown at all unless the rule is met.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">What you can control</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>The plugin includes a few common condition types that cover many real use cases. You can show content only when a user is logged in. You can target a user role such as Administrator, Editor, Author, Subscriber, or any custom role installed on the site. You can show a block for one exact user ID. You can target a specific post or page. You can also target a page type such as front page, blog page, single post, page, archive, search results, or 404 page.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Login Status for guest-only or member-only content.</li>
+		<li>User Role for role-based access and role-specific layouts.</li>
+		<li>Specific User for personal or account-based content.</li>
+		<li>Specific Post / Page for one exact page or post.</li>
+		<li>Page Type for broad page-context rules.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>Depending on the site, these rules can be used for membership content, team-specific notes, special announcements, admin-only helper blocks, gated call-to-action sections, or page-specific messages that should only appear in one place.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">How the panel works</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>Open the block in Gutenberg and find the <strong>Visibility Conditions</strong> panel. Turn on <strong>Enable conditions</strong>. After that, choose whether the block should be shown or hidden when the conditions match. Then add one or more conditions and choose whether all of them must match or any one of them is enough. This gives you a simple rule system without requiring code.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>In plain language, the panel answers three questions. What do you want to do? When should it happen? Which condition or conditions should be checked? That is the whole system. You do not need to understand the code behind it to use it properly. You only need to know what content should be visible and under what rule.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:list -->
+	<ul>
+		<li><strong>Action</strong> decides whether the block is shown or hidden when the rule matches.</li>
+		<li><strong>When</strong> decides whether all conditions or any condition must match.</li>
+		<li><strong>Condition rows</strong> define the actual rule, such as logged in, administrator, or a specific user ID.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Why this is powerful</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>Visibility Conditions are powerful because they let you build content rules without extra plugins or custom templates. A membership site can show certain blocks only to members. A store can show special notes to customers. A blog can show admin-only helper content while the site is being edited. A landing page can hide a section from logged-out visitors until they sign in. These are common tasks, but they often become messy if you try to solve them with scattered code or page-specific hacks.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Because the rules run on the server, the result is cleaner than a simple visual hide. If a block should not be visible to a visitor, it does not need to be included in the page output. That is useful for privacy, cleaner HTML, and a more reliable user experience. It also helps reduce confusion when someone inspects the page source and wonders why the content is missing. It is missing because the rule said it should not be there.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">How to use it step by step</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Edit the page or post in Gutenberg.</li>
+		<li>Select the block you want to control.</li>
+		<li>Open the <strong>Visibility Conditions</strong> panel in the sidebar.</li>
+		<li>Turn on <strong>Enable conditions</strong>.</li>
+		<li>Choose whether the block should be shown or hidden.</li>
+		<li>Add one or more conditions.</li>
+		<li>Choose whether all conditions or any condition must match.</li>
+		<li>Save and test the result on the front end.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>If you are new to conditions, start with one rule. For example, use Login Status and set it to Logged in. That is usually the easiest rule to understand because the result is immediate and obvious. After that, add a second rule if you need more precision. The plugin supports building up rules step by step, so you do not have to solve the whole problem at once.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Examples that make sense</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Show a Family Pricing card only for logged-in users.</li>
+		<li>Show an admin note only for site administrators.</li>
+		<li>Show a private instruction block only for one team member with a specific user ID.</li>
+		<li>Show a message only on the home page or blog page.</li>
+		<li>Show a block only on one specific post or one specific page.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>These examples cover the most common uses, but the real strength of the system is that you can combine rules in a way that matches the site you are building. If you need a block shown only when a user is logged in and has a certain role, the panel supports that kind of logic. If you want a block hidden when a rule matches, you can do that too. The point is to match the content to the visitor, not force every visitor to see the same thing.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Understanding the action setting</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>The action setting is easy to overlook, but it matters. If you choose <strong>Show this block</strong>, the block will appear only when the conditions are true. If you choose <strong>Hide this block</strong>, the block will disappear when the conditions are true. That gives you two different ways to think about the same rule. Sometimes it is easier to think in positive terms, like “show this only to members.” Other times it is easier to think in negative terms, like “hide this from guests.”</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Both approaches work. Choose the one that makes the most sense for the people editing the content later. If your team reads “show this block” more naturally, use that. If they think in terms of hiding content, use that. Clear logic is more important than which wording you prefer.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Understanding all and any</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>The <strong>When</strong> setting controls how multiple conditions are combined. If you choose <strong>All conditions match</strong>, every rule must be true before the block is shown or hidden. If you choose <strong>Any condition matches</strong>, just one matching rule is enough. This is a simple but important difference. It lets you build either strict rules or flexible rules depending on what the page needs.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Example: Suppose you want a block to show only when the user is logged in and has the Subscriber role. That is an <strong>All</strong> rule. If either part is false, the block will not appear. But if you want a block to appear for users who are logged in or who are administrators, that is an <strong>Any</strong> rule. Understanding this difference will save you a lot of confusion while building complex pages.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Device rules versus conditions</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>It helps to repeat the difference one more time. Device rules are about size. Conditions are about visitors and page context. If the problem is “this block takes up too much space on mobile,” use device visibility. If the problem is “this block should only appear for logged-in users,” use visibility conditions. If the problem is both, use both.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>For example, you could hide a pricing section on tablet with device rules and then show it only to logged-in users with conditions. That would let you control both the layout and the audience at the same time. The plugin is flexible enough to support that kind of combination without making the interface complicated.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Best practices</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Start with one rule and test it before adding more.</li>
+		<li>Use clear condition choices so future editors can understand the logic.</li>
+		<li>Think carefully before hiding important content from visitors.</li>
+		<li>Use server-side conditions when the content should not appear in the page output.</li>
+		<li>Keep visitor rules separate from layout rules so the setup stays easy to read.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>If you keep the rules simple and readable, they will be easier to maintain over time. That matters on real sites, where content often changes and the people editing the page later may not be the same people who created the rule in the first place. Good visibility rules should be obvious when someone opens the block panel months later.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Common mistakes and how to avoid them</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Using a device rule when the real need is a user-based rule.</li>
+		<li>Forgetting to enable conditions before setting them.</li>
+		<li>Choosing the wrong action, such as hiding when you meant to show.</li>
+		<li>Setting a user role rule and then testing with the wrong account.</li>
+		<li>Building too many rules before testing the first one.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>The easiest way to avoid mistakes is to test one condition at a time. Confirm that Login Status works. Then confirm that User Role works. Then try a specific user ID. Once the small tests are correct, combine them if needed. That keeps troubleshooting simple and prevents you from guessing which rule caused a problem.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Caching note</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>Since these rules are server-side, they behave differently from CSS-only device hiding. The plugin checks the visitor and page before the response is sent. That is why gated content stays out of the page source. On sites that use caching, the normal expectation is that logged-in and logged-out visitors are handled correctly by the caching layer. That is how most WordPress caching setups already work.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>If you are working on a membership site, a store, or any site with access-controlled content, this distinction is worth understanding. The device feature is about the presentation layer. The conditions feature is about access logic. They are related, but they are not the same thing.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">When to use conditions</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>When the block should only be visible to a certain kind of visitor.</li>
+		<li>When the block should depend on a logged-in state.</li>
+		<li>When the block should depend on a role or user ID.</li>
+		<li>When the block should appear only on one page or page type.</li>
+		<li>When you need the content excluded from the page for users who do not match the rule.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>If you are unsure whether to use device visibility or conditions, ask one question: is the rule about the screen, or is it about the visitor? If it is about the screen, use the Responsive Visibility panel. If it is about the visitor or page context, use Visibility Conditions. That simple test will usually point you to the right tool.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Screenshot</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:group {"className":"rv-docs-placeholder","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group rv-docs-placeholder">
+		<!-- wp:paragraph {"align":"center"} -->
+		<p class="has-text-align-center"><strong>Screenshot placeholder</strong></p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:paragraph {"align":"center"} -->
+		<p class="has-text-align-center">Add an editor screenshot or rule example here later.</p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->

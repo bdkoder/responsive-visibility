@@ -1,0 +1,171 @@
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:heading {"level":1} -->
+	<h1 class="wp-block-heading">Responsive Visibility Docs</h1>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>This documentation is written for people who want a simple answer first: what does Responsive Visibility do, and why should I use it? In short, the plugin lets you control whether a Gutenberg block appears on a screen size, on a certain page, or for a certain user. That sounds technical, but the idea is easy. You decide when a block should be visible, and the plugin handles the rest.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Most WordPress sites do not need every block to appear everywhere. A big hero image may look perfect on a laptop but feel crowded on a phone. A secondary banner may help on desktop but get in the way on tablet. A pricing card may only matter for logged-in members. Without a tool like this, people often solve those problems with custom CSS, theme edits, page builder rules, or extra plugins. That works sometimes, but it is usually slower, harder to manage, and easier to break later.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Responsive Visibility keeps the control inside the block editor. That means the person building the page can make the decision right where the block already lives. No digging through theme files. No learning a custom coding system. No guessing how a rule will behave after the next update. The plugin is built to be practical: pick the block, choose the visibility rule, preview the result, and move on.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">What the plugin is for</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>The plugin has two main jobs. First, it handles device-based visibility. That means you can hide a block on mobile, tablet, desktop, widescreen, or any other breakpoint you define. Second, it handles server-side visibility conditions. That means you can show or hide a block based on real logic such as login status, user role, a specific user, a specific page, or the kind of page being viewed. These two systems solve different problems, and together they cover most content visibility needs on a modern WordPress site.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Use device visibility when the layout should change by screen size.</li>
+		<li>Use visibility conditions when the content should change by visitor, page, or account.</li>
+		<li>Use both together when a block needs to be hidden on certain devices and also restricted by user state.</li>
+		<li>Use custom breakpoints when the standard mobile/tablet/desktop sizes are not enough.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">What it is not</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>This plugin is not a full page builder. It does not replace Gutenberg, and it does not ask you to rebuild your site in a separate design system. It also is not a generic CSS framework. You are not writing your own media query rules for every block. Instead, the plugin adds a clean set of controls to the block sidebar and lets WordPress do the rendering work it is already good at. That makes the learning curve smaller and the result easier to maintain.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>It is also not only for developers. The code behind the scenes is solid, but the user experience is meant for normal site owners, editors, content teams, and clients who just need a clear yes-or-no answer: should this block be visible here or not? If you can edit a block, you can use the plugin.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Why people use it</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>There are a lot of real-world reasons to hide or show blocks. A site owner may want to remove a heavy image on small screens so the page feels faster and easier to scan. A designer may want one layout on desktop and a simpler one on mobile. A membership site may want a call-to-action visible only to logged-out visitors. An online store may want to show different content to guests and subscribers. A company site may want a special message visible only to administrators while editing and testing pages.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>These are not edge cases. They are normal parts of building a useful site. The challenge is doing it in a way that is easy to understand later. A lot of teams start with one-off CSS classes and custom conditions, then forget what each rule does after a few months. Responsive Visibility is meant to avoid that mess by keeping the rules attached to the block itself and labeling them in plain language.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">How the plugin thinks about visibility</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>Think of visibility as a set of simple questions. Should this block be hidden on small screens? Should it show only for logged-in users? Should it appear only on this page? Should it show for this exact user? The plugin answers those questions for you. Device visibility is handled on the front end with CSS rules. Visibility Conditions are handled on the server before the page is sent to the visitor. That difference matters because it means each feature is doing the job it is best at.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>The device tools are ideal when the content still exists on the page but should not appear on some screen sizes. The condition tools are ideal when the content should not be included at all for some visitors. If you understand that one distinction, the rest becomes much easier to use correctly.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Who this documentation is for</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Beginners who want a simple explanation of what each feature does.</li>
+		<li>Content editors who need to manage blocks without touching code.</li>
+		<li>Freelancers and agencies building sites for clients who need predictable control.</li>
+		<li>Developers who want to know how the plugin is structured before they customize it.</li>
+		<li>Site owners who just want the page to look cleaner and behave better on different devices.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Quick start</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>If you are in a hurry, here is the short version. Install and activate the plugin. Open any Gutenberg block. Use the <strong>Responsive Visibility</strong> panel to hide it on the screen sizes you do not want. If you need more control, go to the plugin settings and create custom breakpoints. If you need visitor-based control, open the <strong>Visibility Conditions</strong> panel and choose your rule. Save the page and preview it on the front end.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Want to hide a block on phones? Use device visibility.</li>
+		<li>Want to show a block only for members? Use visibility conditions.</li>
+		<li>Want to control both? Combine the two on the same block.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Recommended reading order</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>If this is your first time using the plugin, start with the device-based guide. That gives you the fastest win because the result is easy to see right away: hide a block on a screen size, preview it, and confirm the change. After that, read the conditions guide, because server-side visibility is more powerful and a little more abstract. Once you understand both, you will know which tool to use for each kind of problem.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:list -->
+	<ul>
+		<li><a href="./responsive-visibility.html">Responsive Visibility guide</a></li>
+		<li><a href="./visibility-conditions.html">Visibility Conditions guide</a></li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Good ways to use it</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Use it to reduce clutter on small screens.</li>
+		<li>Use it to show different calls to action to different visitors.</li>
+		<li>Use it to hide content that does not help a particular audience.</li>
+		<li>Use it to keep layouts simple without writing custom CSS for every section.</li>
+		<li>Use it to make pages feel more intentional instead of forcing every block to behave the same way everywhere.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Common mistakes</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>The most common mistake is using the wrong feature for the job. If a block only needs to disappear on a smaller screen, use the device controls. If a block should only be visible to logged-in users, use the conditions panel. Another mistake is hiding too many things at once. The plugin is helpful, but it should not be used to make a page confusing. If the content is important, make sure the reason for hiding it is real and useful.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Another common issue is forgetting to preview on the front end. The editor shows the controls, but the real test is the page itself. Finally, when using conditions, remember that login-based rules behave differently from device rules. Device rules are visual. Conditions are logical. Keeping that difference in mind prevents a lot of confusion later.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Before you move on</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>This plugin is designed to be useful without requiring you to become technical. You do not need to memorize CSS breakpoints or write custom PHP just to control a block. You only need to know what should be visible, when it should be visible, and who should see it. The next two guides go deeper into those decisions one at a time.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>If you want the simplest path, read the device guide first. If you already know you need member-only or role-based content, go straight to the conditions guide. Either way, the goal is the same: make the page easier to use for the right people on the right screen.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Screenshot</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:group {"className":"rv-docs-placeholder","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group rv-docs-placeholder">
+		<!-- wp:paragraph {"align":"center"} -->
+		<p class="has-text-align-center"><strong>Screenshot placeholder</strong></p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:paragraph {"align":"center"} -->
+		<p class="has-text-align-center">Add a welcome image or overview screenshot here later.</p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->

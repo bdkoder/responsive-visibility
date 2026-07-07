@@ -1,0 +1,189 @@
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:heading {"level":1} -->
+	<h1 class="wp-block-heading">Responsive Visibility</h1>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>This guide explains the device-based side of the plugin. If a block should appear on one screen size and disappear on another, this is the feature you use. The main idea is simple: you tell the block which devices to stay hidden on, and Responsive Visibility handles the display rules for you.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Most websites need some kind of responsive cleanup. Maybe the desktop layout has room for large images and extra banners, but those same elements feel too heavy on mobile. Maybe a row of pricing cards looks great on a wide screen, but on tablet the layout should be simplified. Maybe a call-to-action belongs near the top on desktop, but on mobile it needs to move or disappear so the page is easier to scroll through. This plugin gives you a fast, block-level way to handle those decisions.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">What this feature does</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>Responsive Visibility adds a panel to the sidebar of every Gutenberg block. In that panel, you can switch device types on or off. The labels are plain: <strong>Hide on Mobile</strong>, <strong>Hide on Tablet</strong>, <strong>Hide on Desktop</strong>, and any custom breakpoint you have added. If a switch is on, that device will not show the block. If the switch is off, the block remains visible on that device.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>The block stays in the page content.</li>
+		<li>The block is hidden only on the chosen screen sizes.</li>
+		<li>You can hide different blocks on different devices.</li>
+		<li>You can use the feature on standard blocks and many third-party blocks.</li>
+		<li>You can combine device visibility with visibility conditions if you need both kinds of control.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Why device visibility matters</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>Device visibility is not just about aesthetics. It is also about clarity, speed, and user comfort. A page that looks fine on desktop can feel overloaded on a small phone if every element is forced to stay visible. Hiding the right block at the right size can make the layout easier to scan, reduce visual noise, and help users find what matters faster. In some cases, it can also improve performance because users on smaller devices do not need to focus on content that does not help them.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>This is especially useful for images, promotional sections, sidebars, banners, big hero sections, large card grids, and anything else that takes a lot of space. It is also useful for design details that only make sense in one layout. A desktop user may benefit from a certain arrangement, while a phone user needs a simpler version. That is normal, and Responsive Visibility helps you build for both without creating separate pages.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">How to use it step by step</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Open the page or post in the Gutenberg editor.</li>
+		<li>Select the block you want to control.</li>
+		<li>Look at the right sidebar and find the <strong>Responsive Visibility</strong> panel.</li>
+		<li>Turn on the device options where the block should stay hidden.</li>
+		<li>Preview the page on the front end to confirm the result.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>If you are testing the feature for the first time, start with one block and one device. For example, hide an image on mobile and refresh the page on a phone-sized screen. That is the fastest way to understand how it behaves. Once that makes sense, you can apply the same logic to other blocks and other devices.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>The editor tells you what is selected, but the front end is where the rule matters. A good workflow is: set the visibility option, save the page, then check it in a browser at the screen size you care about. If you have a staging site or a preview tool, use that. If not, a normal browser resize is enough for most checks.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">The default breakpoints</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>By default, the plugin works with common device ranges like mobile, tablet, and desktop. These are the kinds of sizes most users already understand, so they are the best starting point. If you only need to hide a block on phones, you do not need to think about anything more complicated. If you need a tablet-only or desktop-only rule, the default sizes already cover that too.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>The important thing to remember is that the plugin uses the saved breakpoint settings to decide which screen ranges match each label. That means the labels are not just names. They represent the actual CSS rules that will control visibility on the front end. If you change the breakpoint settings, the matching behavior changes with them.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Custom breakpoints</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>Many sites need more than the standard three device sizes. You may want a Widescreen breakpoint for large monitors. You may want a small-phone breakpoint if your design has a narrow layout problem below a certain width. You may want to match the exact range where a section starts to look cramped. Responsive Visibility supports that by letting you add custom breakpoints in the plugin settings.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Custom breakpoints are useful because real websites do not always change neatly at the same widths. A theme may switch layout at one size while your content looks better at another. Instead of forcing your content to follow a generic rule, you can define the breakpoint that makes sense for your site. That gives you more control and avoids awkward in-between layouts.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>Example: A hero image may look good on desktop, but on very wide screens it starts to stretch too far or feel empty around the edges. In that case, create a Widescreen breakpoint and hide the image there. Another example: a three-column card row may look fine on desktop but needs to disappear on tablet because it becomes too tight. You can apply a tablet rule to that block and keep the page cleaner.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">How to think about the switches</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>The device switches are easy to misunderstand if you think of them as “show on this device” controls. They are actually “hide on this device” controls. That distinction matters. If you turn on <strong>Hide on Mobile</strong>, the block is hidden on mobile. If you leave it off, the block is not hidden on mobile. This pattern is repeated for every breakpoint in the panel. Once you get used to it, the logic is very fast to work with.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>That design is intentional. It keeps the user interface simple, and it makes it easy to stack multiple device rules on one block. For example, a block can be hidden on desktop and widescreen, but visible on tablet and mobile. Or a block can be hidden on mobile only. Or it can be hidden on every screen size except one. The feature is flexible enough to handle all of those cases without needing a separate system.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Practical examples</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Hide a large hero image on mobile so the page loads and reads better.</li>
+		<li>Hide a secondary banner on tablet because the main message already takes priority.</li>
+		<li>Hide a sidebar block on small screens to keep the layout focused.</li>
+		<li>Hide a pricing comparison table on phones and use a simpler block instead.</li>
+		<li>Hide a decorative image on wide screens if the composition feels empty or unbalanced.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>These examples are not just for marketing pages. You can use the same idea on blog posts, landing pages, product pages, documentation pages, and even the site editor. If something makes the page better on one device but worse on another, it is a candidate for device visibility.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Best practices</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Hide only what needs to be hidden. Do not remove useful content just because it is easier than redesigning it.</li>
+		<li>Test on real screen sizes, not only in the editor.</li>
+		<li>Use custom breakpoints when the default sizes do not match your design.</li>
+		<li>Keep the rule names and layout decisions simple so another person can understand them later.</li>
+		<li>Use the feature to improve the experience, not to hide important information from users without a reason.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>A good rule of thumb is this: if the page feels better for the visitor after hiding something on a device, then the rule is probably useful. If the page becomes confusing because too much is hidden, then the rule may be too aggressive. The plugin is a control tool, not a shortcut for poor layout decisions.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Common mistakes and how to avoid them</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:list -->
+	<ul>
+		<li>Forgetting that the control is a hide switch, not a show switch.</li>
+		<li>Hiding the wrong block because the editor selection changed.</li>
+		<li>Testing only on desktop while assuming the mobile layout will be fine.</li>
+		<li>Using device visibility when the real need is user-based access control.</li>
+		<li>Adding too many breakpoints without a clear reason.</li>
+	</ul>
+	<!-- /wp:list -->
+
+	<!-- wp:paragraph -->
+	<p>If you avoid those mistakes, the feature stays easy to manage. In general, use the smallest rule that solves the actual problem. That keeps the page clean and the settings understandable.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">When to use something else</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:paragraph -->
+	<p>If you need a block to appear only for logged-in users, user roles, or a specific user, do not use the device controls. That is the job of <strong>Visibility Conditions</strong>. Device visibility is for screen size. Conditions are for people and page context. Keeping those responsibilities separate makes your setup easier to reason about and less likely to break later.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:paragraph -->
+	<p>That separation also helps with maintenance. A future editor can look at the block and understand whether a rule is about layout or access. That clarity matters a lot on long-lived sites where many people may touch the same content over time.</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:heading {"level":2} -->
+	<h2 class="wp-block-heading">Screenshot</h2>
+	<!-- /wp:heading -->
+
+	<!-- wp:group {"className":"rv-docs-placeholder","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group rv-docs-placeholder">
+		<!-- wp:paragraph {"align":"center"} -->
+		<p class="has-text-align-center"><strong>Screenshot placeholder</strong></p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:paragraph {"align":"center"} -->
+		<p class="has-text-align-center">Add a front-end device visibility example here later.</p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
