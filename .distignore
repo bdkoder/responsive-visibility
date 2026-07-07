@@ -22,3 +22,4 @@ scripts
 src
 *.zip
 /responsive-visibility/
+docs
