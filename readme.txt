@@ -1,5 +1,5 @@
 === Responsive Visibility — Show or Hide Blocks by Device, Custom Breakpoints & Conditions ===
-Version: 1.2.0
+Version: 1.2.1
 Author: wowdevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, hashibali
@@ -7,7 +7,7 @@ Donate link: https://buy.stripe.com/8x214f0XKf0cfop6a14wM02
 Tags: block visibility, conditional blocks, visibility, responsive, gutenberg
 Requires at least: 6.2
 Tested up to: 7.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -23,6 +23,8 @@ Most visibility plugins give you three fixed sizes. Responsive Visibility lets y
 A few things people use it for: hiding a large hero image on phones to cut load time, showing a different call to action on desktop, or keeping a sidebar widget off small screens. Any block becomes a **conditional block** without a shortcode or a line of code.
 
 For a walkthrough, watch this tutorial:
+
+https://youtu.be/uEtQ4CSHMOY
 
 https://youtu.be/g7My09gTghI
 
@@ -167,6 +169,9 @@ Terms of Service: https://wowdevs.com/terms-and-conditions/
 4. **Gutenberg Editor**: Plugin controls integrated directly into the block editor.
 
 == Changelog ==
+
+= 1.2.1 [7th July 2026] =
+* Fixed: Minor bug fixes and performance improvements
 
 = 1.2.0 [8th June 2026] =
 * Added: Visibility Conditions engine — show or hide any block based on conditions, from the new "Visibility Conditions" panel

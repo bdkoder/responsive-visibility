@@ -3,6 +3,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { Button, Card, CardBody, Notice } from '@wordpress/components';
 import BreakpointRow from './BreakpointRow';
 import RangeBar from './RangeBar';
+import SupportBanner from './SupportBanner';
 import { computeRanges } from '../lib/ranges';
 
 const boot = window.rvAdmin || {};
@@ -188,6 +189,8 @@ export default function App() {
 					{ strings.save }
 				</Button>
 			</div>
+
+			<SupportBanner strings={ strings } />
 		</div>
 	);
 }
