@@ -1,16 +1,16 @@
 === Responsive Visibility — Show or Hide Blocks by Device, Custom Breakpoints & Conditions ===
-Version: 1.2.1
+Version: 1.2.2
 Author: wowdevs
 Author URI: https://wowdevs.com/
 Contributors: wowdevs, bdkoder, hashibali
 Donate link: https://buy.stripe.com/8x214f0XKf0cfop6a14wM02
-Tags: block visibility, conditional blocks, visibility, responsive, gutenberg
+Tags: block visibility, conditional blocks, hide blocks, responsive, gutenberg
 Requires at least: 6.2
-Tested up to: 7.0
-Stable tag: 1.2.1
+Tested up to: 7.1
+Stable tag: 1.2.2
 Requires PHP: 7.2
-License: GPLv3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Show or hide any Gutenberg block by device, custom breakpoint, or condition — login, user role, post type & more. No CSS, no code.
 
@@ -84,7 +84,7 @@ You can use conditions and device rules together on the same block. Login and ro
 
 == Installation ==
 
-Getting started with **Responsive Visibility** is easy! Follow these steps to start controlling your blocks' visibility based on devices:
+Install and activate the plugin, then open any block in the editor:
 
 1. Upload the plugin files to the `/wp-content/plugins/responsive-visibility` directory, or install it directly from the WordPress Plugins screen.
 2. Activate the plugin through the 'Plugins' screen in your WordPress admin panel.
@@ -103,11 +103,11 @@ Go to **Settings → Responsive Visibility**. Add a new breakpoint, give it a na
 
 = Does it remove the block or hide it with CSS? =
 
-It hides blocks with CSS classes and media queries — the block stays in the page HTML but is set to `display:none` on the device sizes you selected. This keeps the same markup for every visitor.
+Both, depending on the rule. **Device and breakpoint rules** hide the block with CSS media queries: the block stays in the page HTML and is set to `display:none` on the screen sizes you picked, so every visitor gets the same markup. **Visibility Conditions** (login status, role, post type and so on) run on the server and remove the block from the page before it is sent.
 
 = Will it work with caching plugins? =
 
-Yes. Because visibility is CSS-based, every visitor receives identical HTML, so it is fully compatible with full-page caching and CDNs. Visibility also updates live as the browser is resized.
+Yes. Device and breakpoint rules are CSS-based, so every visitor receives identical HTML and they work with any full-page cache or CDN. They also update live as the browser is resized. For Visibility Conditions, see the caching question below.
 
 = Will it slow down my site? =
 
@@ -151,13 +151,13 @@ If you want to contribute, go to our [Responsive Visibility GitHub Repository](h
 
 == External Services ==
 
-This plugin connects to one external services under the conditions described below. No data is ever sent without a clear user action or explicit opt-in.
+This plugin connects to one external service, only under the conditions described below. Nothing is sent without your explicit opt-in or action.
 
 = 1. Usage Analytics / Data Insights (dashboard.wowdevs.com) =
 
 **What it does:** Sends non-sensitive plugin usage data to help improve the plugin. This is part of the optional Data Insights program powered by the DCI SDK.
 
-**When it connects:** **Only if you explicitly opt in** when prompted. No data is ever sent without your consent. You can opt out at any time from the Sky Addons dashboard.
+**When it connects:** **Only if you explicitly opt in** when prompted. No data is sent without your consent. When you deactivate the plugin, an optional feedback form may appear; its answer is sent only if you submit it.
 
 **Data sent:** Plugin version, WordPress version, active theme, site language, and similar non-personal environment data. No passwords, user content, or personally identifiable information is transmitted.
 
@@ -174,6 +174,10 @@ Terms of Service: https://wowdevs.com/terms-and-conditions/
 4. **Gutenberg Editor**: Plugin controls integrated directly into the block editor.
 
 == Changelog ==
+
+= 1.2.2 [17th November 2026] =
+* Improved: System improvements
+* Improved: Compatibility with WordPress 7.1
 
 = 1.2.1 [8th July 2026] =
 * Added: URL Query Param visibility condition for campaign links, preview links, and request-specific rules

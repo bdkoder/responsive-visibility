@@ -35,7 +35,7 @@ Use a WordPress.org SVN password (application password), not your normal account
 | `readme.txt` | `Version:` |
 | `readme.txt` | `Stable tag:` |
 
-Also update `readme.txt` changelog:
+Also add the same entry to `changelog.txt` (full history) and the `readme.txt` changelog:
 ```
 = X.Y.Z [Day Month Year] =
 * Added: ...
@@ -45,10 +45,14 @@ Also update `readme.txt` changelog:
 ### Step 2 — Local pre-flight (run this before any git commands)
 
 ```bash
-npm run release
+pnpm release
 ```
 
 This script checks all version strings, `Requires PHP`, `Requires at least`, changelog entry, PHP syntax, builds assets, creates zip, and verifies zip contents. It will fail loudly if anything is wrong.
+
+Output (pnpm, same system as sky-website-tools): `scripts/zip.js` builds, stages `dist/responsive-visibility/`
+(kept for inspection) and writes `dist/responsive-visibility-{version}.zip`. What ships = everything not in
+`.buildignore`. `dist/` is git-ignored and in `.distignore`, so it never reaches SVN.
 
 ### Step 3 — Commit, tag, push
 

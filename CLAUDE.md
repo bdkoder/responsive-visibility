@@ -149,6 +149,7 @@ guarded so it doesn't hide on every screen.
 | `includes/class-rest-breakpoints.php` | REST GET/POST/DELETE; slug-lock sanitizer (single writer of the option) |
 | `includes/feedbacks/` | Review-request prompt (rc) SDK. Do not modify. |
 | `dci/` | WowDevs analytics SDK. Do not modify. |
+| `includes/wowdevs-offer/` | wowDevs sale banner (wp-admin, admins only). Shared copy, identical in every wowDevs plugin incl. `offer.json`; product key `responsive-visibility`. Never edit here alone: spec in Sky Addons `.ai/features/wowdevs-offer/`. |
 | `src/extentions/responsive-visibility/**` | Device extension: `index.js` (3 `addFilter`), `components/{attributes,settings,block-wrapper}.js`, `style.scss` (fallback 767/1024/1025), `editor.scss` (diagonal stripe). Reads `window.rvBreakpoints`; auto-migrates |
 | `src/extentions/visibility-conditions/**` | Conditions extension (editor-only): `index.js`, `lib/conditions.js` (reads `window.rvConditions`), `components/{ConditionsPanel,ConditionRow,ConditionValue,settings,attributes}.js`, `editor.scss`. Stable WP components only |
 | `src/admin/**` | React admin source (`index.js`, `components/*`, `lib/ranges.js`, `style.scss`). Built by wp-scripts. |
@@ -171,7 +172,7 @@ guarded so it doesn't hide on every screen.
 
 ## ALWAYS
 
-1. `npm run build` after editing `src/`
+1. `pnpm build` after editing `src/`
 2. Check both `hiddenBreakpoints` AND legacy booleans in render logic
 3. `Breakpoints::get_defaults()` as the `get_option` fallback
 4. Sort breakpoints (nulls last) before generating CSS
@@ -181,11 +182,22 @@ guarded so it doesn't hide on every screen.
 ## Workflow
 
 ```bash
-npm run build                                   # after any src/ change
+pnpm build                                   # after any src/ change
 php -l responsive-visibility.php
 find includes -name '*.php' -print0 | xargs -0 -n1 php -l
-npm run release:check                           # build + lint PHP + zip
+pnpm release:check                           # lint PHP + build + zip → dist/
 ```
+
+pnpm only (`packageManager` in package.json, `.npmrc` node-linker=hoisted); never npm or package-lock.json.
+Zip = `scripts/zip.js` → `dist/responsive-visibility-{version}.zip` + staged `dist/responsive-visibility/`.
+Public HTML guides (not shipped) live in `.ai/docs/`.
+
+## Changelog
+
+`changelog.txt` (root, shipped) is the full history. Every release adds the same entry, newest on top, to
+both `changelog.txt` and `readme.txt` `== Changelog ==`; `pnpm release` fails if either lacks the version.
+Format: `= X.Y.Z [17th November 2026] =` then `* Added:` / `* Fixed:` / `* Improved:` lines (~110 chars max).
+Only add entries when the owner asks for a release or a user-facing change ships.
 
 Settings: `wp-admin/options-general.php?page=responsive-visibility`
 

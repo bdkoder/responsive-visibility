@@ -1,0 +1,31 @@
+{
+  "revision": 7,
+  "rules": {"quiet_days": 3, "max_closes": 3},
+  "labels": {"button": "Claim Deal", "trust": "14-day money-back guarantee", "ends_in": "Ends in"},
+  "campaigns": [
+    {"id": "bf26", "name": "Black Friday", "start": "2026-11-16", "end": "2026-11-29", "max_pct": 80, "accent": "#00ffff", "coupon": ""},
+    {"id": "cm26", "name": "Cyber Monday", "start": "2026-11-30", "end": "2026-12-10", "max_pct": 80, "accent": "#ff4fd8", "coupon": ""},
+    {"id": "ny27", "name": "New Year", "start": "2026-12-25", "end": "2027-01-07", "max_pct": 80, "accent": "#ffc83d", "coupon": ""}
+  ],
+  "waves": [
+    {"key": "live", "offset": 0, "dashboard": true, "title": "{name} Sale", "line": "Our lowest price of the year on {product}."},
+    {"key": "again", "offset": 0, "title": "Still thinking about {product}?", "line": "Your {name} price is still here."},
+    {"key": "soon", "offset": -7, "title": "{name} Sale ends this week", "line": "Get {product} before the price goes back up."},
+    {"key": "last", "offset": -4, "title": "Final days of the {name} Sale", "line": "Lock in {product} at the lowest price."},
+    {"key": "final", "offset": -1, "dashboard": true, "countdown": true, "breaks_quiet": true, "title": "Last day of the {name} Sale", "line": "The price goes back up at midnight."}
+  ],
+  "products": {
+    "sky-addons": {"name": "Sky Addons Pro", "url": "https://skyaddons.com/pricing/"},
+    "sky-sliders": {"name": "Sky Sliders Pro", "url": "https://skysliders.com/pricing/"},
+    "spin-wheel": {"name": "Ultimate Spin Wheel Pro", "url": "https://wowdevs.com/plugins/spin-wheel"},
+    "anti-adblock": {"name": "Ultimate Anti AdBlock Pro", "url": "https://wowdevs.com/plugins/anti-adblock"},
+    "smart-cart": {"name": "all wowDevs Pro plugins", "url": "https://wowdevs.com/"},
+    "tidy-terms": {"name": "all wowDevs Pro plugins", "url": "https://wowdevs.com/"},
+    "dynamic-tags": {"name": "all wowDevs Pro plugins", "url": "https://wowdevs.com/"},
+    "responsive-visibility": {"name": "all wowDevs Pro plugins", "url": "https://wowdevs.com/"}
+  },
+  "bundle": {"name": "all wowDevs Pro plugins", "url": "https://wowdevs.com/"},
+  "all_deals": {"name": "View all deals", "url": "https://wowdevs.com/"},
+  "pricing_path": "/pricing/",
+  "sites": {"skyaddons.com": "Sky Addons Pro", "skysliders.com": "Sky Sliders Pro", "wowdevs.com": "all wowDevs Pro plugins"}
+}

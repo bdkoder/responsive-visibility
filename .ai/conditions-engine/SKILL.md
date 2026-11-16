@@ -152,4 +152,4 @@ Pro filters added. **Open for multiselect (Tier-1.5):** when a value can be an a
   `value`/`key` without allowlist/sanitize; never add an abstract method to `Condition`.
 - ALWAYS default new attrs off/empty (back-compat); strict `in_array(…, true)` + null-guard;
   PHP is the source of truth for condition metadata (localize to JS); document cache caveat
-  per condition; `npm run build` + `php -l` after changes.
+  per condition; `pnpm build` + `php -l` after changes.

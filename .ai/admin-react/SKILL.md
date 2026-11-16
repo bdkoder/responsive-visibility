@@ -120,9 +120,9 @@ module.exports = {
 };
 ```
 
-- `npm run build` → `build/admin/index.js` + `index.css` + `index.asset.php` (plus the
+- `pnpm build` → `build/admin/index.js` + `index.css` + `index.asset.php` (plus the
   existing block build under `build/extentions/`).
-- `npm run start` watches both. (`start:hot`/`build:admin`/`watch:admin` esbuild scripts
+- `pnpm start` watches both. (`start:hot`/`build:admin`/`watch:admin` esbuild scripts
   are removed.)
 - `build/` is git-ignored, shipped in the zip (`.buildignore`/`.distignore` exclude
   `src`, not `build`). `assets/imgs` stays; `assets/js`,`assets/css` (+ their gitignore
@@ -177,7 +177,7 @@ module.exports = {
 - [ ] `class-render.php` / `class-breakpoints.php` untouched; frontend output identical.
 - [ ] REST writes require manage_options + nonce (403 otherwise).
 - [ ] React + REST load ONLY on the settings hook; public site ships no new JS.
-- [ ] `php -l`, `npm run build`, `npm run zip` (build/admin present, src absent) all green.
+- [ ] `php -l`, `pnpm build`, `pnpm zip` (build/admin present, src absent) all green.
 
 ## Files
 

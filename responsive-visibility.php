@@ -4,7 +4,7 @@
  * Description:       Show or hide any block by device with unlimited custom breakpoints — no custom CSS, no theme lock-in. Cache-friendly and fully responsive.
  * Requires at least: 6.2
  * Requires PHP:      7.2
- * Version:           1.2.1
+ * Version:           1.2.2
  * Author:            wowdevs
  * Author URI:        https://wowdevs.com/
  * License:           GPL-2.0+
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'RV_PLUGIN_FILE', __FILE__ );
-define( 'RV_VERSION', '1.2.1' );
+define( 'RV_VERSION', '1.2.2' );
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-breakpoints.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-conditions.php';
@@ -38,6 +38,14 @@ Rest_Breakpoints::register();
 if ( is_admin() ) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-admin-settings.php';
 	Admin_Settings::register();
+
+	require_once plugin_dir_path( __FILE__ ) . 'includes/wowdevs-offer/loader.php';
+	wowdevs_offer_register(
+		[
+			'product' => 'responsive-visibility',
+			'page'    => 'responsive-visibility',
+		]
+	);
 }
 
 /**

@@ -22,4 +22,6 @@ src
 scripts/
 /responsive-visibility/
 .wordpress-org
-docs
+/dist
+pnpm-lock.yaml
+.npmrc

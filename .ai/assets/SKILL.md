@@ -33,19 +33,19 @@ src/admin/css/settings.css               ──esbuild────▶  assets/cs
 
 ---
 
-## npm scripts
+## pnpm scripts
 
 | Script | Does |
 |--------|------|
-| `npm run build` | `wp-scripts build` (blocks) **&&** `build:admin` (admin). The canonical full build. |
-| `npm run build:admin` | esbuild one-shot: admin JS+CSS, min + unminified. |
-| `npm run watch:admin` | esbuild watch — rebuild admin assets on save. |
-| `npm run start` | `wp-scripts start` — watch the **blocks** only. |
-| `npm run start:hot` | admin esbuild `--watch` **&** `wp-scripts start` — watch BOTH at once. |
-| `npm run zip` / `release:check` | run `build` first, then package. So assets are always fresh in the zip. |
+| `pnpm build` | `wp-scripts build` (blocks) **&&** `build:admin` (admin). The canonical full build. |
+| `pnpm build:admin` | esbuild one-shot: admin JS+CSS, min + unminified. |
+| `pnpm watch:admin` | esbuild watch — rebuild admin assets on save. |
+| `pnpm start` | `wp-scripts start` — watch the **blocks** only. |
+| `pnpm start:hot` | admin esbuild `--watch` **&** `wp-scripts start` — watch BOTH at once. |
+| `pnpm zip` / `release:check` | run `build` first, then package. So assets are always fresh in the zip. |
 
-**Rule:** any change under `src/` requires a build. `src/extentions` → `npm run build`
-(or `start`). `src/admin` → `npm run build:admin` (or `start:hot` / `watch:admin`).
+**Rule:** any change under `src/` requires a build. `src/extentions` → `pnpm build`
+(or `start`). `src/admin` → `pnpm build:admin` (or `start:hot` / `watch:admin`).
 
 ---
 
@@ -104,7 +104,7 @@ How it stays consistent:
 - `.buildignore` (zip) and `.distignore` (wordpress.org) **exclude `src`, `scripts`,
   `node_modules`, `package.json`** but **do NOT exclude `assets` or `build`** → those
   ship.
-- `zip` runs `npm run build` first, so the (git-ignored) assets are regenerated right
+- `zip` runs `pnpm build` first, so the (git-ignored) assets are regenerated right
   before packaging. A clean checkout with no `assets/` still produces a complete zip.
 
 **If you add a new generated asset dir, you must update BOTH** `.gitignore` (to ignore it)
@@ -119,7 +119,7 @@ How it stays consistent:
 - [ ] Admin JS stays vanilla (no React/webpack runtime); strings via `rvSettings`.
 - [ ] Enqueue is register→localize→enqueue, page-scoped, `.min`+`SCRIPT_DEBUG`, `filemtime`.
 - [ ] New generated path added to `.gitignore`; verified NOT in `.buildignore`/`.distignore`.
-- [ ] `npm run zip` → `unzip -l` shows the asset under `responsive-visibility/assets/…`
+- [ ] `pnpm zip` → `unzip -l dist/responsive-visibility-<version>.zip` shows the asset under `responsive-visibility/assets/…`
       and shows **no** `src/`.
 - [ ] `node -c assets/js/settings.js` + `settings.min.js` clean; `php -l` clean.
 

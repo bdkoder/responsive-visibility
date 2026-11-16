@@ -301,7 +301,7 @@ if (!empty($block['attrs']['hideAfterDate'])) {
 }
 ```
 
-4. Run `npm run build`.
+4. Run `pnpm build`.
 
 ---
 
@@ -328,7 +328,7 @@ if (!empty($block['attrs']['hideAfterDate'])) {
 After editing ANY file in `src/`:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 This compiles:
@@ -346,7 +346,7 @@ The compiled `index.asset.php` auto-generates dependency versions used by `wp_re
 
 | Mistake | Consequence | Fix |
 |---------|-------------|-----|
-| Forgetting `npm run build` after JS changes | Old compiled code runs, changes have no effect | Always build after src changes |
+| Forgetting `pnpm build` after JS changes | Old compiled code runs, changes have no effect | Always build after src changes |
 | Mutating `attributes` directly instead of `setAttributes()` | Changes don't persist, React state desync | Always use `setAttributes()` |
 | Not spreading `...settings.attributes` in `attributes.js` | Every block loses its own attributes | Always spread existing attrs first |
 | Removing old boolean attr checks from `block-wrapper.js` | Old blocks stop showing stripe in editor | Keep both new + legacy paths |

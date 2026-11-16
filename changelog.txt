@@ -1,0 +1,44 @@
+= 1.2.2 [17th November 2026] =
+* Improved: System improvements
+* Improved: Compatibility with WordPress 7.1
+
+= 1.2.1 [8th July 2026] =
+* Added: URL Query Param visibility condition for campaign links, preview links, and request-specific rules
+* Added: Allow-list syntax for query params like `utm_source=google` or `utm_source IN [google, yahoo]`
+* Added: Dedicated docs for URL Query Param usage and examples
+
+= 1.2.0 [8th June 2026] =
+* Added: Visibility Conditions engine — show or hide any block based on conditions, from the new "Visibility Conditions" panel
+* Added: Conditions — Login Status, User Role, Specific User, Specific Post/Page, Post Type, Page Type, and Shortcode, combined with All/Any logic and is/is-not operators
+* Added: Conditions are evaluated server-side, so gated content is never exposed in the page source
+* Improved: Fully backward compatible — conditions are disabled by default, so existing blocks are unchanged
+* Improved: Dashboard UI/UX for managing conditions and breakpoints
+* Requires: WordPress 6.2+ (uses WP_HTML_Tag_Processor)
+
+= 1.1.0 [21st April 2026] =
+* Added: Custom breakpoints — configure any number of device breakpoints (mobile, tablet, desktop, widescreen, etc.) from Settings → Responsive Visibility (Thanks to prionkor)
+* Added: Dynamic CSS generation from saved breakpoints — no more hardcoded pixel values
+* Added: "Customize breakpoints" link inside the block Inspector panel
+* Improved: Fully backward compatible — existing blocks with legacy hide attributes continue to work unchanged
+* Requires: WordPress 6.2+ (uses WP_HTML_Tag_Processor)
+
+= 1.0.6 [10th December 2025] =
+* System improved
+
+= 1.0.5 [26th July 2025] =
+* System improved
+
+= 1.0.4 [21th June 2025] =
+* System improved
+
+= 1.0.3 [9th March 2025] =
+* System improved
+
+= 1.0.2 [11th Sep 2024] =
+* System improved
+
+= 1.0.1 [11th Sep 2024] =
+* System improved
+
+= 1.0.0 =
+* Initial Release

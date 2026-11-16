@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Final step after "npm run release": commits, tags, and pushes.
-# Workflow: npm run release → inspect responsive-visibility/ folder → npm run ship
+# Final step after "pnpm release": commits, tags, and pushes.
+# Workflow: pnpm release → inspect dist/responsive-visibility/ folder → pnpm ship
 #
 # Detects the release zip for the current version. If found, skips all checks
 # and goes straight to git. If not, stops and tells you to run release first.
@@ -28,8 +28,8 @@ confirm() {
 VERSION=$(node -p "require('./package.json').version" 2>/dev/null) \
   || die "Cannot read version from package.json"
 
-ZIP_FILE="responsive-visibility-v${VERSION}.zip"
-BUILD_FOLDER="responsive-visibility"
+ZIP_FILE="dist/responsive-visibility-${VERSION}.zip"
+BUILD_FOLDER="dist/responsive-visibility"
 
 echo ""
 blue "================================================================"
@@ -40,18 +40,18 @@ blue "================================================================"
 if [[ -f "$ZIP_FILE" && -d "$BUILD_FOLDER" ]]; then
   green "✓ Release zip found: $ZIP_FILE"
   green "✓ Build folder ready: $BUILD_FOLDER/"
-  yellow "  Skipping checks — already passed in 'npm run release'"
+  yellow "  Skipping checks — already passed in 'pnpm release'"
 else
   echo ""
   red "✗ Release zip not found for v$VERSION"
   echo ""
   yellow "Run this first:"
   echo ""
-  echo "  npm run release"
+  echo "  pnpm release"
   echo ""
-  echo "Then inspect the responsive-visibility/ folder, and re-run:"
+  echo "Then inspect the dist/responsive-visibility/ folder, and re-run:"
   echo ""
-  echo "  npm run ship"
+  echo "  pnpm ship"
   echo ""
   exit 1
 fi

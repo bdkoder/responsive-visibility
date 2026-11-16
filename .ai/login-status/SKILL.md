@@ -139,7 +139,7 @@ See `.ai/conditions-engine/SKILL.md`.
 ## ALWAYS
 1. Default `loginVisibility` to `''` (everyone) — back-compat.
 2. Run the login gate BEFORE the device-class logic.
-3. `npm run build` after editing `src/`; `php -l` the render class.
+3. `pnpm build` after editing `src/`; `php -l` the render class.
 4. Document the cache caveat in the readme FAQ.
 
 ## Test plan (manual)

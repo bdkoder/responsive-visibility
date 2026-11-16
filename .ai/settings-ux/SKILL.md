@@ -47,9 +47,9 @@ src/admin/js/settings.js   ─esbuild─▶  assets/js/settings.js  + settings.m
 src/admin/css/settings.css ─esbuild─▶  assets/css/settings.css + settings.min.css
 ```
 
-- Builder: `scripts/build-admin.mjs` (esbuild, devDep). `npm run build:admin`
-  one-shot; `npm run watch:admin` / `npm run start:hot` watch.
-- `npm run build` runs `wp-scripts build` (blocks) **and** `build:admin`. `zip` /
+- Builder: `scripts/build-admin.mjs` (esbuild, devDep). `pnpm build:admin`
+  one-shot; `pnpm watch:admin` / `pnpm start:hot` watch.
+- `pnpm build` runs `wp-scripts build` (blocks) **and** `build:admin`. `zip` /
   `release:check` therefore always package fresh assets.
 - **Built `assets/js` + `assets/css` are git-ignored** (generated). They are NOT
   excluded by `.buildignore`/`.distignore`, so they DO ship in the zip. `assets/imgs`
@@ -211,6 +211,6 @@ bar/cell HTML — labels are user input.
 | `package.json` | `esbuild` devDep; `build`/`build:admin`/`watch:admin`/`start:hot` scripts. |
 | `.gitignore` | Ignores generated `assets/js` + `assets/css`. |
 
-After editing `src/admin/*`, run `npm run build:admin` (or `npm run start:hot` to
+After editing `src/admin/*`, run `pnpm build:admin` (or `pnpm start:hot` to
 watch) so `assets/` regenerates. PHP markup edits need no build. Full asset pipeline:
 [`../assets/SKILL.md`](../assets/SKILL.md).

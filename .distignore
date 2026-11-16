@@ -22,4 +22,6 @@ scripts
 src
 *.zip
 /responsive-visibility/
-docs
+/dist
+pnpm-lock.yaml
+.npmrc

@@ -79,6 +79,10 @@ if ! grep -q "= $NEW_VERSION" readme.txt; then
   die "No changelog entry found for $NEW_VERSION in readme.txt. Add one before releasing."
 fi
 green "  ✓ Changelog entry for $NEW_VERSION found"
+if ! grep -q "^= $NEW_VERSION " changelog.txt; then
+  die "No changelog entry found for $NEW_VERSION in changelog.txt. Add the same lines as readme.txt."
+fi
+green "  ✓ changelog.txt entry for $NEW_VERSION found"
 
 # ── 5. PHP syntax check ───────────────────────────────────────────────────────
 yellow "--> PHP syntax check..."
@@ -87,23 +91,17 @@ find includes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null \
   || die "PHP syntax error in includes/"
 green "  ✓ All PHP files pass syntax check"
 
-# ── 6. Build JS/CSS ───────────────────────────────────────────────────────────
-yellow "--> Building assets (npm run build)..."
-npm run build || die "npm build failed"
-green "  ✓ Build complete"
-
-# ── 7. Build zip ─────────────────────────────────────────────────────────────
-yellow "--> Creating release zip..."
-ZIP_FILE="responsive-visibility-v${NEW_VERSION}.zip"
-rm -rf responsive-visibility "$ZIP_FILE"
-rsync -a --exclude-from=.buildignore --exclude='scripts' . responsive-visibility
-zip -qr "$ZIP_FILE" responsive-visibility
+# ── 6. Build + zip (scripts/zip.js) ──────────────────────────────────────────
+yellow "--> Building and zipping (pnpm zip)..."
+pnpm zip || die "pnpm zip failed"
+ZIP_FILE="dist/responsive-visibility-${NEW_VERSION}.zip"
+[[ -f "$ZIP_FILE" ]] || die "Zip not found: $ZIP_FILE"
 green "  ✓ Created: $ZIP_FILE ($(du -sh "$ZIP_FILE" | cut -f1))"
-green "  ✓ Folder kept: responsive-visibility/ (inspect before shipping)"
+green "  ✓ Folder kept: dist/responsive-visibility/ (inspect before shipping)"
 
 # ── 8. Verify zip contents (spot-check) ──────────────────────────────────────
 yellow "--> Verifying zip contents..."
-ZIPLIST=$(unzip -l "$ZIP_FILE")
+ZIPLIST=$(unzip -Z1 "$ZIP_FILE")
 
 required_files=(
   "responsive-visibility/responsive-visibility.php"
@@ -121,7 +119,7 @@ for f in "${required_files[@]}"; do
   fi
 done
 
-forbidden_patterns=("node_modules" "src/" ".claude/" ".ai/" "CLAUDE.md" "package.json" "package-lock.json")
+forbidden_patterns=("node_modules" "src/" ".claude/" ".ai/" "CLAUDE.md" "package.json" "pnpm-lock.yaml" "scripts/" "dist/")
 for p in "${forbidden_patterns[@]}"; do
   if echo "$ZIPLIST" | grep -q "$p"; then
     die "Dev file leaked into zip: $p"
@@ -137,6 +135,6 @@ green "  Zip: $ZIP_FILE"
 green "============================================"
 echo ""
 yellow "Next step:"
-echo "  Inspect the responsive-visibility/ folder, then run:"
+echo "  Inspect the dist/responsive-visibility/ folder, then run:"
 echo ""
-echo "  npm run ship"
+echo "  pnpm ship"

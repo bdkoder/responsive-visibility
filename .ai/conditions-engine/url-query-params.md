@@ -40,5 +40,5 @@ Add a URL query param condition to the Visibility Conditions engine so a block c
 
 ## Docs
 
-- Public usage guide: `docs/url-query-params.html`
-- Main visibility guide: `docs/visibility-conditions.html`
+- Public usage guide: `.ai/docs/url-query-params.html`
+- Main visibility guide: `.ai/docs/visibility-conditions.html`
