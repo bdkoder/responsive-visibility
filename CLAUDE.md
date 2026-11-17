@@ -18,7 +18,7 @@ controls to every existing block through WordPress filter hooks.
 Core story: editor adds a paragraph, wants it hidden on mobile, toggles "Hide on
 Mobile" in the sidebar. Done. No shortcodes, no custom CSS, no theme dependency.
 
-## Feature Set (v1.1.0)
+## Feature Set
 
 1. Per-block visibility toggles in the Inspector panel
 2. Dynamic custom breakpoints — Settings page, add/remove/rename (Elementor-style)

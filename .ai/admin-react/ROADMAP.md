@@ -89,7 +89,7 @@ the same). The old PHP form fallback is removed. No user data is affected.
 - `webpack.config.js` — add `admin/index` entry alongside the default block entries.
 
 ### Phase 3 — verify + docs
-- `npm run build` → `build/admin/index.js` + `.asset.php` + `index.css`.
+- `pnpm build` → `build/admin/index.js` + `.asset.php` + `index.css`.
 - Backward-compat checks (below). Update `.ai` skills + `CLAUDE.md`.
 
 ---
@@ -103,7 +103,7 @@ the same). The old PHP form fallback is removed. No user data is affected.
 - [ ] Reset → `delete_option` → defaults; frontend CSS identical to fresh install.
 - [ ] Non-admin / bad nonce → REST 403.
 - [ ] Frontend page source unchanged; no admin JS on the public site.
-- [ ] `php -l` all PHP; `npm run build` clean; `npm run zip` ships `build/admin/*`, excludes `src/`.
+- [ ] `php -l` all PHP; `pnpm build` clean; `pnpm zip` ships `build/admin/*`, excludes `src/`.
 
 ---
 

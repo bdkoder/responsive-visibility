@@ -37,15 +37,13 @@ src/admin/css/settings.css               ──esbuild────▶  assets/cs
 
 | Script | Does |
 |--------|------|
-| `pnpm build` | `wp-scripts build` (blocks) **&&** `build:admin` (admin). The canonical full build. |
-| `pnpm build:admin` | esbuild one-shot: admin JS+CSS, min + unminified. |
-| `pnpm watch:admin` | esbuild watch — rebuild admin assets on save. |
-| `pnpm start` | `wp-scripts start` — watch the **blocks** only. |
-| `pnpm start:hot` | admin esbuild `--watch` **&** `wp-scripts start` — watch BOTH at once. |
-| `pnpm zip` / `release:check` | run `build` first, then package. So assets are always fresh in the zip. |
+| `pnpm build` | `wp-scripts build` — blocks **and** admin (`webpack.config.js` adds the `admin/index` entry). |
+| `pnpm start` | `wp-scripts start` — watch blocks and admin. |
+| `pnpm zip` | `scripts/zip.js`: build, then `dist/responsive-visibility-<version>.zip` + staged `dist/responsive-visibility/`. |
+| `pnpm release:check` | `php -l` all PHP, then `zip`. |
+| `pnpm release` / `pnpm ship` | full pre-flight (`scripts/release.sh`) / commit + tag + push (`scripts/publish.sh`; the tag deploys to wp.org). |
 
-**Rule:** any change under `src/` requires a build. `src/extentions` → `pnpm build`
-(or `start`). `src/admin` → `pnpm build:admin` (or `start:hot` / `watch:admin`).
+**Rule:** any change under `src/` requires a build: `pnpm build` (or `pnpm start` while working).
 
 ---
 
@@ -115,7 +113,7 @@ How it stays consistent:
 ## Checklist when changing assets
 
 - [ ] Edited only `src/` — never `build/` or `assets/js`,`assets/css` directly.
-- [ ] Ran the right build (`build:admin` for admin, `build` for blocks/full).
+- [ ] Ran `pnpm build` (blocks + admin).
 - [ ] Admin JS stays vanilla (no React/webpack runtime); strings via `rvSettings`.
 - [ ] Enqueue is register→localize→enqueue, page-scoped, `.min`+`SCRIPT_DEBUG`, `filemtime`.
 - [ ] New generated path added to `.gitignore`; verified NOT in `.buildignore`/`.distignore`.

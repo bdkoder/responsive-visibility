@@ -118,4 +118,4 @@ The workflow rejects a deploy unless the Git tag matches both:
 ## Files shipped to WordPress.org
 
 Controlled by `.distignore`. These files/dirs are **excluded**:
-`.git`, `.github`, `.ai`, `.claude`, `.distignore`, `.editorconfig`, `.gitignore`, `.gitattributes`, `.DS_Store`, `node_modules`, `package.json`, `package-lock.json`, `phpcs.xml`, `CLAUDE.md`, `RELEASE.md`, `scripts/`, `src/`, `*.zip`
+`.git`, `.github`, `.ai`, `.claude`, `.distignore`, `.editorconfig`, `.gitignore`, `.gitattributes`, `.DS_Store`, `node_modules`, `package.json`, `pnpm-lock.yaml`, `.npmrc`, `phpcs.xml`, `CLAUDE.md`, `RELEASE.md`, `scripts/`, `src/`, `*.zip`, `/dist`
